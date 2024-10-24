@@ -1,0 +1,139 @@
+{
+  "version": "4",
+  "specifiers": {
+    "jsr:@std/assert@1": "1.0.6",
+    "jsr:@std/internal@^1.0.4": "1.0.4",
+    "npm:@thi.ng/leb128@^3.1.22": "3.1.22"
+  },
+  "jsr": {
+    "@std/assert@1.0.6": {
+      "integrity": "1904c05806a25d94fe791d6d883b685c9e2dcd60e4f9fc30f4fc5cf010c72207",
+      "dependencies": [
+        "jsr:@std/internal"
+      ]
+    },
+    "@std/internal@1.0.4": {
+      "integrity": "62e8e4911527e5e4f307741a795c0b0a9e6958d0b3790716ae71ce085f755422"
+    }
+  },
+  "npm": {
+    "@thi.ng/api@8.11.11": {
+      "integrity": "sha512-/GKDIgyQXA7JKxwgJ6W5xgQVHIWXmoPnWHsNqfg7aIyYNpfMYtjLjao2+nXmZhwjizullMahJPH7Xrrm6o/vyg=="
+    },
+    "@thi.ng/arrays@2.10.4": {
+      "integrity": "sha512-O3njL0GvhHwqxF03pXTpZbZlHcD1lyeAk6/+I4KMES5ff2hz8uYyT42naJ4zsrdq+6nxf/HQ+zuzYbky/1Llng==",
+      "dependencies": [
+        "@thi.ng/api",
+        "@thi.ng/checks",
+        "@thi.ng/compare",
+        "@thi.ng/equiv",
+        "@thi.ng/errors",
+        "@thi.ng/random"
+      ]
+    },
+    "@thi.ng/binary@3.4.34": {
+      "integrity": "sha512-yfHoERldOYgbXoAGbQFYjmHKudxvEikey5Rja/N2zHawdYM6GwHQwfp0GdU6L/7G17l8v/pqLKvrpJMMzaV0ug==",
+      "dependencies": [
+        "@thi.ng/api"
+      ]
+    },
+    "@thi.ng/checks@3.6.13": {
+      "integrity": "sha512-LUK/S+QOkDMx1SEG3rubLfCu/KVSDTAEqAlwRP32WDPQXpWt95d7OSVI+oKDhAfpEPwdn13VufDSVcQqVNjEgw==",
+      "dependencies": [
+        "tslib"
+      ]
+    },
+    "@thi.ng/compare@2.4.3": {
+      "integrity": "sha512-iw4xeXXTSBXxWRkVdZwSORVGYJNsC4G5/UsAROJn9pFORbId2gyMov64gmIj2G/LdN679O0ztKv7KE4aBZLC2Q==",
+      "dependencies": [
+        "@thi.ng/api"
+      ]
+    },
+    "@thi.ng/compose@3.0.14": {
+      "integrity": "sha512-SnKz69dxAAbtNkyXMTbMMBQgTHSY50/ER4z43se0i4uBTHQmEedcPqzZrxSOwbpMyCLSWfx/9KnOwPpCWXqd3w==",
+      "dependencies": [
+        "@thi.ng/api",
+        "@thi.ng/errors"
+      ]
+    },
+    "@thi.ng/equiv@2.1.67": {
+      "integrity": "sha512-n1H1MAp981nw7ymugzMWUt1wfo3eJQYXm00LDNtIB6IxGzaSnXV9JaIhMCfhyE9p33g72ChQNALaMjnu5rXCbg=="
+    },
+    "@thi.ng/errors@2.5.17": {
+      "integrity": "sha512-ohBAZcGNEIEOgJ9BPH4tjIsOjVgsnMGh4a2j63r6El68efr8RRN4G+GNkDaqV/jk9wbHKZZPt2t6suJMliPyxg=="
+    },
+    "@thi.ng/hex@2.3.55": {
+      "integrity": "sha512-ri79s2+YUeNAF62ij5YyYeoUig/4UrDdJztVInOdqnQ5RnWw7/Jyjt/JatNitf+dqdDbCBklLZwONCiedT6SCw=="
+    },
+    "@thi.ng/leb128@3.1.22": {
+      "integrity": "sha512-ZI1927cglDwWx5YmLJEpgyBymsJlMKZExubLzd/js9pL9Z8MoSO3qXwaeZ432Pb4GZl1yyKte9Xd15nc0ms1Ww==",
+      "dependencies": [
+        "@thi.ng/checks",
+        "@thi.ng/errors",
+        "@thi.ng/transducers-binary"
+      ]
+    },
+    "@thi.ng/math@5.11.11": {
+      "integrity": "sha512-0XBmBf80+9JlLGqFR6Ci2bpVoyE5lhl0MwZv4PAgClBXjYz4SPr7fkScOia9TQ6lS56gRggxJiXDQA1kiso59g==",
+      "dependencies": [
+        "@thi.ng/api"
+      ]
+    },
+    "@thi.ng/memoize@3.3.13": {
+      "integrity": "sha512-hrNwi/f2GD1WuPIjTHapS/bDpv+8UUNwOkD5CpD3Q2Hpm1PXmpMSYY36Q3UCN9Ha86jswJZU9YVAR4VhRqx2JQ==",
+      "dependencies": [
+        "@thi.ng/api"
+      ]
+    },
+    "@thi.ng/random@4.1.2": {
+      "integrity": "sha512-PEdZlidlWdCisS3U5MH0Wa5sxdB2aRhkc9h9nBeC291OKMTfuGfIK5jh4EUodRskKuJj1H6UTPuyV9DVkw8rgg==",
+      "dependencies": [
+        "@thi.ng/api",
+        "@thi.ng/errors"
+      ]
+    },
+    "@thi.ng/strings@3.8.6": {
+      "integrity": "sha512-y7Sauz16rBGMWNxvP4iVWivk+v2JPVU7mxbyEgH7olhMljHG7UaFh2XlgdC1mqFZ3TzEAHybjfkRrLXBH4DOWw==",
+      "dependencies": [
+        "@thi.ng/api",
+        "@thi.ng/errors",
+        "@thi.ng/hex",
+        "@thi.ng/memoize"
+      ]
+    },
+    "@thi.ng/transducers-binary@2.1.138": {
+      "integrity": "sha512-tcNYnIBkZVkQtBqsocKu+R4LeWZsPDdnNqhovlYP4CHiFNioZW9u2IH4+VoKJ+k9F3N8gTzpBiSt2twjLOVdpQ==",
+      "dependencies": [
+        "@thi.ng/binary",
+        "@thi.ng/compose",
+        "@thi.ng/errors",
+        "@thi.ng/hex",
+        "@thi.ng/random",
+        "@thi.ng/strings",
+        "@thi.ng/transducers"
+      ]
+    },
+    "@thi.ng/transducers@9.2.7": {
+      "integrity": "sha512-Vurzfi8WpZ4M+YJw0RzsaxFphwAGKSBkEWwi9aQGYw7W7cN2yVUTLCWMqslEQ1XQwDURHmLM+m1ygf+jpYBPbw==",
+      "dependencies": [
+        "@thi.ng/api",
+        "@thi.ng/arrays",
+        "@thi.ng/checks",
+        "@thi.ng/compare",
+        "@thi.ng/compose",
+        "@thi.ng/errors",
+        "@thi.ng/math",
+        "@thi.ng/random"
+      ]
+    },
+    "tslib@2.8.0": {
+      "integrity": "sha512-jWVzBLplnCmoaTr13V9dYbiQ99wvZRd0vNWaDRg+aVYRcjDF3nDksxFDE/+fkXnKhpnUUkmx5pK/v8mCtLVqZA=="
+    }
+  },
+  "workspace": {
+    "dependencies": [
+      "jsr:@std/assert@1",
+      "npm:@thi.ng/leb128@^3.1.22"
+    ]
+  }
+}

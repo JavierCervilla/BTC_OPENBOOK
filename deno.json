@@ -1,0 +1,10 @@
+{
+  "tasks": {
+    "dev": "deno run --watch main.ts"
+  },
+  "imports": {
+    "@/": "./src/",
+    "@std/assert": "jsr:@std/assert@1",
+    "@thi.ng/leb128": "npm:@thi.ng/leb128@^3.1.22"
+  }
+}
