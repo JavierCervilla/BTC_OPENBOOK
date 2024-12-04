@@ -12,6 +12,7 @@
  *     - MESSAGE: [0x01][ASSET_ID: 64bytes][INDEX: 1byte][leb128 qty][leb128 price]
  *
  */
+import { OB_PROTOCOL_CONFIG } from "@/config/openbook.ts";
 
 
 import * as leb128 from "@thi.ng/leb128";
@@ -32,6 +33,7 @@ interface ProtocolConfig {
     name: string;
     asset_id_bytes: number;
     index_bytes: number;
+    divisible_bytes?: number;
 }
 
 interface EncodeMessageParams {
@@ -49,27 +51,9 @@ interface DecodeMessageParams {
 
 // biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 class OpenBook {
-    static OB_PROTOCOL_CONFIG: Config = {
-        PREFIX: "OB",
-        VERSIONS: {
-            0: {
-                TIMELOCK: 800,
-            }
-        },
-        0: {
-            name: "XCP",
-            asset_id_bytes: 20,
-            divisible_bytes: 1,
-            index_bytes: 0,
-        },
-        1: {
-            name: "ORDINALS",
-            asset_id_bytes: 64,
-            index_bytes: 1,
-        }
-    };
+    static OB_PROTOCOL_CONFIG: Config = OB_PROTOCOL_CONFIG;
 
-    static encodeMessage(params: EncodeMessageParams) {
+    static encode_OP_RETURN(params: EncodeMessageParams) {
         const protocolConfig = OpenBook.OB_PROTOCOL_CONFIG[params.protocol];
         if (!protocolConfig) {
             throw new Error("Invalid protocol");
@@ -109,7 +93,7 @@ class OpenBook {
         return message;
     }
 
-    static decodeMessage(params: DecodeMessageParams) {
+    static decode_OP_RETURN(params: DecodeMessageParams) {
         const protocolConfig = OpenBook.OB_PROTOCOL_CONFIG[params.protocol];
         if (!protocolConfig) {
             throw new Error("Invalid protocol");
@@ -147,17 +131,3 @@ class OpenBook {
 export {
     OpenBook,
 }
-
-const message = OpenBook.encodeMessage({
-    protocol: 0,
-    asset_id: "A6524912715479370914",
-    qty: 1n,
-});
-const hex_message = bin2hex(message);
-console.log(hex_message);
-console.log(hex_message.length);
-const decoded = OpenBook.decodeMessage({
-    protocol: 0,
-    message: bin2hex(message),
-});
-console.log(decoded);
