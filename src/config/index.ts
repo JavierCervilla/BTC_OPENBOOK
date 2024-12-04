@@ -1,4 +1,4 @@
-export const OB_PROTOCOL_CONFIG = {
+const OPENBOOK_PROTOCOL_CONFIG = {
     PREFIX: "OB",
     VERSIONS: {
         0: {
@@ -17,3 +17,18 @@ export const OB_PROTOCOL_CONFIG = {
         index_bytes: 1,
     }
 };
+
+const INDEXER_CONFIG = {
+};
+
+
+
+export const CONFIG = {
+    VERSION: {
+        MAJOR: 0,
+        MINOR: 0,
+        PATCH: 0,
+    },
+    INDEXER: INDEXER_CONFIG,
+    OPENBOOK: OPENBOOK_PROTOCOL_CONFIG,
+}

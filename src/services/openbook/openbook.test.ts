@@ -1,4 +1,5 @@
-import { assertEquals, assert } from "jsr:@std/assert";
+import { assertEquals, assert } from "@std/assert";
+
 import { OpenBook } from "./openbook.ts";
 import { bin2hex } from "@/utils/index.ts";
 

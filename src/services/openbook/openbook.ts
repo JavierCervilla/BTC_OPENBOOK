@@ -12,7 +12,7 @@
  *     - MESSAGE: [0x01][ASSET_ID: 64bytes][INDEX: 1byte][leb128 qty][leb128 price]
  *
  */
-import { OB_PROTOCOL_CONFIG } from "@/config/openbook.ts";
+import { CONFIG } from "@/config/index.ts";
 
 
 import * as leb128 from "@thi.ng/leb128";
@@ -51,7 +51,7 @@ interface DecodeMessageParams {
 
 // biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 class OpenBook {
-    static OB_PROTOCOL_CONFIG: Config = OB_PROTOCOL_CONFIG;
+    static OB_PROTOCOL_CONFIG: Config = CONFIG.OPENBOOK;
 
     static encode_OP_RETURN(params: EncodeMessageParams) {
         const protocolConfig = OpenBook.OB_PROTOCOL_CONFIG[params.protocol];
