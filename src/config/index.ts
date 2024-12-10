@@ -22,7 +22,10 @@ const OPENBOOK_PROTOCOL_CONFIG = {
 
 const INDEXER_CONFIG = {
     LOGS_FILE: "./logs/indexer.log.txt",
-    START_BLOCK: 866000, //870466
+    //START_BLOCK: 867500, // FIRST BLOCK WITH OPEN BOOK ATOMIC SWAPS
+    //START_BLOCK: 866000, // FIRST BLOCK WITH ACTIVE CHANGE FOR ATOMIC SWAPS
+    START_BLOCK: 866942, // FIRST ATOMIC SWAP
+    START_OPENBOOK_LISTINGS_BLOCK: 999999, // FIRST BLOCK WITH OPEN BOOK LISTINGS
 };
 
 const DATABASE_CONFIG = {
@@ -43,6 +46,23 @@ const BITCOIN_CONFIG = {
     }
 }
 
+const XCP_CONFIG = {
+    MAINNET: {
+        RPC_URL: Deno.env.get("XCP_MAINNET_RPC_URL") ?? "https://api.counterparty.io:4000",
+        RPC_USER: Deno.env.get("XCP_MAINNET_RPC_USER") ?? "rpc",
+        RPC_PASSWORD: Deno.env.get("XCP_MAINNET_RPC_PASSWORD") ?? "rpc",
+    },
+    TESTNET: {
+        RPC_URL: Deno.env.get("XCP_TESTNET_RPC_URL") ?? "https://api.counterparty.io:14000",
+        RPC_USER: Deno.env.get("XCP_TESTNET_RPC_USER") ?? "rpc",
+        RPC_PASSWORD: Deno.env.get("XCP_TESTNET_RPC_PASSWORD") ?? "rpc",
+    }
+}
+
+const API_CONFIG = {
+    PORT: Deno.env.get("API_PORT") ?? 3001,
+    LOGS_FILE: "./logs/api.log.txt",
+}
 
 type NetworkType = 'MAINNET' | 'TESTNET';
 const NETWORK = (Deno.env.get("NETWORK") ?? "MAINNET") as NetworkType;
@@ -59,4 +79,6 @@ export const CONFIG = {
     OPENBOOK: OPENBOOK_PROTOCOL_CONFIG,
     DATABASE: DATABASE_CONFIG,
     BITCOIN: BITCOIN_CONFIG[NETWORK],
+    XCP: XCP_CONFIG[NETWORK],
+    API: API_CONFIG
 }

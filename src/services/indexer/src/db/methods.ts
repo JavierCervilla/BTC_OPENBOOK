@@ -2,6 +2,7 @@ import type { Database } from "@db/sqlite";
 
 import { CONFIG } from "@/config/index.ts";
 import logger from "@/utils/logger.ts";
+import type { ParsedTransaction } from "@/services/indexer/src/tx/parse.d.ts";
 
 let CACHED_LAST_BLOCK: number;
 
@@ -57,21 +58,7 @@ export function storeBlockData(db: Database, blockInfo: BlockInfo) {
     }
 }
 
-type AtomicSwap = {
-    txid: string;
-    timestamp: number;
-    seller: string;
-    buyer: string;
-    total_price: bigint;
-    unit_price: bigint;
-    qty: bigint;
-    protocol: string;
-    assetId: string;
-    block_index: number;
-    block_hash: string;
-}
-
-export function storeAtomicSwaps(db: Database, atomic_swaps: AtomicSwap[]) {
+export function storeAtomicSwaps(db: Database, atomic_swaps: ParsedTransaction[]) {
     try {
         const stmt = db.prepare(
             'INSERT INTO atomic_swaps (txid, timestamp, block_hash, block_index, seller, buyer, protocol, assetId, qty, total_price, unit_price) VALUES (?,?,?,?,?,?,?,?,?,?,?)',

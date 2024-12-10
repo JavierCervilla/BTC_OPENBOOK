@@ -20,4 +20,7 @@ CREATE TABLE IF NOT EXISTS atomic_swaps (
     qty BIGINT,
     total_price BIGINT,
     unit_price BIGINT
+    --- service_fee_recipient TEXT,
+    --- service_fee BIGINT,
+    --- openbook BOOLEAN
 );

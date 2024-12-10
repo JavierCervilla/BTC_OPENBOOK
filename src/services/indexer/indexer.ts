@@ -1,13 +1,9 @@
-import cliProgress from "cli-progress";
-
-import { CONFIG } from "@/config/index.ts";
 import type { Database } from "@db/sqlite";
 import { InitialPrompt, logger } from "@/utils/logger.ts";
-import { getNextBlock, storeAtomicSwaps, storeBlockData } from "./src/db/methods.ts";
+import { getNextBlock } from "./src/db/methods.ts";
 import * as rpc from "@/utils/btc/rpc.ts";
 import * as parser from "@/services/indexer/src/tx/parse.ts";
-import * as progress from "@/utils/progress.ts";
-import { executeAtomicOperations } from "@/services/indexer/src/db/methods.ts";
+import { CONFIG } from "@/config/index.ts";
 
 export async function initializeIndexer(db: Database) {
     const nextBlock = await getNextBlock(db);
@@ -21,37 +17,14 @@ export async function initializeIndexer(db: Database) {
             logger.info(`[${start.toISOString()}] Start processing Block ${block}`);
 
             const blockInfo = await rpc.getBlock(block);
-            const { tx: txs } = blockInfo;
-            const total = txs.length;
-            let completed = 0;
-
-            progress.initProgress(total);
-            const transactions = await Promise.all(txs.map(async (txid) => {
-                const transaction = await parser.parseTxForAtomicSwap(txid);
-                completed++;
-                progress.updateProgress(completed, total);
-                return transaction;
-            }));
-            progress.finishProgress();
-
-            const atomic_swaps = transactions.filter(Boolean);
-            executeAtomicOperations(db, (db) => {
-                try {
-                    storeBlockData(db, {
-                        block_index: blockInfo.height,
-                        block_hash: blockInfo.hash,
-                        block_time: blockInfo.time,
-                        transactions: JSON.stringify(atomic_swaps.map((swap) => swap.txid))
-                    });
-                    storeAtomicSwaps(db, atomic_swaps);
-                } catch (error) {
-                    logger.error("Error storing block data or atomic swaps:", error);
-                    throw error;
-                }
-            });
+            const { atomic_swaps } = await parser.parseBlock(db, blockInfo);
+            let transactions: Transaction[] = [];
+            if (block >= CONFIG.INDEXER.START_OPENBOOK_LISTINGS_BLOCK) {
+                transactions = await rpc.getMultipleTransactions(blockInfo.tx, true, 1000);
+            }
 
             const end = new Date();
-            logger.info(`[${end.toISOString()}] Block ${block} processed in ${(end.getTime() - start.getTime()) / 1000}s ${atomic_swaps.length} atomic swaps`);
+            logger.info(`[${end.toISOString()}] Block ${block} processed ${atomic_swaps.length} transactions in ${(end.getTime() - start.getTime()) / 1000}s ${atomic_swaps.length} atomic swaps`);
             block++;
         }
 

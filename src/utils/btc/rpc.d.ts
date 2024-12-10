@@ -66,5 +66,5 @@ type Block = {
     strippedsize: number,
     size: number,
     weight: number,
-    tx: Transaction[],
+    tx: Transaction[] | string[],
 }

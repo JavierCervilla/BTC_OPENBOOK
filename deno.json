@@ -1,14 +1,21 @@
 {
   "tasks": {
     "dev": "deno run -A --watch src/main.ts",
+    "start": "deno run -A src/main.ts",
     "test": "deno test -A"
   },
+  "nodeModulesDir":"auto",
   "imports": {
     "@/": "./src/",
     "@db/sqlite": "jsr:@db/sqlite@^0.12.0",
     "@std/assert": "jsr:@std/assert@1",
     "@std/log": "jsr:@std/log@^0.224.11",
     "@thi.ng/leb128": "npm:@thi.ng/leb128@^3.1.22",
-    "cli-progress": "npm:cli-progress@^3.12.0"
+    "bitcoinjs-lib": "npm:bitcoinjs-lib@^6.1.7",
+    "cli-progress": "npm:cli-progress@^3.12.0",
+    "cors": "npm:cors@^2.8.5",
+    "express": "npm:express@^4.21.2",
+    "morgan": "npm:morgan@^1.10.0",
+    "tspec": "npm:tspec@^0.1.116"
   }
 }

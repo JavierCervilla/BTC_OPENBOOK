@@ -16,6 +16,21 @@ Deno.test("parseTransaction: should parse a transaction with an OP_RETURN output
     assert(parsed.buyer === "bc1qr9nkqgzc6vzxjslqgxck3z480yq85aa98wu3fa", "buyer mismatch");
 });
 
+Deno.test("parseTransaction: should parse a transaction with an OP_RETURN output and decimal unit_price", async () => {
+    const txid = "2494217e8e2290b78238441efe0d354747911a543cc5c451289d303c37e1dbfc";
+    const parsed = await parseTxForAtomicSwap(txid);
+    assert(parsed);
+    assert(parsed.txid === txid, "txid mismatch");
+    assert(parsed.protocol === 0, "protocol mismatch");
+    assert(parsed.block_index === 867580, "block index mismatch");
+    assert(parsed.assetId === "PEPEFAIR", "assetId mismatch");
+    assert(parsed.qty === 1000n, "qty mismatch");
+    assert(parsed.total_price === 30000n, "total_price mismatch");
+    assert(parsed.unit_price === 30n, "unit_price mismatch");
+    assert(parsed.seller === "bc1qwxzxm83nnqlr86vusgswvu3wd6hnq9u8d03zd9", "seller mismatch");
+    assert(parsed.buyer === "bc1qgz3k29sj7u8g0eqy2wm07chfnpyjz8g45r0xgw", "buyer mismatch");
+});
+
 Deno.test("parseTransaction: should return undefined if transaction has OP_RETURN output but no openbook data", async () => {
     const txid = "0e1def43ffd87089f87b888e57dbbc489ee4713b86525f913140070883085893";
     const parsed = await parseTxForAtomicSwap(txid);
