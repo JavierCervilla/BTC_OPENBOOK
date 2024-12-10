@@ -122,8 +122,9 @@ class OpenBook {
 
         return {
             assetId: trimmedAssetId,
-            index,
+            indexBytes: index,
             qty: qty[0],
+            protocol: params.protocol,
         };
     }
 }

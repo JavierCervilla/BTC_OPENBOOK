@@ -24,4 +24,14 @@ log.setup({
     },
 });
 
+const logger = log.getLogger("indexerLogger");
+
+export const InitialPrompt = () => {
+    logger.info(`Openbook Indexer v${CONFIG.VERSION.MAJOR}.${CONFIG.VERSION.MINOR}.${CONFIG.VERSION.PATCH}`)
+    logger.info(`Indexer started on ${CONFIG.NETWORK}`)
+    logger.info(`Database: ${CONFIG.DATABASE.DB_NAME}`)
+    logger.info(`Logs file: ${CONFIG.INDEXER.LOGS_FILE}`)
+}
+
+export { logger };
 export default log.getLogger("indexerLogger");

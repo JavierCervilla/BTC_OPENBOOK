@@ -22,7 +22,7 @@ const OPENBOOK_PROTOCOL_CONFIG = {
 
 const INDEXER_CONFIG = {
     LOGS_FILE: "./logs/indexer.log.txt",
-    START_BLOCK: 866000,
+    START_BLOCK: 866000, //870466
 };
 
 const DATABASE_CONFIG = {

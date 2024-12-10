@@ -2,8 +2,12 @@ import { Database } from "@db/sqlite";
 import { CONFIG } from "@/config/index.ts";
 
 export async function initializeDatabase(db: Database) {
-    const schemaSql = await Deno.readTextFile(CONFIG.DATABASE.SCHEMA_PATH);
-    db.exec(schemaSql);
+    try {
+        const schemaSql = await Deno.readTextFile(CONFIG.DATABASE.SCHEMA_PATH);
+        db.exec(schemaSql);
+    } catch (error) {
+        console.error("Error initializing database schema:", error);
+    }
 }
 
 export function extractExpectedColumnsFromSchema(schemaFilePath: string, tableName: string): string[] {
@@ -20,9 +24,9 @@ export function extractExpectedColumnsFromSchema(schemaFilePath: string, tableNa
     return columns;
 }
 
-export function initDB(): Database {
+export async function initDB(): Promise<Database> {
     const db = new Database(CONFIG.DATABASE.DB_NAME);
-    initializeDatabase(db);
+    await initializeDatabase(db);
     return db;
 }
 
