@@ -19,7 +19,7 @@ function getUtxoMoveAdapter(event: XCPEvent) {
         timestamp: event.params.block_time,
         seller: event.params.source,
         buyer: event.params.destination,
-        qty: BigInt(Number(event.params.quantity_normalized)),
+        qty: Number(event.params.quantity_normalized),
         assetId: event.params.asset,
         openbook: false,
         block_index: event.params.block_index,

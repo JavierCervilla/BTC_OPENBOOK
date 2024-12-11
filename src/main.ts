@@ -16,7 +16,7 @@ async function startServer() {
         }
         console.log(`🌟Your server is ready and listening on http://localhost:${CONFIG.API.PORT}`);
     });
-    await indexerLoader();
+    Deno.env.get("NODE_ENV") !== "development" && await indexerLoader();
   }
   
   startServer();

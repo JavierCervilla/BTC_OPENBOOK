@@ -61,7 +61,7 @@ export function storeBlockData(db: Database, blockInfo: BlockInfo) {
 export function storeAtomicSwaps(db: Database, atomic_swaps: ParsedTransaction[]) {
     try {
         const stmt = db.prepare(
-            'INSERT INTO atomic_swaps (txid, timestamp, block_hash, block_index, seller, buyer, protocol, assetId, qty, total_price, unit_price) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
+            'INSERT INTO atomic_swaps (txid, timestamp, block_hash, block_index, seller, buyer, protocol, assetId, qty, total_price, unit_price, service_fee_recipient, service_fee) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)',
         );
         for (const swap of atomic_swaps) {
             stmt.run(
@@ -76,6 +76,8 @@ export function storeAtomicSwaps(db: Database, atomic_swaps: ParsedTransaction[]
                 swap.qty,
                 swap.total_price,
                 swap.unit_price,
+                swap.service_fee_recipient,
+                swap.service_fee
             );
         }
     } catch (error) {

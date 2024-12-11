@@ -3,31 +3,34 @@ import * as log from '@std/log';
 
 log.setup({
     handlers: {
-        console: new log.ConsoleHandler("DEBUG", {
-            formatter: (record: log.LogRecord) => `[${record.levelName}] ${record.msg}`,
+        console_indexer: new log.ConsoleHandler("DEBUG", {
+            formatter: (record: log.LogRecord) => `[INDEXER][${record.levelName}] ${record.msg}`,
+        }),
+        console_api: new log.ConsoleHandler("DEBUG", {
+            formatter: (record: log.LogRecord) => `[API][${record.levelName}] ${record.msg}`,
         }),
         file: new log.FileHandler("WARN", {
             filename: CONFIG.INDEXER.LOGS_FILE,
-            formatter: (record: log.LogRecord) => `[${record.levelName}] [${record.datetime}] ${record.msg}`,
+            formatter: (record: log.LogRecord) => `[INDEXER][${record.levelName}] [${record.datetime}] ${record.msg}`,
         }),
         api: new log.FileHandler("DEBUG", {
             filename: CONFIG.API.LOGS_FILE,
-            formatter: (record: log.LogRecord) => `[${record.levelName}] [${record.datetime}] ${record.msg}`,
+            formatter: (record: log.LogRecord) => `[API][${record.levelName}] [${record.datetime}] ${record.msg}`,
         }),
     },
 
     loggers: {
         default: {
             level: "DEBUG",
-            handlers: ["console", "file"],
+            handlers: ["console_indexer", "file"],
         },
         indexerLogger: {
             level: "DEBUG",
-            handlers: ["console", "file"],
+            handlers: ["console_indexer", "file"],
         },
         apiLogger: {
             level: "DEBUG",
-            handlers: ["console", "file"],
+            handlers: ["console_api", "api"],
         },
     },
 });

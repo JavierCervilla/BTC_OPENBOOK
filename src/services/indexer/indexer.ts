@@ -18,11 +18,10 @@ export async function initializeIndexer(db: Database) {
 
             const blockInfo = await rpc.getBlock(block);
             const { atomic_swaps } = await parser.parseBlock(db, blockInfo);
-            let transactions: Transaction[] = [];
+            let _transactions: Transaction[] = [];
             if (block >= CONFIG.INDEXER.START_OPENBOOK_LISTINGS_BLOCK) {
-                transactions = await rpc.getMultipleTransactions(blockInfo.tx, true, 1000);
+                _transactions = await rpc.getMultipleTransactions(blockInfo.tx, true, 1000);
             }
-
             const end = new Date();
             logger.info(`[${end.toISOString()}] Block ${block} processed ${atomic_swaps.length} transactions in ${(end.getTime() - start.getTime()) / 1000}s ${atomic_swaps.length} atomic swaps`);
             block++;

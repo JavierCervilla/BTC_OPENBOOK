@@ -21,7 +21,7 @@ function getAddressFromVout(vout: VOUT): string | undefined {
 }
 
 function calculateUnitPrice(totalPrice: bigint, quantity: bigint): bigint {
-    return BigInt(Math.floor(Number(totalPrice / quantity)));
+    return BigInt(Math.floor(Number(Number(totalPrice) / Number(quantity))));
 }
 
 function hasOPRETURN(transaction: Transaction) {
@@ -49,36 +49,79 @@ async function extractTransactionDetails(
     seller?: string,
     buyer?: string,
     total_price?: bigint,
-    unit_price?: bigint
-}> {
+    unit_price?: bigint,
+    service_fee_recipient: string | null,
+    service_fee: bigint | null
+} | undefined> {
     let seller: string | undefined;
     let buyer: string | undefined;
     let total_price: bigint | undefined;
     let unit_price: bigint | undefined;
+    let service_fee_recipient: string | null = null;
+    let service_fee: bigint | null = null;
 
+    const vinAddresses = await getVinAddresses(transaction, (address, isDust) => {
+        if (isDust) {
+            seller = address;
+        } else {
+            buyer = address;
+        }
+    });
+
+    const voutAddresses = new Set<string>();
+    for (const vout of transaction.vout) {
+        const address = getAddressFromVout(vout);
+        if (address) {
+            voutAddresses.add(address);
+            if (address === seller) {
+                total_price = BigInt(Math.round(vout.value * 1e8));
+                unit_price = calculateUnitPrice(total_price, openbook_data.qty);
+            } else if (address !== buyer) {
+                service_fee_recipient = address;
+                service_fee = BigInt(Math.round(vout.value * 1e8));
+            }
+        }
+    }
+
+    if (isValidTransaction(seller, buyer, vinAddresses, voutAddresses)) {
+        return { seller, buyer, total_price, unit_price, service_fee_recipient, service_fee };
+    }
+    return undefined;
+}
+
+async function getVinAddresses(
+    transaction: Transaction,
+    assignRoles: (address: string, isDust: boolean) => void
+): Promise<Set<string>> {
+    const vinAddresses = new Set<string>();
     for (const vin of transaction.vin) {
         const tx = await rpc.getTransaction(vin.txid) as Transaction;
         const vout = tx.vout.find((vout: VOUT) => vout.n === vin.vout);
         if (vout) {
             const address = getAddressFromVout(vout);
-            if (isDustAmount(vout.value)) {
-                seller = address;
-            } else {
-                buyer = address;
+            if (address) {
+                vinAddresses.add(address);
+                assignRoles(address, isDustAmount(vout.value));
             }
         }
     }
-
-    for (const vout of transaction.vout) {
-        if (getAddressFromVout(vout) === seller) {
-            total_price = BigInt(Math.round(vout.value * 1e8));
-            unit_price = calculateUnitPrice(total_price, openbook_data.qty);
-        }
-    }
-
-    return { seller, buyer, total_price, unit_price };
+    return vinAddresses;
 }
 
+function isValidTransaction(
+    seller: string | undefined,
+    buyer: string | undefined,
+    vinAddresses: Set<string>,
+    voutAddresses: Set<string>
+): boolean {
+    if (!seller || !buyer || seller === buyer) {
+        return false;
+    }
+    if (!vinAddresses.has(seller) || !vinAddresses.has(buyer) || !voutAddresses.has(seller) || !voutAddresses.has(buyer)) {
+        return false;
+    }
+    return true;
+}
 export async function parseTransactionForAtomicSwap(transaction: Transaction): Promise<ParsedTransaction | undefined> {
     const op_ret = hasOPRETURN(transaction);
     if (op_ret) {
@@ -118,28 +161,33 @@ export async function parseTxForAtomicSwap(txid: string): Promise<ParsedTransact
     return parseTransactionForAtomicSwap(transaction);
 }
 
-async function parseTransactions(txs: string[]): Promise<{ transactions: Transaction[], atomic_swaps: ParsedTransaction[] }> {
-    const transactions = await rpc.getMultipleTransactions(txs as string[], true, 1000);
-    const atomic_swaps_transactions = await Promise.all(transactions.map((tx: Transaction) => {
-        const transaction = parseTransactionForAtomicSwap(tx);
-        return transaction;
-    }));
-    progress.finishProgress();
-    const atomic_swaps = atomic_swaps_transactions.filter(Boolean) as ParsedTransaction[];
-    return {
-        transactions,
-        atomic_swaps
-    };
-}
+//TODO: This was before using UTXO, just for reference
+//async function parseTransactions(txs: string[]): Promise<{ transactions: Transaction[], atomic_swaps: ParsedTransaction[] }> {
+//    const transactions = await rpc.getMultipleTransactions(txs as string[], true, 1000);
+//    const atomic_swaps_transactions = await Promise.all(transactions.map((tx: Transaction) => {
+//        const transaction = parseTransactionForAtomicSwap(tx);
+//        return transaction;
+//    }));
+//    progress.finishProgress();
+//    const atomic_swaps = atomic_swaps_transactions.filter(Boolean) as ParsedTransaction[];
+//    return {
+//        transactions,
+//        atomic_swaps
+//    };
+//}
 
 
-export async function parseXCPEvents(events: XCPUtxoMoveInfo[]) {
+export async function parseXCPEvents(events: XCPUtxoMoveInfo[]): Promise<ParsedTransaction[]> {
     const atomic_swaps = await Promise.all(events.map(async (event) => {
         const transaction = await rpc.getTransaction(event.txid) as Transaction;
-        const { seller, buyer, total_price, unit_price } = await extractTransactionDetails(transaction, { qty: event.qty });
+        const extractedTx = await extractTransactionDetails(transaction, { qty: event.qty });
+        if (!extractedTx) {
+            return undefined;
+        }
+        const { seller, buyer, total_price, unit_price, service_fee_recipient, service_fee } = extractedTx;
         if (seller && buyer && total_price && unit_price) {
             const result = {
-                txid: event.txid,
+                txid: event.txid as string,
                 protocol: 0,
                 assetId: event.assetId,
                 qty: event.qty,
@@ -148,11 +196,14 @@ export async function parseXCPEvents(events: XCPUtxoMoveInfo[]) {
                 total_price,
                 unit_price,
                 timestamp: event.timestamp,
+                service_fee_recipient: service_fee_recipient || null,
+                service_fee: service_fee || null
             };
             return result;
         }
         return undefined;
     }));
+    console.log(atomic_swaps);
     return atomic_swaps.filter(Boolean);
 }
 
@@ -161,8 +212,8 @@ export async function parseBlock(db: Database, blockInfo: Block): Promise<{ tran
     //const { transactions, atomic_swaps } = await parseTransactions(blockInfo.tx as string[])
     const events = await getEventsByBlock(blockInfo.height);
     logger.info(`Found ${events.length} utxo move events for block ${blockInfo.height}`);
-    let atomic_swaps = await parseXCPEvents(events);
-    atomic_swaps = atomic_swaps.map((swap) => {
+    const atomic_swaps = await parseXCPEvents(events);
+    const filtered_atomic_swaps = atomic_swaps.map((swap: ParsedTransaction) => {
         return {
             ...swap,
             block_hash: blockInfo.hash,
@@ -176,13 +227,13 @@ export async function parseBlock(db: Database, blockInfo: Block): Promise<{ tran
                 block_index: blockInfo.height,
                 block_hash: blockInfo.hash,
                 block_time: blockInfo.time,
-                transactions: JSON.stringify(atomic_swaps.map((swap) => swap?.txid))
+                transactions: JSON.stringify(filtered_atomic_swaps.map((swap) => swap?.txid))
             });
-            storeAtomicSwaps(db, atomic_swaps as ParsedTransaction[]);
+            storeAtomicSwaps(db, filtered_atomic_swaps as ParsedTransaction[]);
         } catch (error) {
             logger.error("Error storing block data or atomic swaps:", error);
             throw error;
         }
     });
-    return { transactions: [], atomic_swaps };
+    return { transactions: [], atomic_swaps: filtered_atomic_swaps };
 }

@@ -4,6 +4,8 @@ import morgan from "morgan";
 import cors from "cors";
 
 import { docsLoader } from "@/loaders/docs.ts";
+import { configureMarketDataRoutes } from "../services/api/routes/atomic-swaps/routes.ts";
+import morganMiddleware from "@/middleware/morgan.ts";
 //import { apiKeyMiddleware } from "@/auth/middleware.ts";
 
 
@@ -14,9 +16,9 @@ export function expressLoader({ app }: { app: Application }) {
     app.enable('trust proxy');
     app.use(cors());
     app.use(express.json());
-    app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
+    app.use(morganMiddleware);
     
-    //app.use("/api/v1/orderbook"/*, apiKeyMiddleware*/, configurateOrderbookRoutes(router));
+    app.use("/api/v1/"/*, apiKeyMiddleware*/, configureMarketDataRoutes(router));
     
     //docsLoader(app);
     console.log('🚀 Express Initialized');
