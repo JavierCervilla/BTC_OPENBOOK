@@ -1,5 +1,6 @@
 import { CONFIG } from "@/config/index.ts";
 import type { XCPEvent } from "./rpc.d.ts";
+import { apiLogger } from "@/utils/logger.ts";
 
 export async function retry<T>(fn: () => Promise<T>, retries = 3, delay = 500): Promise<T> {
     for (let i = 0; i < retries; i++) {
@@ -38,4 +39,19 @@ export async function getEventsByBlock(block: number, event = "UTXO_MOVE") {
     const response = await retry(() => fetch(endpoint.toString()));
     const data = await response.json();
     return data.result.map(getUtxoMoveAdapter);
+}
+
+export async function getUTXOBalance(utxo: string) {
+    try {
+        const url = new URL(`${CONFIG.XCP.RPC_URL}/v2/utxos/${utxo}/balances`);
+        url.searchParams.set("verbose", "true");
+        const endpoint = url.toString();
+        const response = await fetch(endpoint, { method: "GET" });
+        apiLogger.info(`${endpoint} [${response.status}]`);
+        const { result } = await response.json();
+        return result;
+    } catch (error) {
+        apiLogger.error(error);
+        throw error;
+    }
 }

@@ -1,0 +1,122 @@
+[INDEXER][WARN] [Thu Dec 12 2024 04:32:09 GMT+0100 (hora estándar de Europa central)] 
+RPC call getblockcount failed 3 times
+[INDEXER][ERROR] [Thu Dec 12 2024 04:32:09 GMT+0100 (hora estándar de Europa central)] TypeError: error sending request for url (https://indexer.srcpad.pro/btc): client error (Connect): dns error: failed to lookup address information: nodename nor servname provided, or not known: failed to lookup address information: nodename nor servname provided, or not known
+    at async mainFetch (ext:deno_fetch/26_fetch.js:170:12)
+    at async fetch (ext:deno_fetch/26_fetch.js:392:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:28:26
+    at async retry (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:13:20)
+    at async callRPC (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:27:12)
+    at async Module.getBlockCount (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:110:24)
+    at async initializeIndexer (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/indexer/indexer.ts:31:33)
+    at async start (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/indexer/indexer.ts:45:9)
+    at async indexerLoader (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/loaders/indexer.ts:6:5)
+    at async startServer (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/main.ts:19:51)
+[INDEXER][CRITICAL] [Thu Dec 12 2024 04:32:09 GMT+0100 (hora estándar de Europa central)] TypeError: error sending request for url (https://indexer.srcpad.pro/btc): client error (Connect): dns error: failed to lookup address information: nodename nor servname provided, or not known: failed to lookup address information: nodename nor servname provided, or not known
+    at async mainFetch (ext:deno_fetch/26_fetch.js:170:12)
+    at async fetch (ext:deno_fetch/26_fetch.js:392:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:28:26
+    at async retry (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:13:20)
+    at async callRPC (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:27:12)
+    at async Module.getBlockCount (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:110:24)
+    at async initializeIndexer (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/indexer/indexer.ts:31:33)
+    at async start (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/indexer/indexer.ts:45:9)
+    at async indexerLoader (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/loaders/indexer.ts:6:5)
+    at async startServer (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/main.ts:19:51)
+[INDEXER][WARN] [Sat Dec 14 2024 00:34:06 GMT+0100 (hora estándar de Europa central)] 
+RPC call getblockcount failed 3 times
+[INDEXER][ERROR] [Sat Dec 14 2024 00:34:06 GMT+0100 (hora estándar de Europa central)] TypeError: error sending request for url (https://indexer.srcpad.pro/btc): client error (Connect): dns error: failed to lookup address information: nodename nor servname provided, or not known: failed to lookup address information: nodename nor servname provided, or not known
+    at async mainFetch (ext:deno_fetch/26_fetch.js:170:12)
+    at async fetch (ext:deno_fetch/26_fetch.js:392:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:28:26
+    at async retry (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:13:20)
+    at async callRPC (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:27:12)
+    at async Module.getBlockCount (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:110:24)
+    at async initializeIndexer (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/indexer/indexer.ts:10:20)
+    at async start (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/indexer/indexer.ts:45:9)
+    at async indexerLoader (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/loaders/indexer.ts:6:5)
+    at async startServer (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/main.ts:19:51)
+[INDEXER][CRITICAL] [Sat Dec 14 2024 00:34:06 GMT+0100 (hora estándar de Europa central)] TypeError: error sending request for url (https://indexer.srcpad.pro/btc): client error (Connect): dns error: failed to lookup address information: nodename nor servname provided, or not known: failed to lookup address information: nodename nor servname provided, or not known
+    at async mainFetch (ext:deno_fetch/26_fetch.js:170:12)
+    at async fetch (ext:deno_fetch/26_fetch.js:392:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:28:26
+    at async retry (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:13:20)
+    at async callRPC (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:27:12)
+    at async Module.getBlockCount (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:110:24)
+    at async initializeIndexer (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/indexer/indexer.ts:10:20)
+    at async start (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/indexer/indexer.ts:45:9)
+    at async indexerLoader (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/loaders/indexer.ts:6:5)
+    at async startServer (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/main.ts:19:51)
+[INDEXER][WARN] [Sat Dec 14 2024 19:12:26 GMT+0100 (hora estándar de Europa central)] 
+RPC call getblockcount failed 3 times
+[INDEXER][ERROR] [Sat Dec 14 2024 19:12:26 GMT+0100 (hora estándar de Europa central)] TypeError: error sending request for url (https://indexer.srcpad.pro/btc): client error (Connect): dns error: failed to lookup address information: nodename nor servname provided, or not known: failed to lookup address information: nodename nor servname provided, or not known
+    at async mainFetch (ext:deno_fetch/26_fetch.js:170:12)
+    at async fetch (ext:deno_fetch/26_fetch.js:392:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:28:26
+    at async retry (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:13:20)
+    at async callRPC (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:27:12)
+    at async Module.getBlockCount (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:110:24)
+    at async initializeIndexer (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/indexer/indexer.ts:31:33)
+    at async start (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/indexer/indexer.ts:45:9)
+    at async indexerLoader (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/loaders/indexer.ts:6:5)
+    at async startServer (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/main.ts:19:51)
+[INDEXER][CRITICAL] [Sat Dec 14 2024 19:12:26 GMT+0100 (hora estándar de Europa central)] TypeError: error sending request for url (https://indexer.srcpad.pro/btc): client error (Connect): dns error: failed to lookup address information: nodename nor servname provided, or not known: failed to lookup address information: nodename nor servname provided, or not known
+    at async mainFetch (ext:deno_fetch/26_fetch.js:170:12)
+    at async fetch (ext:deno_fetch/26_fetch.js:392:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:28:26
+    at async retry (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:13:20)
+    at async callRPC (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:27:12)
+    at async Module.getBlockCount (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:110:24)
+    at async initializeIndexer (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/indexer/indexer.ts:31:33)
+    at async start (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/indexer/indexer.ts:45:9)
+    at async indexerLoader (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/loaders/indexer.ts:6:5)
+    at async startServer (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/main.ts:19:51)
+[INDEXER][CRITICAL] [Mon Dec 16 2024 13:17:47 GMT+0100 (hora estándar de Europa central)] SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at parse (<anonymous>)
+    at packageData (ext:deno_fetch/22_body.js:402:14)
+    at consumeBody (ext:deno_fetch/22_body.js:260:12)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async getEventsByBlock (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/xcp/rpc.ts:40:18)
+    at async Module.parseBlock (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/indexer/src/tx/parse.ts:213:20)
+    at async initializeIndexer (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/indexer/indexer.ts:20:38)
+    at async start (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/indexer/indexer.ts:45:9)
+    at async indexerLoader (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/loaders/indexer.ts:6:5)
+    at async startServer (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/main.ts:19:51)
+[INDEXER][WARN] [Mon Dec 16 2024 13:36:17 GMT+0100 (hora estándar de Europa central)] 
+RPC call getrawtransaction failed 3 times
+[INDEXER][ERROR] [Mon Dec 16 2024 13:36:17 GMT+0100 (hora estándar de Europa central)] NotCapable: Requires net access to "indexer.srcpad.pro:443", run again with the --allow-net flag
+    at mainFetch (ext:deno_fetch/26_fetch.js:152:43)
+    at ext:deno_fetch/26_fetch.js:353:9
+    at new Promise (<anonymous>)
+    at fetch (ext:deno_fetch/26_fetch.js:316:18)
+    at file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:28:32
+    at retry (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:13:26)
+    at eventLoopTick (ext:core/01_core.js:214:9)
+    at async callRPC (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:27:12)
+    at async Module.getTransaction (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:125:25)
+    at async createSellTx (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:20:27)
+[INDEXER][WARN] [Mon Dec 16 2024 13:36:19 GMT+0100 (hora estándar de Europa central)] 
+RPC call getrawtransaction failed 3 times
+[INDEXER][ERROR] [Mon Dec 16 2024 13:36:19 GMT+0100 (hora estándar de Europa central)] NotCapable: Requires net access to "indexer.srcpad.pro:443", run again with the --allow-net flag
+    at mainFetch (ext:deno_fetch/26_fetch.js:152:43)
+    at ext:deno_fetch/26_fetch.js:353:9
+    at new Promise (<anonymous>)
+    at fetch (ext:deno_fetch/26_fetch.js:316:18)
+    at file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:28:32
+    at retry (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:13:26)
+    at eventLoopTick (ext:core/01_core.js:214:9)
+    at async callRPC (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:27:12)
+    at async Module.getTransaction (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:125:25)
+    at async createSellTx (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:20:27)
+[INDEXER][WARN] [Mon Dec 16 2024 13:36:21 GMT+0100 (hora estándar de Europa central)] 
+RPC call getrawtransaction failed 3 times
+[INDEXER][ERROR] [Mon Dec 16 2024 13:36:21 GMT+0100 (hora estándar de Europa central)] NotCapable: Requires net access to "indexer.srcpad.pro:443", run again with the --allow-net flag
+    at mainFetch (ext:deno_fetch/26_fetch.js:152:43)
+    at ext:deno_fetch/26_fetch.js:353:9
+    at new Promise (<anonymous>)
+    at fetch (ext:deno_fetch/26_fetch.js:316:18)
+    at file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:28:32
+    at retry (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:13:26)
+    at eventLoopTick (ext:core/01_core.js:214:9)
+    at async callRPC (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:27:12)
+    at async Module.getTransaction (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:125:25)
+    at async createSellTx (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:20:27)

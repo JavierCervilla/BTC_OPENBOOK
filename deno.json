@@ -11,11 +11,15 @@
     "@std/assert": "jsr:@std/assert@1",
     "@std/log": "jsr:@std/log@^0.224.11",
     "@thi.ng/leb128": "npm:@thi.ng/leb128@^3.1.22",
-    "bitcoinjs-lib": "npm:bitcoinjs-lib@^6.1.7",
+    "bip174": "npm:bip174@^3.0.0-rc.1",
+    "bitcoinjs-lib": "npm:bitcoinjs-lib@^7.0.0-rc.0",
     "cli-progress": "npm:cli-progress@^3.12.0",
     "cors": "npm:cors@^2.8.5",
+    "ecpair": "npm:ecpair@^2.1.0",
     "express": "npm:express@^4.21.2",
     "morgan": "npm:morgan@^1.10.0",
-    "tspec": "npm:tspec@^0.1.116"
+    "tiny-secp256k1": "npm:tiny-secp256k1@^2.2.3",
+    "tspec": "npm:tspec@^0.1.116",
+    "uint8array-tools": "npm:uint8array-tools@^0.0.9"
   }
 }

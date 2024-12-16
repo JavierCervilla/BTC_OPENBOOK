@@ -1,6 +1,18 @@
 import "jsr:@std/dotenv/load";
 
-const OPENBOOK_PROTOCOL_CONFIG = {
+const VERSION_CONFIG = () => {
+    const MAJOR = 0;
+    const MINOR = 0;
+    const PATCH = 0;
+    return {
+        MAJOR,
+        MINOR,
+        PATCH,
+        STRING: `${MAJOR}.${MINOR}.${PATCH}`
+    };
+};
+
+const OPENBOOK_PROTOCOL_CONFIG = ()=> ({
     PREFIX: "OB",
     VERSIONS: {
         0: {
@@ -18,25 +30,25 @@ const OPENBOOK_PROTOCOL_CONFIG = {
         asset_id_bytes: 64,
         index_bytes: 1,
     }
-};
+});
 
-const INDEXER_CONFIG = {
+const INDEXER_CONFIG = ()=>({
     LOGS_FILE: "./logs/indexer.log.txt",
     //START_BLOCK: 866000, // FIRST BLOCK WITH ACTIVE CHANGE FOR ATOMIC SWAPS
     //START_BLOCK: 868136, // MULTIPLE ATOMIC SWAPS IN SAME TX
     //START_BLOCK: 867501, // FIRST ATOMIC SWAP IN FIREMINTS
     START_BLOCK: 866942, // FIRST ATOMIC SWAP
     START_OPENBOOK_LISTINGS_BLOCK: 999999, // FIRST BLOCK WITH OPEN BOOK LISTINGS
-};
+});
 
-const DATABASE_CONFIG = {
+const DATABASE_CONFIG = ()=> ({
     DB_NAME: "openbook.db",
     SCHEMA_PATH: "schema.sql",
-}
+});
 
-const BITCOIN_CONFIG = {
+const BITCOIN_CONFIG = ()=> ({
     MAINNET: {
-        RPC_URL: Deno.env.get("BITCOIN_RPC_URL") ??  "https://bitcoin-rpc.publicnode.com",
+        RPC_URL: Deno.env.get("BITCOIN_RPC_URL") ?? "https://bitcoin-rpc.publicnode.com",
         RPC_USER: Deno.env.get("BITCOIN_RPC_USER") ?? "rpc",
         RPC_PASSWORD: Deno.env.get("BITCOIN_RPC_PASSWORD") ?? "rpc",
     },
@@ -45,9 +57,9 @@ const BITCOIN_CONFIG = {
         RPC_USER: Deno.env.get("BITCOIN_TESTNET_RPC_USER") ?? "rpc",
         RPC_PASSWORD: Deno.env.get("BITCOIN_TESTNET_RPC_PASSWORD") ?? "rpc",
     }
-}
+});
 
-const XCP_CONFIG = {
+const XCP_CONFIG = ()=>({
     MAINNET: {
         RPC_URL: Deno.env.get("XCP_MAINNET_RPC_URL") ?? "https://api.counterparty.io:4000",
         RPC_USER: Deno.env.get("XCP_MAINNET_RPC_USER") ?? "rpc",
@@ -58,28 +70,30 @@ const XCP_CONFIG = {
         RPC_USER: Deno.env.get("XCP_TESTNET_RPC_USER") ?? "rpc",
         RPC_PASSWORD: Deno.env.get("XCP_TESTNET_RPC_PASSWORD") ?? "rpc",
     }
-}
+});
 
-const API_CONFIG = {
+const API_CONFIG = ()=> ({
     PORT: Deno.env.get("API_PORT") ?? 3001,
     LOGS_FILE: "./logs/api.log.txt",
-}
+});
 
 type NetworkType = 'MAINNET' | 'TESTNET';
-const NETWORK = (Deno.env.get("NETWORK") ?? "MAINNET") as NetworkType;
+const NETWORK = () => (Deno.env.get("NETWORK") ?? "MAINNET") as NetworkType;
+
+const TESTING_CONFIG = () => ({
+    WIF: Deno.env.get("TESTING_WIF") ?? ""
+});
+
 
 
 export const CONFIG = {
-    VERSION: {
-        MAJOR: 0,
-        MINOR: 0,
-        PATCH: 0,
-    },
-    NETWORK: NETWORK,
-    INDEXER: INDEXER_CONFIG,
-    OPENBOOK: OPENBOOK_PROTOCOL_CONFIG,
-    DATABASE: DATABASE_CONFIG,
-    BITCOIN: BITCOIN_CONFIG[NETWORK],
-    XCP: XCP_CONFIG[NETWORK],
-    API: API_CONFIG
+    VERSION: VERSION_CONFIG(),
+    NETWORK: NETWORK(),
+    INDEXER: INDEXER_CONFIG(),
+    OPENBOOK: OPENBOOK_PROTOCOL_CONFIG(),
+    DATABASE: DATABASE_CONFIG(),
+    BITCOIN: BITCOIN_CONFIG()[NETWORK()],
+    XCP: XCP_CONFIG()[NETWORK()],
+    API: API_CONFIG(),
+    TESTING: TESTING_CONFIG()
 }
