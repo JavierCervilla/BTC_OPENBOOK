@@ -8,10 +8,12 @@ let testPsbt: bitcoin.Psbt;
 let signedPsbt: bitcoin.Psbt;
 
 async function setupTestingTX() {
+    if (testPsbt && signedPsbt) return;
+    console.log("Creating testing txs....");
     testPsbt = await tx.createSellTx({
         seller: "bc1q57y36a30vee07g8p3ra56svcrhean5rc0qr3vh",
         utxo: "5153764cce9d80e1fc1226288d2ac0faa3198e01c027cbf5fc0ad287438245cc:0",
-        price: 100000
+        price: 100000,
     });
 
     const inputsToSign = [
@@ -56,12 +58,8 @@ Deno.test("createSellTx should throw if utxo does not exist", async () => {
 });
 
 Deno.test("createSellTx should create a valid psbt for the testing address", async () => {
-    const result = await tx.createSellTx({
-        seller: "bc1q57y36a30vee07g8p3ra56svcrhean5rc0qr3vh",
-        utxo: "5153764cce9d80e1fc1226288d2ac0faa3198e01c027cbf5fc0ad287438245cc:0",
-        price: 100000
-    });
-    assert(result.toHex(), "Psbt hex should be greater than 0");
+    await setupTestingTX();
+    assert(testPsbt.toHex(), "Psbt hex should be greater than 0");
 });
 
 Deno.test("signPsbt should sign a valid psbt with the testing wif", async () => {
