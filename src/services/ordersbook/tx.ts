@@ -1,22 +1,19 @@
 import * as bitcoin from "bitcoinjs-lib";
 import * as ecc from 'tiny-secp256k1';
 import { ECPairFactory } from 'ecpair';
-import { Buffer } from 'node:buffer';
 
-
-const ECPair = ECPairFactory(ecc);
-
-import { hex2bin } from "@/utils/hex.ts";
-import * as btc from "@/utils/btc/rpc.ts";
-import { apiLogger } from "@/utils/logger.ts";
 import type { SellOrderParams } from "./sell.d.ts";
 import type { inputToSign, partialSignature } from "@/services/ordersbook/tx.d.ts";
+
 import { CONFIG } from "@/config/index.ts";
+import { apiLogger } from "@/utils/logger.ts";
+import { bin2hex, hex2bin } from "@/utils/index.ts";
+import * as btc from "@/utils/btc/rpc.ts";
 import { OpenBook } from "@/services/openbook/openbook.ts";
 import p2wsh from "@/utils/p2wsh/encoder.ts";
-import { bin2hex } from "@/utils/index.ts";
 import { calculateTxSize, selectUtxos } from "@/utils/btc/tx.ts";
 
+const ECPair = ECPairFactory(ecc);
 
 export async function createSellPSBT(sellOrderParams: SellOrderParams) {
     try {

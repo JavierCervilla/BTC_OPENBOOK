@@ -6,6 +6,7 @@ import { CONFIG } from "@/config/index.ts";
 
 let unsignedPsbt: bitcoin.Psbt;
 let signedPsbt: bitcoin.Psbt;
+const feeRate = 10;
 const seller = "bc1q57y36a30vee07g8p3ra56svcrhean5rc0qr3vh";
 const utxo = "d7830e5b603f2b1b2a39c43d31c5d6155e5821cb2549b6ddb05aaf8be483be82:0";
 const price = 100000;
@@ -70,7 +71,6 @@ Deno.test("extractPartialSigs should extract partial sigs from a signed psbt", a
     await setupTestingTX();
     const partialSigs = tx.extractPartialSignatures(signedPsbt);
     assert(partialSigs[0].partialSig[0].signature.length >= 64 && partialSigs[0].partialSig[0].signature.length <= 72, "Partial signature should be between 64 and 72 bytes");
-    console.log('Signature size: ', partialSigs[0].partialSig[0].signature.length);
 });
 
 Deno.test("reconstructTxFromPartialSigs should reconstruct a tx from partial sigs", async () => {
@@ -92,7 +92,7 @@ Deno.test("createListingTX should create a listing PSBT from a valid signed sell
         seller,
         utxo,
         price,
-        feeRate: 10
+        feeRate,
     });
     assert(psbt.length > 0, "PSBT should be greater than 0");
     assert(psbt.includes("02000000000101"), "PSBT should contain the correct version");
@@ -107,7 +107,7 @@ Deno.test("decodeListingTx should decode a listing tx and reconstruct the origin
         seller,
         utxo,
         price,
-        feeRate: 10
+        feeRate,
     });
     const signedListingPsbt = await tx.signPsbt({
         psbt: bitcoin.Psbt.fromHex(listingPsbt),
@@ -119,6 +119,8 @@ Deno.test("decodeListingTx should decode a listing tx and reconstruct the origin
     signedListingPsbt.finalizeAllInputs();
     const txhex = signedListingPsbt.extractTransaction().toHex();
     const { psbt: result_psbt, utxo: result_utxo, seller: result_seller, price: result_price } = await tx.decodeListingTx(txhex);
+    const resultFeeRate = signedListingPsbt.getFeeRate();
+    assert(resultFeeRate >= feeRate - (0.15 * feeRate) && resultFeeRate <= feeRate + (0.15 * feeRate), "resultant feeRate shouldn't vary more than 15%");
     assert(result_psbt === signedPsbt.toHex(), "Resultant PSBT should be the same as signed PSBT");
     assert(result_utxo === utxo, "Resultant utxo should be the same as the original utxo");
     assert(result_seller === seller, "Resultant seller should be the same as the original seller");

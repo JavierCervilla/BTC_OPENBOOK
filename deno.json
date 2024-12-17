@@ -2,7 +2,7 @@
   "tasks": {
     "dev": "NODE_ENV=development deno run -A --watch src/main.ts",
     "start": "deno run -A src/main.ts",
-    "test": "deno test -A"
+    "test": "NODE_ENV=test deno test -A"
   },
   "nodeModulesDir":"auto",
   "imports": {

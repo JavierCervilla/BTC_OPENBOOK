@@ -32,11 +32,16 @@ log.setup({
             level: "DEBUG",
             handlers: ["console_api", "api"],
         },
+        testing: {
+            level: "DEBUG",
+            handlers: ["console_testing"],
+        }
     },
 });
 
-const logger = log.getLogger("indexerLogger");
-const apiLogger = log.getLogger("apiLogger");
+const logger = Deno.env.get("NODE_ENV") === "test" ? log.getLogger("testingLogger") : log.getLogger("indexerLogger");
+const apiLogger = Deno.env.get("NODE_ENV") === "test"? log.getLogger("testingLogger") : log.getLogger("apiLogger");
+const testingLogger = log.getLogger("testingLogger");
 
 export const InitialPrompt = () => {
     logger.info(`Openbook Indexer v${CONFIG.VERSION.MAJOR}.${CONFIG.VERSION.MINOR}.${CONFIG.VERSION.PATCH}`)
@@ -46,5 +51,5 @@ export const InitialPrompt = () => {
     logger.info(`API logs file: ${CONFIG.API.LOGS_FILE}`)
 }
 
-export { logger, apiLogger };
+export { logger, apiLogger, testingLogger };
 export default log.getLogger("indexerLogger");
