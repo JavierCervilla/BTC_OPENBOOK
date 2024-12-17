@@ -36,7 +36,6 @@ async function setupTestingTX() {
         inputsToSign,
         wif: CONFIG.TESTING.WIF
     });
-    console.log({ signedPsbt: signedPsbt.toHex() })
 }
 
 Deno.test("createSellTx should create a valid psbt", async () => {
@@ -100,11 +99,11 @@ Deno.test("createListingTX should create a listing PSBT from a valid signed sell
     assert(psbt.includes("02000000000101"), "PSBT should contain the correct version");
 });
 
-Deno.test("decodeListingTx should decode a listing tx", async () => {
+Deno.test("decodeListingTx should decode a listing tx and reconstruct the original signed tx", async () => {
     await setupTestingTX();
     const partialSigs = tx.extractPartialSignatures(signedPsbt);
     assert(partialSigs[0].partialSig[0].signature.length >= 64 && partialSigs[0].partialSig[0].signature.length <= 72, "Partial signature should be between 64 and 72 bytes");
-    const { psbt } = await tx.createListingTX({
+    const { psbt: listingPsbt } = await tx.createListingTX({
         partialSigs,
         seller,
         utxo,
@@ -112,7 +111,7 @@ Deno.test("decodeListingTx should decode a listing tx", async () => {
         feeRate: 10
     });
     const signedListingPsbt = await tx.signPsbt({
-        psbt: bitcoin.Psbt.fromHex(psbt),
+        psbt: bitcoin.Psbt.fromHex(listingPsbt),
         inputsToSign: [
             { index: 0, sighashType: [bitcoin.Transaction.SIGHASH_ALL] }
         ],
@@ -120,6 +119,9 @@ Deno.test("decodeListingTx should decode a listing tx", async () => {
     });
     signedListingPsbt.finalizeAllInputs();
     const txhex = signedListingPsbt.extractTransaction().toHex();
-    const result = await tx.decodeListingTx(txhex);
-    console.log(result.psbt);
+    const { psbt: result_psbt, utxo: result_utxo, seller: result_seller, price: result_price } = await tx.decodeListingTx(txhex);
+    assert(result_psbt === signedPsbt.toHex(), "Resultant PSBT should be the same as signed PSBT");
+    assert(result_utxo === utxo, "Resultant utxo should be the same as the original utxo");
+    assert(result_seller === seller, "Resultant seller should be the same as the original seller");
+    assert(result_price === BigInt(price), "Resultant price should be the same as the original price");
 });

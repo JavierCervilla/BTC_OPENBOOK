@@ -312,62 +312,45 @@ export async function decodeListingTx(txhex: string): Promise<{
     try {
         const tx = bitcoin.Transaction.fromHex(txhex);
 
-        //1. Extract utxo and price from OP_RETURN
-        const op_return = tx.outs.find((output) => isOpReturnOutput(output))?.script;
-        if (!op_return) {
-            throw new Error("No OP_RETURN output found");
-        }
-        // remove the op_return prefix bytes
-        const message = bin2hex(op_return).slice(4);
-        const { utxo, price } = OpenBook.decode_Listing_OP_RETURN({
-            message,
-            protocol: 0,
-        });
-        if (!utxo || !price) {
-            throw new Error("Invalid OP_RETURN data");
-        }
+        // Extract utxo and price from OP_RETURN
+        const opReturnScript = tx.outs.find(isOpReturnOutput)?.script;
+        if (!opReturnScript) throw new Error("No OP_RETURN output found");
 
-        //2. Extract partial signatures from P2WSH outputs
-        const p2wsh_outputs = tx.outs.filter((output) => isP2WSHOutput(output)).map((output) => scriptToAddress(output.script));
-        if (!p2wsh_outputs.length || p2wsh_outputs.includes(null)) {
-            throw new Error("No P2WSH outputs found");
-        }
-        const partialSigHex = p2wsh.p2wsh_decode_hex(p2wsh_outputs as string[]);
+        const message = bin2hex(opReturnScript).slice(4);
+        const { utxo, price } = OpenBook.decode_Listing_OP_RETURN({ message, protocol: 0 });
+        if (!utxo || !price) throw new Error("Invalid OP_RETURN data");
+
+        // Extract partial signatures from P2WSH outputs
+        const p2wshOutputs = tx.outs
+            .filter(isP2WSHOutput)
+            .map(output => scriptToAddress(output.script));
+        if (!p2wshOutputs.length || p2wshOutputs.includes(null)) throw new Error("No P2WSH outputs found");
+
+        const partialSigHex = p2wsh.p2wsh_decode_hex(p2wshOutputs as string[]);
         const partialSigBytes = hex2bin(partialSigHex);
-        // extract seller and pubkey from the first input
-        const input_0 = tx.ins[0];
-        const { address: seller, pubkey } = extractPubKeyAndAddressFromInput(input_0);
-        if (!seller || !pubkey) {
-            throw new Error("Invalid seller address or public key");
-        }
-        // reconstruct the partial signatures
-        const pubkeyBytes = input_0.witness[1];
+
+        // Extract seller and pubkey from the first input
+        const input0 = tx.ins[0];
+        const { address: seller, pubkey } = extractPubKeyAndAddressFromInput(input0);
+        if (!seller || !pubkey) throw new Error("Invalid seller address or public key");
+
+        // Reconstruct the partial signatures
+        const pubkeyBytes = input0.witness[1];
         const partialSignatures = [{
             index: 0,
-            partialSig: [
-                {
-                    pubkey: pubkeyBytes,
-                    signature: partialSigBytes,
-                }
-            ]
-        }]
-        // create the unsigned sell psbt
-        const unsignedSellPsbt = await createSellPSBT({
-            utxo,
-            seller,
-            price,
-        });
-        // add the signatures to the sell psbt
-        const signedSellPsbt = reconstructTxFromPartialSigs({
+            partialSig: [{ pubkey: pubkeyBytes, signature: partialSigBytes }]
+        }];
+
+        // Create the unsigned sell psbt
+        const unsignedSellPsbt = await createSellPSBT({ utxo, seller, price });
+
+        // Add the signatures to the sell psbt
+        const signedPsbt = reconstructTxFromPartialSigs({
             partialSigs: partialSignatures,
             psbt: unsignedSellPsbt,
         });
-        return {
-            utxo,
-            price,
-            seller,
-            psbt: signedSellPsbt.toHex(),
-        };
+
+        return { utxo, price, seller, psbt: signedPsbt.toHex() };
     } catch (error) {
         apiLogger.error(error);
         throw error;
