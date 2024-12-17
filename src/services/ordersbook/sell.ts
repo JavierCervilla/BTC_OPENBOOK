@@ -4,7 +4,7 @@ import * as bitcoin from 'bitcoinjs-lib'
 import * as xcp from "@/utils/xcp/rpc.ts";
 import type { SellOrderParams } from "./sell.d.ts";
 import { apiLogger } from "@/utils/logger.ts";
-import { createSellTx } from "@/services/ordersbook/tx.ts";
+import * as tx from "@/services/ordersbook/tx.ts";
 
 
 
@@ -27,7 +27,7 @@ export async function createSellOrderPsbt(sellOrderParams: SellOrderParams) {
     try {
         await checkSellOrderParams(sellOrderParams);
         const { utxo, seller, price } = sellOrderParams;
-        const psbt = await createSellTx({
+        const psbt = await tx.createSellPSBT({
             utxo,
             seller,
             price,

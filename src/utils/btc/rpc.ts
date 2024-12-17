@@ -2,6 +2,7 @@ import { CONFIG } from "@/config/index.ts";
 import logger from "../logger.ts";
 import type { Transaction, rpcCall, Block } from './rpc.d.ts'
 import * as progress from "../progress.ts";
+import { address2ScriptHash } from "@/utils/btc/tx.ts";
 
 export async function retry<T>(
     fn: () => Promise<T>,
@@ -12,12 +13,13 @@ export async function retry<T>(
         try {
             return await fn();
         } catch (err: unknown) {
+            console.log("retrying...")
             if (i === retries - 1) {
                 logger.warn(`\nRPC call ${fnName} failed ${i + 1} times`);
                 logger.error(err);
                 throw err;
             }
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            await new Promise(resolve => setTimeout(resolve, 200));
         }
     }
     throw new Error(`RPC call ${fnName} failed after ${retries} retries`);
@@ -37,7 +39,7 @@ export async function callRPC(rpcCall: rpcCall) {
         );
         const data = await response.json();
         return data;
-    }, 3, rpcCall.call.method);
+    }, 5, rpcCall.call.method);
 }
 
 export async function asyncPool<T, R>(
@@ -135,6 +137,35 @@ export async function getTransaction(txid: string, verbose = true): Promise<Tran
     });
     return transaction.result;
 }
+
+
+export async function getUTXO(address: string): Promise<UTXO[]> {
+    const params = {
+      endpoint: CONFIG.ELECTRUM.RPC_URL as string,
+      rpcUser: CONFIG.ELECTRUM.RPC_USER as string,
+      rpcPassword: CONFIG.ELECTRUM.RPC_PASSWORD as string,
+      call: {
+        jsonrpc: "2.0",
+        id: 1,
+        method: "blockchain.scripthash.listunspent",
+        params: [address2ScriptHash(address)]
+      }
+    }
+    const data = await callRPC(params);
+    const sorted = data.result.sort((a: ElectrsUTXO, b: ElectrsUTXO) => b.value - a.value);
+    const adapted = sorted.map((utxo: ElectrsUTXO) => ({
+      txid: utxo.tx_hash,
+      vout: utxo.tx_pos,
+      status: {
+        confirmed: utxo.height && utxo.height > 0,
+        block_height: utxo.height
+      },
+      value: utxo.value,
+      height: utxo.height
+    }));
+    return adapted;
+  }
+
 
 export async function getMultipleTransactions(
     txids: string[],

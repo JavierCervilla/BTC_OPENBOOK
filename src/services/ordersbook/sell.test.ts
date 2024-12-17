@@ -1,11 +1,11 @@
 import { assert, fail } from "@std/assert";
 
-import { createSellOrderPsbt } from "./sell.ts";
+import * as tx from "./sell.ts";
 
 Deno.test("createSellOrderPsbt should create a valid psbt", async () => {
-    const result = await createSellOrderPsbt({
-        seller: "bc1qwfmtwelj00pghxhg0nsu0jqx0f76d5nm0axxvt",
-        utxo: "4b9ff56e967749d158e3b35192b7f1793807ae5ca558b7fe439b57af9d330b53:0",
+    const result = await tx.createSellOrderPsbt({
+        seller: "bc1q57y36a30vee07g8p3ra56svcrhean5rc0qr3vh",
+        utxo: "d7830e5b603f2b1b2a39c43d31c5d6155e5821cb2549b6ddb05aaf8be483be82:0",
         price: 100000
     });
     assert(result.psbt.length > 0, "Psbt hex should be greater than 0");
@@ -13,10 +13,10 @@ Deno.test("createSellOrderPsbt should create a valid psbt", async () => {
 
 Deno.test("createSellOrderPsbt should throw if utxo does not exist", async () => {
     try {
-        await createSellOrderPsbt({
-            seller: "bc1qwfmtwelj00pghxhg0nsu0jqx0f76d5nm0axxvt",
-            utxo: "4b9ff56e967749d158e3b35192b7f1793807ae5ca558b7fe439b57af9d330b52:0",
-            price: 100000
+        await tx.createSellOrderPsbt({
+            seller: "bc1q57y36a30vee07g8p3ra56svcrhean5rc0qr3vh",
+        utxo: "d7830e5b603f2b1b2a39c43d31c5d6155e5821cb2549b6ddb05aaf8be483be83:0",
+        price: 100000
         });
         fail("Expected error was not thrown");
     } catch (error) {

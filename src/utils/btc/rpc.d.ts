@@ -68,3 +68,21 @@ type Block = {
     weight: number,
     tx: Transaction[] | string[],
 }
+
+type UTXO = {
+    txid: string;
+    vout: number;
+    status: {
+      confirmed:boolean;
+      block_height: number;
+    },
+    value: number;
+    height: number;
+}
+
+type ElectrsUTXO = {
+    height: number
+    tx_hash: string,
+    tx_pos: number,
+    value: number,
+}

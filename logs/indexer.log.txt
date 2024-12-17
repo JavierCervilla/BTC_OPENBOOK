@@ -1,0 +1,143 @@
+[INDEXER][WARN] [Mon Dec 16 2024 20:17:07 GMT+0100 (hora estándar de Europa central)] 
+RPC call blockchain.scripthash.listunspent failed 3 times
+[INDEXER][ERROR] [Mon Dec 16 2024 20:17:07 GMT+0100 (hora estándar de Europa central)] SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at parse (<anonymous>)
+    at packageData (ext:deno_fetch/22_body.js:402:14)
+    at consumeBody (ext:deno_fetch/22_body.js:260:12)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:39:22
+    at async retry (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:14:20)
+    at async callRPC (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:28:12)
+    at async Module.getUTXO (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:153:18)
+    at async Module.createListingTX (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:104:23)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:91:25
+[INDEXER][WARN] [Mon Dec 16 2024 20:28:55 GMT+0100 (hora estándar de Europa central)] 
+RPC call blockchain.scripthash.listunspent failed 3 times
+[INDEXER][ERROR] [Mon Dec 16 2024 20:28:55 GMT+0100 (hora estándar de Europa central)] SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at parse (<anonymous>)
+    at packageData (ext:deno_fetch/22_body.js:402:14)
+    at consumeBody (ext:deno_fetch/22_body.js:260:12)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:39:22
+    at async retry (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:14:20)
+    at async callRPC (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:28:12)
+    at async Module.getUTXO (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:153:18)
+    at async fetchUTXOs (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:91:19)
+    at async Module.createListingTX (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:188:23)
+[INDEXER][WARN] [Mon Dec 16 2024 20:33:54 GMT+0100 (hora estándar de Europa central)] 
+RPC call blockchain.scripthash.listunspent failed 3 times
+[INDEXER][ERROR] [Mon Dec 16 2024 20:33:54 GMT+0100 (hora estándar de Europa central)] SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at parse (<anonymous>)
+    at packageData (ext:deno_fetch/22_body.js:402:14)
+    at consumeBody (ext:deno_fetch/22_body.js:260:12)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:39:22
+    at async retry (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:14:20)
+    at async callRPC (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:28:12)
+    at async Module.getUTXO (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:153:18)
+    at async fetchUTXOs (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:91:19)
+    at async Module.createListingTX (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:188:23)
+[INDEXER][WARN] [Mon Dec 16 2024 20:54:17 GMT+0100 (hora estándar de Europa central)] 
+RPC call blockchain.scripthash.listunspent failed 3 times
+[INDEXER][ERROR] [Mon Dec 16 2024 20:54:17 GMT+0100 (hora estándar de Europa central)] SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at parse (<anonymous>)
+    at packageData (ext:deno_fetch/22_body.js:402:14)
+    at consumeBody (ext:deno_fetch/22_body.js:260:12)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:39:22
+    at async retry (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:14:20)
+    at async callRPC (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:28:12)
+    at async Module.getUTXO (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:153:18)
+    at async fetchUTXOs (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:91:19)
+    at async Module.createListingTX (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:197:23)
+[INDEXER][WARN] [Mon Dec 16 2024 20:54:53 GMT+0100 (hora estándar de Europa central)] 
+RPC call blockchain.scripthash.listunspent failed 3 times
+[INDEXER][ERROR] [Mon Dec 16 2024 20:54:53 GMT+0100 (hora estándar de Europa central)] SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at parse (<anonymous>)
+    at packageData (ext:deno_fetch/22_body.js:402:14)
+    at consumeBody (ext:deno_fetch/22_body.js:260:12)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:39:22
+    at async retry (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:14:20)
+    at async callRPC (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:28:12)
+    at async Module.getUTXO (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:153:18)
+    at async fetchUTXOs (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:91:19)
+    at async Module.createListingTX (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:197:23)
+[INDEXER][WARN] [Mon Dec 16 2024 20:55:29 GMT+0100 (hora estándar de Europa central)] 
+RPC call blockchain.scripthash.listunspent failed 3 times
+[INDEXER][ERROR] [Mon Dec 16 2024 20:55:29 GMT+0100 (hora estándar de Europa central)] SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at parse (<anonymous>)
+    at packageData (ext:deno_fetch/22_body.js:402:14)
+    at consumeBody (ext:deno_fetch/22_body.js:260:12)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:39:22
+    at async retry (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:14:20)
+    at async callRPC (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:28:12)
+    at async Module.getUTXO (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:153:18)
+    at async fetchUTXOs (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:91:19)
+    at async Module.createListingTX (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:197:23)
+[INDEXER][WARN] [Mon Dec 16 2024 20:57:16 GMT+0100 (hora estándar de Europa central)] 
+RPC call blockchain.scripthash.listunspent failed 3 times
+[INDEXER][ERROR] [Mon Dec 16 2024 20:57:16 GMT+0100 (hora estándar de Europa central)] SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at parse (<anonymous>)
+    at packageData (ext:deno_fetch/22_body.js:402:14)
+    at consumeBody (ext:deno_fetch/22_body.js:260:12)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:39:22
+    at async retry (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:14:20)
+    at async callRPC (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:28:12)
+    at async Module.getUTXO (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:153:18)
+    at async fetchUTXOs (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:91:19)
+    at async Module.createListingTX (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:197:23)
+[INDEXER][WARN] [Mon Dec 16 2024 20:58:32 GMT+0100 (hora estándar de Europa central)] 
+RPC call blockchain.scripthash.listunspent failed 3 times
+[INDEXER][ERROR] [Mon Dec 16 2024 20:58:32 GMT+0100 (hora estándar de Europa central)] SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at parse (<anonymous>)
+    at packageData (ext:deno_fetch/22_body.js:402:14)
+    at consumeBody (ext:deno_fetch/22_body.js:260:12)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:39:22
+    at async retry (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:14:20)
+    at async callRPC (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:28:12)
+    at async Module.getUTXO (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:153:18)
+    at async fetchUTXOs (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:91:19)
+    at async Module.createListingTX (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:197:23)
+[INDEXER][WARN] [Mon Dec 16 2024 20:59:08 GMT+0100 (hora estándar de Europa central)] 
+RPC call blockchain.scripthash.listunspent failed 3 times
+[INDEXER][ERROR] [Mon Dec 16 2024 20:59:08 GMT+0100 (hora estándar de Europa central)] SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at parse (<anonymous>)
+    at packageData (ext:deno_fetch/22_body.js:402:14)
+    at consumeBody (ext:deno_fetch/22_body.js:260:12)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:40:22
+    at async retry (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:14:20)
+    at async callRPC (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:29:12)
+    at async Module.getUTXO (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:154:18)
+    at async fetchUTXOs (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:91:19)
+    at async Module.createListingTX (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:197:23)
+[INDEXER][WARN] [Mon Dec 16 2024 21:07:07 GMT+0100 (hora estándar de Europa central)] 
+RPC call blockchain.scripthash.listunspent failed 5 times
+[INDEXER][ERROR] [Mon Dec 16 2024 21:07:07 GMT+0100 (hora estándar de Europa central)] SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at parse (<anonymous>)
+    at packageData (ext:deno_fetch/22_body.js:402:14)
+    at consumeBody (ext:deno_fetch/22_body.js:260:12)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:40:22
+    at async retry (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:14:20)
+    at async callRPC (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:29:12)
+    at async Module.getUTXO (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:154:18)
+    at async fetchUTXOs (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:91:19)
+    at async Module.createListingTX (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:197:23)
+[INDEXER][WARN] [Tue Dec 17 2024 16:07:47 GMT+0100 (hora estándar de Europa central)] 
+RPC call blockchain.scripthash.listunspent failed 5 times
+[INDEXER][ERROR] [Tue Dec 17 2024 16:07:47 GMT+0100 (hora estándar de Europa central)] SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at parse (<anonymous>)
+    at packageData (ext:deno_fetch/22_body.js:402:14)
+    at consumeBody (ext:deno_fetch/22_body.js:260:12)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:40:22
+    at async retry (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:14:20)
+    at async callRPC (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:29:12)
+    at async Module.getUTXO (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:154:18)
+    at async fetchUTXOs (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:91:19)
+    at async Module.createListingTX (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:190:23)

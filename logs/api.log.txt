@@ -1,0 +1,1208 @@
+[API][ERROR] [Mon Dec 16 2024 16:40:12 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:22:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 16:40:42 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:22:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 16:41:28 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:22:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 16:41:36 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:22:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][INFO] [Mon Dec 16 2024 16:45:23 GMT+0100 (hora estándar de Europa central)] https://indexer.srcpad.pro/xcp/v2/utxos/d7830e5b603f2b1b2a39c43d31c5d6155e5821cb2549b6ddb05aaf8be483be82:0/balances?verbose=true [502]
+[API][ERROR] [Mon Dec 16 2024 16:45:23 GMT+0100 (hora estándar de Europa central)] SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at parse (<anonymous>)
+    at packageData (ext:deno_fetch/22_body.js:402:14)
+    at consumeBody (ext:deno_fetch/22_body.js:260:12)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async Module.getUTXOBalance (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/xcp/rpc.ts:51:28)
+    at async checkSellOrderParams (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/sell.ts:20:25)
+    at async Module.createSellOrderPsbt (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/sell.ts:28:9)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/sell.test.ts:6:20
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+[API][ERROR] [Mon Dec 16 2024 16:45:23 GMT+0100 (hora estándar de Europa central)] SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at parse (<anonymous>)
+    at packageData (ext:deno_fetch/22_body.js:402:14)
+    at consumeBody (ext:deno_fetch/22_body.js:260:12)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async Module.getUTXOBalance (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/xcp/rpc.ts:51:28)
+    at async checkSellOrderParams (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/sell.ts:20:25)
+    at async Module.createSellOrderPsbt (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/sell.ts:28:9)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/sell.test.ts:6:20
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+[API][INFO] [Mon Dec 16 2024 16:45:23 GMT+0100 (hora estándar de Europa central)] https://indexer.srcpad.pro/xcp/v2/utxos/d7830e5b603f2b1b2a39c43d31c5d6155e5821cb2549b6ddb05aaf8be483be83:0/balances?verbose=true [502]
+[API][ERROR] [Mon Dec 16 2024 16:45:23 GMT+0100 (hora estándar de Europa central)] SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at parse (<anonymous>)
+    at packageData (ext:deno_fetch/22_body.js:402:14)
+    at consumeBody (ext:deno_fetch/22_body.js:260:12)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async Module.getUTXOBalance (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/xcp/rpc.ts:51:28)
+    at async checkSellOrderParams (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/sell.ts:20:25)
+    at async Module.createSellOrderPsbt (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/sell.ts:28:9)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/sell.test.ts:16:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+[API][ERROR] [Mon Dec 16 2024 16:45:23 GMT+0100 (hora estándar de Europa central)] SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at parse (<anonymous>)
+    at packageData (ext:deno_fetch/22_body.js:402:14)
+    at consumeBody (ext:deno_fetch/22_body.js:260:12)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async Module.getUTXOBalance (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/xcp/rpc.ts:51:28)
+    at async checkSellOrderParams (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/sell.ts:20:25)
+    at async Module.createSellOrderPsbt (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/sell.ts:28:9)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/sell.test.ts:16:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+[API][ERROR] [Mon Dec 16 2024 16:45:24 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:22:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][INFO] [Mon Dec 16 2024 17:35:10 GMT+0100 (hora estándar de Europa central)] https://indexer.srcpad.pro/xcp/v2/utxos/d7830e5b603f2b1b2a39c43d31c5d6155e5821cb2549b6ddb05aaf8be483be82:0/balances?verbose=true [502]
+[API][ERROR] [Mon Dec 16 2024 17:35:10 GMT+0100 (hora estándar de Europa central)] SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at parse (<anonymous>)
+    at packageData (ext:deno_fetch/22_body.js:402:14)
+    at consumeBody (ext:deno_fetch/22_body.js:260:12)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async Module.getUTXOBalance (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/xcp/rpc.ts:51:28)
+    at async checkSellOrderParams (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/sell.ts:20:25)
+    at async Module.createSellOrderPsbt (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/sell.ts:28:9)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/sell.test.ts:6:20
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+[API][ERROR] [Mon Dec 16 2024 17:35:10 GMT+0100 (hora estándar de Europa central)] SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at parse (<anonymous>)
+    at packageData (ext:deno_fetch/22_body.js:402:14)
+    at consumeBody (ext:deno_fetch/22_body.js:260:12)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async Module.getUTXOBalance (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/xcp/rpc.ts:51:28)
+    at async checkSellOrderParams (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/sell.ts:20:25)
+    at async Module.createSellOrderPsbt (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/sell.ts:28:9)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/sell.test.ts:6:20
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+[API][INFO] [Mon Dec 16 2024 17:35:10 GMT+0100 (hora estándar de Europa central)] https://indexer.srcpad.pro/xcp/v2/utxos/d7830e5b603f2b1b2a39c43d31c5d6155e5821cb2549b6ddb05aaf8be483be83:0/balances?verbose=true [502]
+[API][ERROR] [Mon Dec 16 2024 17:35:10 GMT+0100 (hora estándar de Europa central)] SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at parse (<anonymous>)
+    at packageData (ext:deno_fetch/22_body.js:402:14)
+    at consumeBody (ext:deno_fetch/22_body.js:260:12)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async Module.getUTXOBalance (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/xcp/rpc.ts:51:28)
+    at async checkSellOrderParams (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/sell.ts:20:25)
+    at async Module.createSellOrderPsbt (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/sell.ts:28:9)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/sell.test.ts:16:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+[API][ERROR] [Mon Dec 16 2024 17:35:10 GMT+0100 (hora estándar de Europa central)] SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at parse (<anonymous>)
+    at packageData (ext:deno_fetch/22_body.js:402:14)
+    at consumeBody (ext:deno_fetch/22_body.js:260:12)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async Module.getUTXOBalance (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/xcp/rpc.ts:51:28)
+    at async checkSellOrderParams (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/sell.ts:20:25)
+    at async Module.createSellOrderPsbt (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/sell.ts:28:9)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/sell.test.ts:16:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+[API][ERROR] [Mon Dec 16 2024 17:35:10 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:24:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 17:41:17 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:24:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 17:41:37 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:24:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 17:44:39 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:24:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 17:50:57 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:25:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 17:52:05 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:25:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 17:54:54 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:01:05 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:01:23 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:02:56 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:07:17 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:07:26 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:12:40 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:13:26 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:14:57 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:15:03 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:16:37 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:18:46 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:19:36 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:24:16 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:25:32 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:27:50 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:29:13 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:29:33 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:31:22 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:32:02 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:32:12 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:32:25 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:33:54 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:34:15 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:39:12 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:41:06 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:41:28 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:41:41 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:41:57 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:42:44 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:43:11 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:43:11 GMT+0100 (hora estándar de Europa central)] Error: Outputs are spending more than Inputs
+    at inputFinalizeGetAmts (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/node_modules/.deno/bitcoinjs-lib@7.0.0-rc.0/node_modules/bitcoinjs-lib/src/esm/psbt.js:1567:11)
+    at getTxCacheValue (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/node_modules/.deno/bitcoinjs-lib@7.0.0-rc.0/node_modules/bitcoinjs-lib/src/esm/psbt.js:1119:3)
+    at Psbt.getFee (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/node_modules/.deno/bitcoinjs-lib@7.0.0-rc.0/node_modules/bitcoinjs-lib/src/esm/psbt.js:293:12)
+    at Module.createListingTX (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:141:24)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:91:25
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:47:40 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:49:33 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:50:40 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 18:51:36 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 19:05:36 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 19:25:26 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 19:50:53 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 19:50:54 GMT+0100 (hora estándar de Europa central)] TypeError: Cannot read properties of null (reading 'sort')
+    at Module.getUTXO (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:154:32)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async Module.createListingTX (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:101:23)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:91:25
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 19:51:18 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 19:51:18 GMT+0100 (hora estándar de Europa central)] TypeError: Cannot read properties of null (reading 'sort')
+    at Module.getUTXO (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:154:32)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async Module.createListingTX (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:101:23)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:91:25
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 19:51:54 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 19:51:55 GMT+0100 (hora estándar de Europa central)] TypeError: Cannot read properties of null (reading 'sort')
+    at Module.getUTXO (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:155:32)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async Module.createListingTX (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:101:23)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:91:25
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 19:53:14 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 19:54:02 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:26:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 19:58:51 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 20:01:56 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 20:08:59 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 20:09:30 GMT+0100 (hora estándar de Europa central)] Error: PSBT must be finalized to calculate fee
+    at getTxCacheValue (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/node_modules/.deno/bitcoinjs-lib@7.0.0-rc.0/node_modules/bitcoinjs-lib/src/esm/psbt.js:1108:11)
+    at Psbt.getFee (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/node_modules/.deno/bitcoinjs-lib@7.0.0-rc.0/node_modules/bitcoinjs-lib/src/esm/psbt.js:293:12)
+    at Module.createListingTX (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:179:27)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:91:25
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 20:09:54 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 20:10:08 GMT+0100 (hora estándar de Europa central)] Error: PSBT must be finalized to calculate fee rate
+    at getTxCacheValue (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/node_modules/.deno/bitcoinjs-lib@7.0.0-rc.0/node_modules/bitcoinjs-lib/src/esm/psbt.js:1108:11)
+    at Psbt.getFeeRate (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/node_modules/.deno/bitcoinjs-lib@7.0.0-rc.0/node_modules/bitcoinjs-lib/src/esm/psbt.js:285:12)
+    at Module.createListingTX (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:179:31)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:91:25
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 20:16:35 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 20:17:07 GMT+0100 (hora estándar de Europa central)] SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at parse (<anonymous>)
+    at packageData (ext:deno_fetch/22_body.js:402:14)
+    at consumeBody (ext:deno_fetch/22_body.js:260:12)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:39:22
+    at async retry (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:14:20)
+    at async callRPC (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:28:12)
+    at async Module.getUTXO (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:153:18)
+    at async Module.createListingTX (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:104:23)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:91:25
+[API][ERROR] [Mon Dec 16 2024 20:18:12 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 20:19:56 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 20:28:22 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 20:28:55 GMT+0100 (hora estándar de Europa central)] SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at parse (<anonymous>)
+    at packageData (ext:deno_fetch/22_body.js:402:14)
+    at consumeBody (ext:deno_fetch/22_body.js:260:12)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:39:22
+    at async retry (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:14:20)
+    at async callRPC (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:28:12)
+    at async Module.getUTXO (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:153:18)
+    at async fetchUTXOs (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:91:19)
+    at async Module.createListingTX (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:188:23)
+[API][ERROR] [Mon Dec 16 2024 20:29:13 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 20:31:35 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 20:33:21 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 20:33:54 GMT+0100 (hora estándar de Europa central)] SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at parse (<anonymous>)
+    at packageData (ext:deno_fetch/22_body.js:402:14)
+    at consumeBody (ext:deno_fetch/22_body.js:260:12)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:39:22
+    at async retry (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:14:20)
+    at async callRPC (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:28:12)
+    at async Module.getUTXO (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:153:18)
+    at async fetchUTXOs (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:91:19)
+    at async Module.createListingTX (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:188:23)
+[API][ERROR] [Mon Dec 16 2024 20:34:21 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 20:35:43 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 20:36:56 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 20:45:57 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 20:51:59 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 20:52:47 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 20:53:45 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 20:54:17 GMT+0100 (hora estándar de Europa central)] SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at parse (<anonymous>)
+    at packageData (ext:deno_fetch/22_body.js:402:14)
+    at consumeBody (ext:deno_fetch/22_body.js:260:12)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:39:22
+    at async retry (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:14:20)
+    at async callRPC (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:28:12)
+    at async Module.getUTXO (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:153:18)
+    at async fetchUTXOs (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:91:19)
+    at async Module.createListingTX (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:197:23)
+[API][ERROR] [Mon Dec 16 2024 20:54:21 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 20:54:53 GMT+0100 (hora estándar de Europa central)] SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at parse (<anonymous>)
+    at packageData (ext:deno_fetch/22_body.js:402:14)
+    at consumeBody (ext:deno_fetch/22_body.js:260:12)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:39:22
+    at async retry (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:14:20)
+    at async callRPC (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:28:12)
+    at async Module.getUTXO (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:153:18)
+    at async fetchUTXOs (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:91:19)
+    at async Module.createListingTX (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:197:23)
+[API][ERROR] [Mon Dec 16 2024 20:54:57 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 20:55:29 GMT+0100 (hora estándar de Europa central)] SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at parse (<anonymous>)
+    at packageData (ext:deno_fetch/22_body.js:402:14)
+    at consumeBody (ext:deno_fetch/22_body.js:260:12)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:39:22
+    at async retry (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:14:20)
+    at async callRPC (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:28:12)
+    at async Module.getUTXO (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:153:18)
+    at async fetchUTXOs (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:91:19)
+    at async Module.createListingTX (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:197:23)
+[API][ERROR] [Mon Dec 16 2024 20:56:44 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 20:57:16 GMT+0100 (hora estándar de Europa central)] SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at parse (<anonymous>)
+    at packageData (ext:deno_fetch/22_body.js:402:14)
+    at consumeBody (ext:deno_fetch/22_body.js:260:12)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:39:22
+    at async retry (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:14:20)
+    at async callRPC (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:28:12)
+    at async Module.getUTXO (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:153:18)
+    at async fetchUTXOs (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:91:19)
+    at async Module.createListingTX (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:197:23)
+[API][ERROR] [Mon Dec 16 2024 20:58:00 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 20:58:32 GMT+0100 (hora estándar de Europa central)] SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at parse (<anonymous>)
+    at packageData (ext:deno_fetch/22_body.js:402:14)
+    at consumeBody (ext:deno_fetch/22_body.js:260:12)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:39:22
+    at async retry (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:14:20)
+    at async callRPC (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:28:12)
+    at async Module.getUTXO (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:153:18)
+    at async fetchUTXOs (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:91:19)
+    at async Module.createListingTX (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:197:23)
+[API][ERROR] [Mon Dec 16 2024 20:58:36 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 20:59:08 GMT+0100 (hora estándar de Europa central)] SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at parse (<anonymous>)
+    at packageData (ext:deno_fetch/22_body.js:402:14)
+    at consumeBody (ext:deno_fetch/22_body.js:260:12)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:40:22
+    at async retry (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:14:20)
+    at async callRPC (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:29:12)
+    at async Module.getUTXO (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:154:18)
+    at async fetchUTXOs (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:91:19)
+    at async Module.createListingTX (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:197:23)
+[API][ERROR] [Mon Dec 16 2024 20:59:48 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 20:59:50 GMT+0100 (hora estándar de Europa central)] TypeError: Cannot read properties of undefined (reading 'sort')
+    at Module.getUTXO (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:155:32)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async fetchUTXOs (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:91:19)
+    at async Module.createListingTX (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:197:23)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:91:20
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 21:00:08 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 21:01:05 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 21:02:35 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 21:03:57 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 21:04:48 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 21:05:17 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 21:06:01 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 21:06:16 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 21:07:07 GMT+0100 (hora estándar de Europa central)] SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at parse (<anonymous>)
+    at packageData (ext:deno_fetch/22_body.js:402:14)
+    at consumeBody (ext:deno_fetch/22_body.js:260:12)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:40:22
+    at async retry (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:14:20)
+    at async callRPC (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:29:12)
+    at async Module.getUTXO (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:154:18)
+    at async fetchUTXOs (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:91:19)
+    at async Module.createListingTX (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:197:23)
+[API][ERROR] [Mon Dec 16 2024 21:07:24 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 21:07:48 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 23:41:25 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 23:42:15 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 23:42:57 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Mon Dec 16 2024 23:43:25 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 15:33:38 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 15:33:41 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 15:34:05 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 15:38:00 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 15:38:02 GMT+0100 (hora estándar de Europa central)] Error: Cannot read slice out of bounds
+    at BufferReader.readSlice (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/node_modules/.deno/bitcoinjs-lib@7.0.0-rc.0/node_modules/bitcoinjs-lib/src/esm/bufferutils.js:141:13)
+    at BufferReader.readVarSlice (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/node_modules/.deno/bitcoinjs-lib@7.0.0-rc.0/node_modules/bitcoinjs-lib/src/esm/bufferutils.js:148:17)
+    at Function.fromBuffer (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/node_modules/.deno/bitcoinjs-lib@7.0.0-rc.0/node_modules/bitcoinjs-lib/src/esm/transaction.js:77:30)
+    at Function.fromHex (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/node_modules/.deno/bitcoinjs-lib@7.0.0-rc.0/node_modules/bitcoinjs-lib/src/esm/transaction.js:104:24)
+    at Module.decodeListingTx (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:234:40)
+    at file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:112:29
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 15:38:36 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 15:41:07 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 15:41:47 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 15:42:16 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 15:42:18 GMT+0100 (hora estándar de Europa central)] Error: Cannot read slice out of bounds
+    at BufferReader.readSlice (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/node_modules/.deno/bitcoinjs-lib@7.0.0-rc.0/node_modules/bitcoinjs-lib/src/esm/bufferutils.js:141:13)
+    at BufferReader.readVarSlice (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/node_modules/.deno/bitcoinjs-lib@7.0.0-rc.0/node_modules/bitcoinjs-lib/src/esm/bufferutils.js:148:17)
+    at Function.fromBuffer (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/node_modules/.deno/bitcoinjs-lib@7.0.0-rc.0/node_modules/bitcoinjs-lib/src/esm/transaction.js:77:30)
+    at Function.fromHex (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/node_modules/.deno/bitcoinjs-lib@7.0.0-rc.0/node_modules/bitcoinjs-lib/src/esm/transaction.js:104:24)
+    at Module.decodeListingTx (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:234:40)
+    at file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:121:29
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 15:42:35 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 15:42:37 GMT+0100 (hora estándar de Europa central)] Error: Cannot read slice out of bounds
+    at BufferReader.readSlice (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/node_modules/.deno/bitcoinjs-lib@7.0.0-rc.0/node_modules/bitcoinjs-lib/src/esm/bufferutils.js:141:13)
+    at BufferReader.readVarSlice (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/node_modules/.deno/bitcoinjs-lib@7.0.0-rc.0/node_modules/bitcoinjs-lib/src/esm/bufferutils.js:148:17)
+    at Function.fromBuffer (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/node_modules/.deno/bitcoinjs-lib@7.0.0-rc.0/node_modules/bitcoinjs-lib/src/esm/transaction.js:77:30)
+    at Function.fromHex (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/node_modules/.deno/bitcoinjs-lib@7.0.0-rc.0/node_modules/bitcoinjs-lib/src/esm/transaction.js:104:24)
+    at Module.decodeListingTx (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:234:40)
+    at file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:121:29
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 15:43:51 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 15:43:52 GMT+0100 (hora estándar de Europa central)] Error: Cannot read slice out of bounds
+    at BufferReader.readSlice (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/node_modules/.deno/bitcoinjs-lib@7.0.0-rc.0/node_modules/bitcoinjs-lib/src/esm/bufferutils.js:141:13)
+    at BufferReader.readVarSlice (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/node_modules/.deno/bitcoinjs-lib@7.0.0-rc.0/node_modules/bitcoinjs-lib/src/esm/bufferutils.js:148:17)
+    at Function.fromBuffer (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/node_modules/.deno/bitcoinjs-lib@7.0.0-rc.0/node_modules/bitcoinjs-lib/src/esm/transaction.js:77:30)
+    at Function.fromHex (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/node_modules/.deno/bitcoinjs-lib@7.0.0-rc.0/node_modules/bitcoinjs-lib/src/esm/transaction.js:104:24)
+    at Module.decodeListingTx (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:227:40)
+    at file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:121:29
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 15:44:42 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 15:47:29 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 15:49:23 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 15:50:08 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 15:50:26 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 15:51:13 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 15:53:56 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 15:57:37 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 15:58:45 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 15:59:06 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 16:01:52 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 16:01:54 GMT+0100 (hora estándar de Europa central)] Error:  has no matching Address
+    at Module.fromOutputScript (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/node_modules/.deno/bitcoinjs-lib@7.0.0-rc.0/node_modules/bitcoinjs-lib/src/esm/address.js:142:9)
+    at Module.decodeListingTx (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:269:40)
+    at file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:121:29
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 16:04:13 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 16:04:49 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 16:04:50 GMT+0100 (hora estándar de Europa central)] Error: Invalid seller address
+    at Module.decodeListingTx (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:297:19)
+    at file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:121:29
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 16:06:56 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 16:07:47 GMT+0100 (hora estándar de Europa central)] SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at parse (<anonymous>)
+    at packageData (ext:deno_fetch/22_body.js:402:14)
+    at consumeBody (ext:deno_fetch/22_body.js:260:12)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:40:22
+    at async retry (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:14:20)
+    at async callRPC (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:29:12)
+    at async Module.getUTXO (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/utils/btc/rpc.ts:154:18)
+    at async fetchUTXOs (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:91:19)
+    at async Module.createListingTX (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:190:23)
+[API][ERROR] [Tue Dec 17 2024 16:07:51 GMT+0100 (hora estándar de Europa central)] Error: Invalid seller address
+    at Module.decodeListingTx (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:299:19)
+    at file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:121:29
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 16:10:40 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 16:10:42 GMT+0100 (hora estándar de Europa central)] Error: Invalid seller address
+    at Module.decodeListingTx (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:299:19)
+    at file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:121:29
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 16:11:01 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 16:11:03 GMT+0100 (hora estándar de Europa central)] Error: Invalid seller address
+    at Module.decodeListingTx (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:300:19)
+    at file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:121:29
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 16:14:41 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 16:16:15 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:27:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 16:20:58 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:29:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 16:31:41 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:29:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:48:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)
+[API][ERROR] [Tue Dec 17 2024 16:33:36 GMT+0100 (hora estándar de Europa central)] Error: UTXO doesnt exist
+    at Module.createSellPSBT (file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.ts:29:19)
+    at eventLoopTick (ext:core/01_core.js:175:7)
+    at async file:///Users/javier/@BITCOIN/@XCP/BTC_OPENBOOK/src/services/ordersbook/tx.test.ts:49:9
+    at async innerWrapped (ext:cli/40_test.js:191:5)
+    at async exitSanitizer (ext:cli/40_test.js:107:27)
+    at async outerWrapped (ext:cli/40_test.js:134:14)

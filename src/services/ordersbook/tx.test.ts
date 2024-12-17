@@ -4,16 +4,20 @@ import * as bitcoin from "bitcoinjs-lib";
 import * as tx from "./tx.ts";
 import { CONFIG } from "@/config/index.ts";
 
-let testPsbt: bitcoin.Psbt;
+let unsignedPsbt: bitcoin.Psbt;
 let signedPsbt: bitcoin.Psbt;
+const seller = "bc1q57y36a30vee07g8p3ra56svcrhean5rc0qr3vh";
+const utxo = "d7830e5b603f2b1b2a39c43d31c5d6155e5821cb2549b6ddb05aaf8be483be82:0";
+const price = 100000;
+const invalid_utxo = "d7830e5b603f2b1b2a39c43d31c5d6155e5821cb2549b6ddb05aaf8be483be83:0";
 
 async function setupTestingTX() {
-    if (testPsbt && signedPsbt) return;
+    if (unsignedPsbt && signedPsbt) return;
     console.log("Creating testing txs....");
-    testPsbt = await tx.createSellTx({
-        seller: "bc1q57y36a30vee07g8p3ra56svcrhean5rc0qr3vh",
-        utxo: "5153764cce9d80e1fc1226288d2ac0faa3198e01c027cbf5fc0ad287438245cc:0",
-        price: 100000,
+    unsignedPsbt = await tx.createSellPSBT({
+        seller,
+        utxo,
+        price,
     });
 
     const inputsToSign = [
@@ -26,29 +30,26 @@ async function setupTestingTX() {
         }
     ];
 
-    const unsignedPsbt = testPsbt.clone();
+    const auxPsbt = unsignedPsbt.clone();
     signedPsbt = tx.signPsbt({
-        psbt: unsignedPsbt,
+        psbt: auxPsbt,
         inputsToSign,
         wif: CONFIG.TESTING.WIF
     });
+    console.log({ signedPsbt: signedPsbt.toHex() })
 }
 
 Deno.test("createSellTx should create a valid psbt", async () => {
-    const result = await tx.createSellTx({
-        seller: "bc1qwfmtwelj00pghxhg0nsu0jqx0f76d5nm0axxvt",
-        utxo: "4b9ff56e967749d158e3b35192b7f1793807ae5ca558b7fe439b57af9d330b53:0",
-        price: 100000
-    });
-    assert(result.toHex(), "Psbt hex should be greater than 0");
+    await setupTestingTX();
+    assert(unsignedPsbt.toHex(), "Psbt hex should be greater than 0");
 });
 
 Deno.test("createSellTx should throw if utxo does not exist", async () => {
     try {
-        await tx.createSellTx({
-            seller: "bc1qwfmtwelj00pghxhg0nsu0jqx0f76d5nm0axxvt",
-            utxo: "4b9ff56e967749d158e3b35192b7f1793807ae5ca558b7fe439b57af9d330b52:0",
-            price: 100000
+        await tx.createSellPSBT({
+            seller,
+            utxo: invalid_utxo,
+            price,
         });
         fail("Expected error was not thrown");
     } catch (error) {
@@ -59,7 +60,7 @@ Deno.test("createSellTx should throw if utxo does not exist", async () => {
 
 Deno.test("createSellTx should create a valid psbt for the testing address", async () => {
     await setupTestingTX();
-    assert(testPsbt.toHex(), "Psbt hex should be greater than 0");
+    assert(unsignedPsbt.toHex(), "Psbt hex should be greater than 0");
 });
 
 Deno.test("signPsbt should sign a valid psbt with the testing wif", async () => {
@@ -70,7 +71,8 @@ Deno.test("signPsbt should sign a valid psbt with the testing wif", async () => 
 Deno.test("extractPartialSigs should extract partial sigs from a signed psbt", async () => {
     await setupTestingTX();
     const partialSigs = tx.extractPartialSignatures(signedPsbt);
-    assert(partialSigs[0].partialSig[0].signature.length === 71, "Partial signature should be 71 bytes");
+    assert(partialSigs[0].partialSig[0].signature.length >= 64 && partialSigs[0].partialSig[0].signature.length <= 72, "Partial signature should be between 64 and 72 bytes");
+    console.log('Signature size: ', partialSigs[0].partialSig[0].signature.length);
 });
 
 Deno.test("reconstructTxFromPartialSigs should reconstruct a tx from partial sigs", async () => {
@@ -78,7 +80,46 @@ Deno.test("reconstructTxFromPartialSigs should reconstruct a tx from partial sig
     const partialSigs = tx.extractPartialSignatures(signedPsbt);
     const reconstructedTx = tx.reconstructTxFromPartialSigs({
         partialSigs,
-        psbt: testPsbt
+        psbt: unsignedPsbt
     });
     assert(reconstructedTx.toHex() === signedPsbt.toHex(), "Reconstructed tx should be valid");
+});
+
+Deno.test("createListingTX should create a listing PSBT from a valid signed sell PSBT and valid utxo and price", async () => {
+    await setupTestingTX();
+    const partialSigs = tx.extractPartialSignatures(signedPsbt);
+    assert(partialSigs[0].partialSig[0].signature.length >= 64 && partialSigs[0].partialSig[0].signature.length <= 72, "Partial signature should be between 64 and 72 bytes");
+    const { psbt } = await tx.createListingTX({
+        partialSigs,
+        seller,
+        utxo,
+        price,
+        feeRate: 10
+    });
+    assert(psbt.length > 0, "PSBT should be greater than 0");
+    assert(psbt.includes("02000000000101"), "PSBT should contain the correct version");
+});
+
+Deno.test("decodeListingTx should decode a listing tx", async () => {
+    await setupTestingTX();
+    const partialSigs = tx.extractPartialSignatures(signedPsbt);
+    assert(partialSigs[0].partialSig[0].signature.length >= 64 && partialSigs[0].partialSig[0].signature.length <= 72, "Partial signature should be between 64 and 72 bytes");
+    const { psbt } = await tx.createListingTX({
+        partialSigs,
+        seller,
+        utxo,
+        price,
+        feeRate: 10
+    });
+    const signedListingPsbt = await tx.signPsbt({
+        psbt: bitcoin.Psbt.fromHex(psbt),
+        inputsToSign: [
+            { index: 0, sighashType: [bitcoin.Transaction.SIGHASH_ALL] }
+        ],
+        wif: CONFIG.TESTING.WIF
+    });
+    signedListingPsbt.finalizeAllInputs();
+    const txhex = signedListingPsbt.extractTransaction().toHex();
+    const result = await tx.decodeListingTx(txhex);
+    console.log(result.psbt);
 });

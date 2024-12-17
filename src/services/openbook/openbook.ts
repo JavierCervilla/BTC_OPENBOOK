@@ -21,11 +21,13 @@ import { ascii2hex, bin2hex, hex2ascii, hex2bin } from "@/utils/index.ts";
 
 interface Config {
     PREFIX: string;
-    VERSIONS: {
-        [key: number]: {
-            TIMELOCK: number;
-        }
+    VERSION: {
+        MAJOR: number;
+        MINOR: number;
+        PATCH: number;
+        STRING: string;
     },
+    TIMELOCK: number;
     [key: number]: ProtocolConfig;
 };
 
@@ -44,6 +46,12 @@ interface EncodeMessageParams {
     divisible_bytes?: number;
 }
 
+interface EncodeListingOPReturnParams {
+    protocol: number;
+    utxo: string;
+    price: number;
+}
+
 interface DecodeMessageParams {
     protocol: number;
     message: string;
@@ -52,6 +60,52 @@ interface DecodeMessageParams {
 // biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 class OpenBook {
     static OB_PROTOCOL_CONFIG: Config = CONFIG.OPENBOOK;
+
+    static encode_Listing_OP_RETURN(params: EncodeListingOPReturnParams) {
+        const { utxo, price } = params;
+        const protocolConfig = OpenBook.OB_PROTOCOL_CONFIG[params.protocol];
+        if (!protocolConfig) {
+            throw new Error("Invalid protocol");
+        }
+        const [utxoTxId] = utxo.split(":");
+        const utxoBytes = hex2bin(utxoTxId);
+        const priceBytes = leb128.encodeULEB128(price);
+        const prefixBytes = new TextEncoder().encode(OpenBook.OB_PROTOCOL_CONFIG.PREFIX);
+        const msg_len = prefixBytes.length + utxoBytes.length + priceBytes.length;
+
+        const message = new Uint8Array(msg_len);
+        let offset = 0;
+        message.set(prefixBytes, offset);
+        offset += prefixBytes.length;
+        message.set(utxoBytes, offset);
+        offset += utxoBytes.length;
+        message.set(priceBytes, offset);
+        return message;
+    }
+
+    static decode_Listing_OP_RETURN(params: DecodeMessageParams) {
+        const { message, protocol } = params;
+        const UTXO_BYTES = 32;
+        const protocolConfig = OpenBook.OB_PROTOCOL_CONFIG[protocol];
+        if (!protocolConfig) {
+            throw new Error("Invalid protocol");
+        }
+        const prefixBytes = new TextEncoder().encode(OpenBook.OB_PROTOCOL_CONFIG.PREFIX);
+        const utxoStart = prefixBytes.length;
+        const utxoEnd = utxoStart + UTXO_BYTES;
+
+        const bin_msg = hex2bin(message);
+        const utxo = bin2hex(bin_msg.slice(utxoStart, utxoEnd));
+        const priceStart = utxoEnd;
+        const priceBytes = bin_msg.slice(priceStart);
+        const [ price ] = leb128.decodeULEB128(priceBytes);
+
+        return {
+            //TODO: check if will always be 0 the vout
+            utxo: `${utxo}:0`,
+            price: price,
+        };
+    }
 
     static encode_OP_RETURN(params: EncodeMessageParams) {
         const protocolConfig = OpenBook.OB_PROTOCOL_CONFIG[params.protocol];
