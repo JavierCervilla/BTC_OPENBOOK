@@ -13,7 +13,6 @@ const invalid_utxo = "d7830e5b603f2b1b2a39c43d31c5d6155e5821cb2549b6ddb05aaf8be4
 
 async function setupTestingTX() {
     if (unsignedPsbt && signedPsbt) return;
-    console.log("Creating testing txs....");
     unsignedPsbt = await tx.createSellPSBT({
         seller,
         utxo,
