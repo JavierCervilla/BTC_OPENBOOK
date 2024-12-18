@@ -12,7 +12,7 @@ export async function getNextBlock(db: Database): Promise<number> {
             return CACHED_LAST_BLOCK + 1;
         }
         const stmt = await db.prepare('SELECT MAX(block_index) as start_block FROM blocks');
-        const nextBlockQuery = stmt.get();
+        const nextBlockQuery = stmt.get() as { start_block: number | null };
 
         if (!nextBlockQuery || nextBlockQuery.start_block === null) {
             logger.warn("No blocks found in database");

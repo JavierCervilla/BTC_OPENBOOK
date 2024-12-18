@@ -78,9 +78,6 @@ export class P2WSHEncoder {
         if (network === "testnet") {
             hrp = "tb";
         }
-        //remove version byte ('80') from hex string
-        //hex = hex.substring(2);
-        //the rest follows step 3 on https://en.bitcoin.it/wiki/Bech32
         // convert hex string to binary format
         // biome-ignore lint/style/noNonNullAssertion: <explanation>
         let binaryString = hex.match(/.{1,2}/g)!.map((byte) =>

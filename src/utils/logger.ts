@@ -9,6 +9,9 @@ log.setup({
         console_api: new log.ConsoleHandler("DEBUG", {
             formatter: (record: log.LogRecord) => `[API][${record.levelName}] ${record.msg}`,
         }),
+        console_testing: new log.ConsoleHandler("DEBUG", {
+            formatter: (record: log.LogRecord) => `[TEST][${record.levelName}] ${record.msg}`,
+        }),
         file: new log.FileHandler("WARN", {
             filename: CONFIG.INDEXER.LOGS_FILE,
             formatter: (record: log.LogRecord) => `[INDEXER][${record.levelName}] [${record.datetime}] ${record.msg}`,
@@ -16,7 +19,7 @@ log.setup({
         api: new log.FileHandler("DEBUG", {
             filename: CONFIG.API.LOGS_FILE,
             formatter: (record: log.LogRecord) => `[API][${record.levelName}] [${record.datetime}] ${record.msg}`,
-        }),
+        })
     },
 
     loggers: {
@@ -32,7 +35,7 @@ log.setup({
             level: "DEBUG",
             handlers: ["console_api", "api"],
         },
-        testing: {
+        testingLogger: {
             level: "DEBUG",
             handlers: ["console_testing"],
         }

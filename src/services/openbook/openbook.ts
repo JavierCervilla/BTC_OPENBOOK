@@ -67,11 +67,12 @@ class OpenBook {
         if (!protocolConfig) {
             throw new Error("Invalid protocol");
         }
-        const [utxoTxId] = utxo.split(":");
+        const [utxoTxId, utxoVout] = utxo.split(":");
         const utxoBytes = hex2bin(utxoTxId);
+        const utxoVoutBytes = leb128.encodeULEB128(parseInt(utxoVout));
         const priceBytes = leb128.encodeULEB128(price);
         const prefixBytes = new TextEncoder().encode(OpenBook.OB_PROTOCOL_CONFIG.PREFIX);
-        const msg_len = prefixBytes.length + utxoBytes.length + priceBytes.length;
+        const msg_len = prefixBytes.length + utxoBytes.length + utxoVoutBytes.length + priceBytes.length;
 
         const message = new Uint8Array(msg_len);
         let offset = 0;
@@ -79,6 +80,8 @@ class OpenBook {
         offset += prefixBytes.length;
         message.set(utxoBytes, offset);
         offset += utxoBytes.length;
+        message.set(utxoVoutBytes, offset);
+        offset += utxoVoutBytes.length;
         message.set(priceBytes, offset);
         return message;
     }
@@ -96,13 +99,13 @@ class OpenBook {
 
         const bin_msg = hex2bin(message);
         const utxo = bin2hex(bin_msg.slice(utxoStart, utxoEnd));
-        const priceStart = utxoEnd;
+        const [utxoVout, utxoVoutLength] = leb128.decodeULEB128(bin_msg.slice(utxoEnd));
+        const priceStart = utxoEnd + utxoVoutLength;
         const priceBytes = bin_msg.slice(priceStart);
         const [ price ] = leb128.decodeULEB128(priceBytes);
 
         return {
-            //TODO: check if will always be 0 the vout
-            utxo: `${utxo}:0`,
+            utxo: `${utxo}:${utxoVout}`,
             price: price,
         };
     }

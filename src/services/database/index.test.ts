@@ -16,7 +16,7 @@ Deno.test("initializeDatabase creates the blocks table", async () => {
 
 Deno.test("extractExpectedColumnsFromSchema extracts correct columns", () => {
     const expectedColumns = extractExpectedColumnsFromSchema("schema.sql", "blocks");
-    const expected = ["block_height", "block_hash", "transactions"];
+    const expected = ["block_index", "block_hash", "transactions", "block_time"];
 
     assertEquals(expectedColumns, expected);
 });

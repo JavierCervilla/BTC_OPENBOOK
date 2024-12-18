@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS blocks (
 );
 
 -- Create the atomic_swaps table if not exists
+
 CREATE TABLE IF NOT EXISTS atomic_swaps (
     tx_index INTEGER PRIMARY KEY,
     txid TEXT,
@@ -24,4 +25,12 @@ CREATE TABLE IF NOT EXISTS atomic_swaps (
     service_fee_recipient TEXT,
     service_fee BIGINT
     --- openbook BOOLEAN
+);
+
+-- create the events table if not exists
+
+CREATE TABLE IF NOT EXISTS events (
+    block_index INTEGER PRIMARY KEY,
+    events BLOB,
+    block_time DATETIME
 );

@@ -124,7 +124,7 @@ function addListingOutputs(
     const signature = bin2hex(partialSigs[0].partialSig[0].signature);
     const p2wsh_signature = p2wsh.p2wsh_encode_hex(signature, "bitcoin");
     for (const p2wsh_address of p2wsh_signature) {
-        psbt.addOutput({ address: p2wsh_address, value: 300n });
+        psbt.addOutput({ address: p2wsh_address, value: 330n });
     }
     return { p2wsh_signature, op_return }
 }
@@ -134,7 +134,8 @@ function calculateTransactionSize(
 ): { baseSize: number; vSize: number; expectedFee: number } {
     const nInputsLegacy = seller.startsWith("1") ? 1 : 0;
     const nInputsSegWit = seller.startsWith("bc1q") || seller.startsWith("3") ? 1 : 0;
-    const nOutputsP2PKH = 1;
+    const nOutputsP2PKH = nInputsLegacy > 0 ? 1 : 0;
+    const nOutputsP2WPKH = nInputsSegWit > 0 ? 1 : 0;
     const nOutputsP2WSH = p2wshCount;
 
     const {
@@ -146,6 +147,7 @@ function calculateTransactionSize(
         nInputsLegacy,
         nInputsSegWit,
         nOutputsP2PKH,
+        nOutputsP2WPKH,
         nOutputsP2WSH,
         feeRate,
     });

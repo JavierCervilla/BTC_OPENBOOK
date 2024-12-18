@@ -1,5 +1,5 @@
 import { CONFIG } from "@/config/index.ts";
-import logger from "../logger.ts";
+import {apiLogger} from "../logger.ts";
 import type { Transaction, rpcCall, Block } from './rpc.d.ts'
 import * as progress from "../progress.ts";
 import { address2ScriptHash } from "@/utils/btc/tx.ts";
@@ -13,10 +13,10 @@ export async function retry<T>(
         try {
             return await fn();
         } catch (err: unknown) {
-            console.log("retrying...")
+            apiLogger.warn(`retrying RPC call ${fnName}...`);
             if (i === retries - 1) {
-                logger.warn(`\nRPC call ${fnName} failed ${i + 1} times`);
-                logger.error(err);
+                apiLogger.warn(`RPC call ${fnName} failed ${i + 1} times`);
+                apiLogger.error(err);
                 throw err;
             }
             await new Promise(resolve => setTimeout(resolve, 200));
@@ -25,7 +25,7 @@ export async function retry<T>(
     throw new Error(`RPC call ${fnName} failed after ${retries} retries`);
 }
 
-export async function callRPC(rpcCall: rpcCall) {
+export async function callRPC(rpcCall: rpcCall, retries = 3) {
     return await retry(async () => {
         const response = await fetch(rpcCall.endpoint, {
             method: "POST",
@@ -39,7 +39,7 @@ export async function callRPC(rpcCall: rpcCall) {
         );
         const data = await response.json();
         return data;
-    }, 5, rpcCall.call.method);
+    }, retries, rpcCall.call.method);
 }
 
 export async function asyncPool<T, R>(
@@ -138,34 +138,42 @@ export async function getTransaction(txid: string, verbose = true): Promise<Tran
     return transaction.result;
 }
 
+async function getUTXOFromMempoolSpace(address: string): Promise<UTXO[]> {
+    const mempoolSpace = await fetch(`https://mempool.space/api/address/${address}/utxo`);
+    const data = await mempoolSpace.json();
+    return data;
+}
 
 export async function getUTXO(address: string): Promise<UTXO[]> {
-    const params = {
-      endpoint: CONFIG.ELECTRUM.RPC_URL as string,
-      rpcUser: CONFIG.ELECTRUM.RPC_USER as string,
-      rpcPassword: CONFIG.ELECTRUM.RPC_PASSWORD as string,
-      call: {
-        jsonrpc: "2.0",
-        id: 1,
-        method: "blockchain.scripthash.listunspent",
-        params: [address2ScriptHash(address)]
-      }
+    try {
+        const params = {
+            endpoint: CONFIG.ELECTRUM.RPC_URL as string,
+            rpcUser: CONFIG.ELECTRUM.RPC_USER as string,
+            rpcPassword: CONFIG.ELECTRUM.RPC_PASSWORD as string,
+            call: {
+                jsonrpc: "2.0",
+                id: 1,
+                method: "blockchain.scripthash.listunspent",
+                params: [address2ScriptHash(address)]
+            }
+        }
+        const data = await callRPC(params, 2);
+        const sorted = data.result.sort((a: ElectrsUTXO, b: ElectrsUTXO) => b.value - a.value);
+        const adapted = sorted.map((utxo: ElectrsUTXO) => ({
+            txid: utxo.tx_hash,
+            vout: utxo.tx_pos,
+            status: {
+                confirmed: utxo.height && utxo.height > 0,
+                block_height: utxo.height
+            },
+            value: utxo.value,
+            height: utxo.height
+        }));
+        return adapted;
+    } catch (_error) {
+        return await getUTXOFromMempoolSpace(address);
     }
-    const data = await callRPC(params);
-    const sorted = data.result.sort((a: ElectrsUTXO, b: ElectrsUTXO) => b.value - a.value);
-    const adapted = sorted.map((utxo: ElectrsUTXO) => ({
-      txid: utxo.tx_hash,
-      vout: utxo.tx_pos,
-      status: {
-        confirmed: utxo.height && utxo.height > 0,
-        block_height: utxo.height
-      },
-      value: utxo.value,
-      height: utxo.height
-    }));
-    return adapted;
-  }
-
+}
 
 export async function getMultipleTransactions(
     txids: string[],
@@ -206,4 +214,20 @@ export async function getMultipleTransactions(
     );
     progress.finishProgress();
     return result;
+}
+
+export async function broadcastTransaction(tx: string) {
+    const params = {
+        endpoint: CONFIG.BITCOIN.RPC_URL as string,
+        rpcUser: CONFIG.BITCOIN.RPC_USER as string,
+        rpcPassword: CONFIG.BITCOIN.RPC_PASSWORD as string,
+        call: {
+            jsonrpc: "2.0",
+            id: 1,
+            method: "sendrawtransaction",
+            params: [tx]
+        }
+    }
+    const data = await callRPC(params, 2);
+    return data;
 }

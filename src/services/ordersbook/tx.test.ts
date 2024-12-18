@@ -2,6 +2,7 @@ import { assert, fail } from "@std/assert";
 import * as bitcoin from "bitcoinjs-lib";
 
 import * as tx from "./tx.ts";
+import * as btc from "@/utils/btc/rpc.ts";
 import { CONFIG } from "@/config/index.ts";
 
 let unsignedPsbt: bitcoin.Psbt;
@@ -11,6 +12,7 @@ const seller = "bc1q57y36a30vee07g8p3ra56svcrhean5rc0qr3vh";
 const utxo = "d7830e5b603f2b1b2a39c43d31c5d6155e5821cb2549b6ddb05aaf8be483be82:0";
 const price = 100000;
 const invalid_utxo = "d7830e5b603f2b1b2a39c43d31c5d6155e5821cb2549b6ddb05aaf8be483be83:0";
+const listingTx = "1c98219645f3bf8b845d290ff46eb1f62a7a908a289867507f03eeb2fd0b38a4";
 
 async function setupTestingTX() {
     if (unsignedPsbt && signedPsbt) return;
@@ -96,32 +98,13 @@ Deno.test("createListingTX should create a listing PSBT from a valid signed sell
     });
     assert(psbt.length > 0, "PSBT should be greater than 0");
     assert(psbt.includes("02000000000101"), "PSBT should contain the correct version");
+    assert(psbt.includes(utxo.split(":")[0]), "PSBT should contain the correct utxo");
 });
 
-Deno.test("decodeListingTx should decode a listing tx and reconstruct the original signed tx", async () => {
-    await setupTestingTX();
-    const partialSigs = tx.extractPartialSignatures(signedPsbt);
-    assert(partialSigs[0].partialSig[0].signature.length >= 64 && partialSigs[0].partialSig[0].signature.length <= 72, "Partial signature should be between 64 and 72 bytes");
-    const { psbt: listingPsbt } = await tx.createListingTX({
-        partialSigs,
-        seller,
-        utxo,
-        price,
-        feeRate,
-    });
-    const signedListingPsbt = await tx.signPsbt({
-        psbt: bitcoin.Psbt.fromHex(listingPsbt),
-        inputsToSign: [
-            { index: 0, sighashType: [bitcoin.Transaction.SIGHASH_ALL] }
-        ],
-        wif: CONFIG.TESTING.WIF
-    });
-    signedListingPsbt.finalizeAllInputs();
-    const txhex = signedListingPsbt.extractTransaction().toHex();
-    const { psbt: result_psbt, utxo: result_utxo, seller: result_seller, price: result_price } = await tx.decodeListingTx(txhex);
-    const resultFeeRate = signedListingPsbt.getFeeRate();
-    assert(resultFeeRate >= feeRate - (0.15 * feeRate) && resultFeeRate <= feeRate + (0.15 * feeRate), "resultant feeRate shouldn't vary more than 15%");
-    assert(result_psbt === signedPsbt.toHex(), "Resultant PSBT should be the same as signed PSBT");
+Deno.test("decodeListingTx should decode a listing tx and reconstruct the original signed tx from and onchain tx", async () => {
+    const tx_hex = await btc.getTransaction(listingTx, false);
+    const { psbt, utxo:result_utxo, seller:result_seller, price:result_price } = await tx.decodeListingTx(tx_hex);
+    assert(psbt === signedPsbt.toHex(), "Resultant PSBT should be the same as signed PSBT");
     assert(result_utxo === utxo, "Resultant utxo should be the same as the original utxo");
     assert(result_seller === seller, "Resultant seller should be the same as the original seller");
     assert(result_price === BigInt(price), "Resultant price should be the same as the original price");

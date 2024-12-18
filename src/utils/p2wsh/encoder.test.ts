@@ -32,10 +32,5 @@ Deno.test("Should decode psbt from p2wsh addresses", () => {
         "bc1qvarpkrunlm8lgetreh3h68zalavvfpcqqqqqqqgrqjpsqqqqqqqqp7l8v5"
       ];
     const decoded_hex = P2WSHEncoder.p2wsh_decode_hex(p2wsh_addresses);
-
-    const psbt = bitcoin.Psbt.fromHex(decoded_hex);
-
-    console.log(psbt.txInputs);
-    console.log(psbt.txOutputs);
     assert(decoded_hex, "Should have decoded hex");
 })

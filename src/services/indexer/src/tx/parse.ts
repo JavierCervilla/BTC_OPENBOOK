@@ -128,7 +128,11 @@ export async function parseTransactionForAtomicSwap(transaction: Transaction): P
         const message = op_ret.scriptPubKey?.asm.split("OP_RETURN ")[1];
         const openbook_data = parseOPRETURN(message);
         if (openbook_data) {
-            const { seller, buyer, total_price, unit_price } = await extractTransactionDetails(transaction, openbook_data);
+            const tx_details = await extractTransactionDetails(transaction, openbook_data);
+            if (!tx_details) {
+                return undefined;
+            }
+            const { seller, buyer, total_price, unit_price, service_fee_recipient, service_fee } = tx_details;
 
             const block = await rpc.getBlockFromHash(transaction.blockhash);
             if (seller && buyer && total_price !== undefined && unit_price !== undefined) {
@@ -141,7 +145,9 @@ export async function parseTransactionForAtomicSwap(transaction: Transaction): P
                     total_price,
                     unit_price,
                     block_hash: transaction.blockhash,
-                    block_index: block.height
+                    block_index: block.height,
+                    service_fee_recipient,
+                    service_fee,
                 };
             }
         }
@@ -203,8 +209,7 @@ export async function parseXCPEvents(events: XCPUtxoMoveInfo[]): Promise<ParsedT
         }
         return undefined;
     }));
-    console.log(atomic_swaps);
-    return atomic_swaps.filter(Boolean);
+    return atomic_swaps.filter(Boolean) as ParsedTransaction[];
 }
 
 
