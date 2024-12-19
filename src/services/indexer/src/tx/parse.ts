@@ -1,3 +1,5 @@
+import * as bitcoin from "bitcoinjs-lib";
+
 import logger from "@/utils/logger.ts";
 import * as rpc from "@/utils/btc/rpc.ts";
 import { OpenBook } from "@/services/openbook/openbook.ts";
@@ -5,9 +7,10 @@ import type { Transaction, VOUT } from "@/utils/btc/rpc.d.ts"
 import type { OpenBookListing, ParsedTransaction } from "@/services/indexer/src/tx/parse.d.ts";
 import { executeAtomicOperations, storeAtomicSwaps, storeBlockData, storeOpenbookListings } from "@/services/indexer/src/db/methods.ts";
 import type { Database } from "@db/sqlite";
-import type { XCPUtxoMoveInfo } from "@/utils/xcp/rpc.d.ts";
+import type { UTXOBalance, XCPUtxoMoveInfo } from "@/utils/xcp/rpc.d.ts";
 import * as xcp from "@/utils/xcp/rpc.ts";
 import * as tx from "@/services/ordersbook/tx.ts";
+import * as hex from "@/utils/index.ts";
 import { CONFIG } from "@/config/index.ts";
 
 
@@ -198,6 +201,16 @@ export async function parseXCPEvents(events: XCPUtxoMoveInfo[]): Promise<ParsedT
     return atomic_swaps.filter(Boolean) as ParsedTransaction[];
 }
 
+function getLockTimeFromTXHex(tx_hex: string) {
+    const bytes = hex.hex2bin(tx_hex.slice(-8));
+    const lockTime = (
+        (bytes[3] << 24) |
+        (bytes[2] << 16) |
+        (bytes[1] << 8) |
+        bytes[0]
+    ) >>> 0;
+    return lockTime;
+}
 
 export async function parseBlock(db: Database, blockInfo: Block): Promise<{ transactions: Transaction[], atomic_swaps: ParsedTransaction[], openbook_listings: OpenBookListing[] }> {
     //const { transactions, atomic_swaps } = await parseTransactions(blockInfo.tx as string[])
@@ -219,8 +232,8 @@ export async function parseBlock(db: Database, blockInfo: Block): Promise<{ tran
     let txs: Transaction[] = [];
     let valid_openbook_listings: OpenBookListing[] = [];
     if (blockInfo.height >= CONFIG.INDEXER.START_OPENBOOK_LISTINGS_BLOCK) {
-        txs = await rpc.getMultipleTransactions(blockInfo.tx as string[], true, 1000);
-        const potential_openbook_listings = txs.filter((tx) => tx.locktime === CONFIG.OPENBOOK.TIMELOCK)
+        txs = await rpc.getMultipleTransactions(blockInfo.tx as string[], false, 1000);
+        const potential_openbook_listings = txs.filter((tx) => getLockTimeFromTXHex(tx.hex) === CONFIG.OPENBOOK.TIMELOCK)
         const openbook_listings = await Promise.all(potential_openbook_listings.map(async (tx) => await parseOpenbookListingTx(tx)));
         valid_openbook_listings = openbook_listings.filter(tx => tx !== undefined).map(tx => ({ ...tx, timestamp: blockInfo.time, block_index: blockInfo.height }));
     }
@@ -250,7 +263,7 @@ function utxoBalanceAdapter(utxo_balance: UTXOBalance) {
     }
 }
 
-export async function parseOpenbookListingTx(transaction: Transaction) {
+export async function parseOpenbookListingTx(transaction: { txid: string, hex: string }) {
     try {
         const tx_hex = await rpc.getTransaction(transaction.txid, false);
         const decoded = await tx.decodeListingTx(tx_hex);

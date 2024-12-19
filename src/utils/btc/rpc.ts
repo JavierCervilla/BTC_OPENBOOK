@@ -178,9 +178,9 @@ export async function getMultipleTransactions(
     txids: string[],
     verbose = true,
     concurrency = 5
-): Promise<(Transaction | string | null)[]> {
+): Promise<(Transaction | { txid: string, hex: string } | null)[]> {
     progress.initProgress(txids.length, 'Fetching transactions');
-    const result = await asyncPool<string, Transaction | string | null>(
+    const result = await asyncPool<string, Transaction | { txid: string, hex: string } | null>(
         txids,
         concurrency,
         async (txid) => {
@@ -206,6 +206,12 @@ export async function getMultipleTransactions(
 
             const data = await response.json();
             const transaction = data.result;
+            if(!verbose) {
+                return {
+                    txid: txid,
+                    hex: transaction
+                }
+            }
             return transaction;
         },
         3,

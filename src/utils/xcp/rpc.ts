@@ -1,5 +1,5 @@
 import { CONFIG } from "@/config/index.ts";
-import type { XCPEvent, XCPEventCount, XCPEventName } from "./rpc.d.ts";
+import type { UTXOBalance, XCPEvent, XCPEventCount, XCPEventName } from "./rpc.d.ts";
 import { apiLogger } from "@/utils/logger.ts";
 
 
@@ -104,7 +104,7 @@ export async function getEventsCountByBlock(block: number) {
     return getEventsCountAdapter(data.result);
 }
 
-export async function getUTXOBalance(utxo: string): Promise<UTXOBalance> {
+export async function getUTXOBalance(utxo: string): Promise<UTXOBalance[]> {
     try {
         const url = new URL(`${CONFIG.XCP.RPC_URL}/v2/utxos/${utxo}/balances`);
         url.searchParams.set("verbose", "true");
