@@ -3,7 +3,6 @@ import { InitialPrompt, logger } from "@/utils/logger.ts";
 import { getNextBlock } from "./src/db/methods.ts";
 import * as rpc from "@/utils/btc/rpc.ts";
 import * as parser from "@/services/indexer/src/tx/parse.ts";
-import { CONFIG } from "@/config/index.ts";
 
 export async function initializeIndexer(db: Database) {
     const nextBlock = await getNextBlock(db);
@@ -17,13 +16,9 @@ export async function initializeIndexer(db: Database) {
             logger.info(`[${start.toISOString()}] Start processing Block ${block}`);
 
             const blockInfo = await rpc.getBlock(block);
-            const { atomic_swaps } = await parser.parseBlock(db, blockInfo);
-            let _transactions: Transaction[] = [];
-            if (block >= CONFIG.INDEXER.START_OPENBOOK_LISTINGS_BLOCK) {
-                _transactions = await rpc.getMultipleTransactions(blockInfo.tx, true, 1000);
-            }
+            const { atomic_swaps, openbook_listings } = await parser.parseBlock(db, blockInfo);
             const end = new Date();
-            logger.info(`[${end.toISOString()}] Block ${block} processed ${atomic_swaps.length} transactions in ${(end.getTime() - start.getTime()) / 1000}s ${atomic_swaps.length} atomic swaps`);
+            logger.info(`[${end.toISOString()}] Block ${block} processed ${atomic_swaps.length} transactions in ${(end.getTime() - start.getTime()) / 1000}s ${atomic_swaps.length} atomic swaps ${openbook_listings.length} listings`);
             block++;
         }
 

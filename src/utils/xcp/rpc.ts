@@ -1,12 +1,54 @@
 import { CONFIG } from "@/config/index.ts";
-import type { XCPEvent } from "./rpc.d.ts";
+import type { XCPEvent, XCPEventCount, XCPEventName } from "./rpc.d.ts";
 import { apiLogger } from "@/utils/logger.ts";
+
+
+export const EVENT_NAMES = [
+    "NEW_BLOCK",
+    "NEW_TRANSACTION",
+    "NEW_TRANSACTION_OUTPUT",
+    "BLOCK_PARSED",
+    "TRANSACTION_PARSED",
+    "DEBIT",
+    "CREDIT",
+    "ENHANCED_SEND",
+    "MPMA_SEND",
+    "SEND",
+    "ASSET_TRANSFER",
+    "SWEEP",
+    "ASSET_DIVIDEND",
+    "RESET_ISSUANCE",
+    "ASSET_CREATION",
+    "ASSET_ISSUANCE",
+    "ASSET_DESTRUCTION",
+    "OPEN_ORDER",
+    "ORDER_MATCH",
+    "ORDER_UPDATE",
+    "ORDER_FILLED",
+    "ORDER_MATCH_UPDATE",
+    "BTC_PAY",
+    "CANCEL_ORDER",
+    "ORDER_EXPIRATION",
+    "ORDER_MATCH_EXPIRATION",
+    "OPEN_DISPENSER",
+    "DISPENSER_UPDATE",
+    "REFILL_DISPENSER",
+    "DISPENSE",
+    "BROADCAST",
+    "NEW_FAIRMINTER",
+    "FAIRMINTER_UPDATE",
+    "NEW_FAIRMINT",
+    "ATTACH_TO_UTXO",
+    "DETACH_FROM_UTXO",
+    "UTXO_MOVE",
+    "BURN",
+];
 
 export async function retry<T>(fn: () => Promise<T>, retries = 3, delay = 500): Promise<T> {
     for (let i = 0; i < retries; i++) {
         try {
             return await fn();
-        } catch (error) {
+        } catch (_error) {
             await new Promise(resolve => setTimeout(resolve, delay));
         }
     }
@@ -29,7 +71,7 @@ function getUtxoMoveAdapter(event: XCPEvent) {
 }
 
 
-export async function getEventsByBlock(block: number, event = "UTXO_MOVE") {
+export async function getSpecificEventsByBlock(block: number, event = "UTXO_MOVE") {
     const endpoint = new URL(`${CONFIG.XCP.RPC_URL}/v2/blocks/${block}/events`);
     endpoint.searchParams.set("event_name", event);
     endpoint.searchParams.set("limit", "5000");
@@ -41,7 +83,28 @@ export async function getEventsByBlock(block: number, event = "UTXO_MOVE") {
     return data.result.map(getUtxoMoveAdapter);
 }
 
-export async function getUTXOBalance(utxo: string) {
+
+
+function getEventsCountAdapter(eventList: XCPEventCount[]) {
+    const eventCounts: Record<string, number> = {};
+    for (const event of EVENT_NAMES) {
+        eventCounts[event] = 0;
+    }
+    for (const event of eventList) {
+        eventCounts[event.event] = event.event_count;
+    }
+    return eventCounts;
+}
+
+export async function getEventsCountByBlock(block: number) {
+    const endpoint = new URL(`${CONFIG.XCP.RPC_URL}/v2/blocks/${block}/events/counts`);
+    endpoint.searchParams.set("verbose", "true");
+    const response = await retry(() => fetch(endpoint.toString()));
+    const data = await response.json();
+    return getEventsCountAdapter(data.result);
+}
+
+export async function getUTXOBalance(utxo: string): Promise<UTXOBalance> {
     try {
         const url = new URL(`${CONFIG.XCP.RPC_URL}/v2/utxos/${utxo}/balances`);
         url.searchParams.set("verbose", "true");

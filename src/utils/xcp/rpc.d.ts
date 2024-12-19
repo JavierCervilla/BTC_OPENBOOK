@@ -1,9 +1,18 @@
+import type { EVENT_NAMES } from "@/utils/xcp/rpc.ts";
+
 export interface XCPEvent {
     event_index: number
     event: string
     params: Params
     tx_hash: string
 }
+
+export interface XCPEventCount {
+    event: string
+    event_count: number
+}
+
+export type XCPEventName = typeof EVENT_NAMES[number]
 
 export interface Params {
     asset: string
@@ -36,4 +45,22 @@ export interface XCPUtxoMoveInfo {
     qty: bigint
     assetId: string
     openbook: boolean
+}
+
+export interface UTXOBalance {
+    asset: string
+    asset_longname: string | null,
+    quantity: number
+    utxo: string
+    utxo_address: string
+    asset_info: AssetInfo
+    quantity_normalized: string
+}
+
+export interface AssetInfo {
+    asset_longname: string | null;
+    description: string
+    issuer: string
+    divisible: boolean
+    locked: boolean
 }

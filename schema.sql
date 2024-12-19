@@ -2,8 +2,8 @@
 
 CREATE TABLE IF NOT EXISTS blocks (
     block_index INTEGER PRIMARY KEY,
-    block_hash TEXT NOT NULL,
     transactions BLOB,
+    events BLOB,
     block_time DATETIME
 );
 
@@ -27,10 +27,15 @@ CREATE TABLE IF NOT EXISTS atomic_swaps (
     --- openbook BOOLEAN
 );
 
--- create the events table if not exists
+-- Create the openbook_listings table if not exists
 
-CREATE TABLE IF NOT EXISTS events (
-    block_index INTEGER PRIMARY KEY,
-    events BLOB,
-    block_time DATETIME
+CREATE TABLE IF NOT EXISTS openbook_listings (
+    txid TEXT PRIMARY KEY,
+    timestamp DATETIME,
+    block_index INTEGER,
+    utxo TEXT,
+    price BIGINT,
+    seller TEXT,
+    psbt TEXT,
+    utxo_balance BLOB
 );

@@ -14,3 +14,14 @@ export type ParsedTransaction = {
     service_fee: bigint | null,
 }
 export type AtomicSwap = ParsedTransaction;
+
+export type OpenBookListing = {
+    txid: string,
+    timestamp: number,
+    block_index: number,
+    utxo: string,
+    price: bigint,
+    seller: string,
+    psbt: string,
+    utxo_balance: string,
+}

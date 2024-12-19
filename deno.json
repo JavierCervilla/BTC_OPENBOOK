@@ -4,7 +4,8 @@
     "start": "deno run -A src/main.ts",
     "test": "NODE_ENV=test deno test -A",
     "broadcast": "deno run -A src/scripts/broadcast.ts",
-    "decode": "deno run -A src/scripts/decode.ts"
+    "decode": "deno run -A src/scripts/decode.ts",
+    "clean": "deno run -A src/scripts/clean.ts"
   },
   "nodeModulesDir":"auto",
   "imports": {

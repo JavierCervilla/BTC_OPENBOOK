@@ -2,7 +2,7 @@ import type { Database } from "@db/sqlite";
 
 import { CONFIG } from "@/config/index.ts";
 import logger from "@/utils/logger.ts";
-import type { ParsedTransaction } from "@/services/indexer/src/tx/parse.d.ts";
+import type { ParsedTransaction, OpenBookListing } from "@/services/indexer/src/tx/parse.d.ts";
 
 let CACHED_LAST_BLOCK: number;
 
@@ -38,19 +38,19 @@ export function executeAtomicOperations(db: Database, operations: (db: Database)
 
 type BlockInfo = {
     block_index: number;
-    block_hash: string;
     block_time: number;
     transactions: string;
+    events: string;
 }
 
 export function storeBlockData(db: Database, blockInfo: BlockInfo) {
     try {
-        const stmt = db.prepare('INSERT INTO blocks (block_index, block_hash, block_time, transactions) VALUES (?,?,?,?)')
+        const stmt = db.prepare('INSERT INTO blocks (block_index, block_time, transactions, events) VALUES (?,?,?,?)')
         stmt.run(
             blockInfo.block_index,
-            blockInfo.block_hash,
             blockInfo.block_time,
-            blockInfo.transactions
+            blockInfo.transactions,
+            blockInfo.events
         );
     } catch (error) {
         logger.error("Error storing block data:", error);
@@ -82,6 +82,18 @@ export function storeAtomicSwaps(db: Database, atomic_swaps: ParsedTransaction[]
         }
     } catch (error) {
         logger.error("Error storing atomic swaps:", error);
+        throw error;
+    }
+}
+
+export function storeOpenbookListings(db: Database, openbook_listings: OpenBookListing[]) {
+    try {
+        const stmt = db.prepare('INSERT INTO openbook_listings (txid, timestamp, block_index, utxo, price, seller, psbt, utxo_balance) VALUES (?,?,?,?,?,?,?,?)');
+        for (const listing of openbook_listings) {
+            stmt.run(listing.txid, listing.timestamp, listing.block_index, listing.utxo, listing.price, listing.seller, listing.psbt, listing.utxo_balance);
+        }
+    } catch (error) {
+        logger.error("Error storing openbook listings:", error);
         throw error;
     }
 }

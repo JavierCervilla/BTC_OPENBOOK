@@ -13,7 +13,6 @@ export async function retry<T>(
         try {
             return await fn();
         } catch (err: unknown) {
-            apiLogger.warn(`retrying RPC call ${fnName}...`);
             if (i === retries - 1) {
                 apiLogger.warn(`RPC call ${fnName} failed ${i + 1} times`);
                 apiLogger.error(err);

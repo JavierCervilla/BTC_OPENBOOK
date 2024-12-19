@@ -1,13 +1,14 @@
 import logger from "@/utils/logger.ts";
-import * as progress from "@/utils/progress.ts";
 import * as rpc from "@/utils/btc/rpc.ts";
 import { OpenBook } from "@/services/openbook/openbook.ts";
 import type { Transaction, VOUT } from "@/utils/btc/rpc.d.ts"
-import type { ParsedTransaction } from "@/services/indexer/src/tx/parse.d.ts";
-import { executeAtomicOperations, storeAtomicSwaps, storeBlockData } from "@/services/indexer/src/db/methods.ts";
+import type { OpenBookListing, ParsedTransaction } from "@/services/indexer/src/tx/parse.d.ts";
+import { executeAtomicOperations, storeAtomicSwaps, storeBlockData, storeOpenbookListings } from "@/services/indexer/src/db/methods.ts";
 import type { Database } from "@db/sqlite";
 import type { XCPUtxoMoveInfo } from "@/utils/xcp/rpc.d.ts";
-import { getEventsByBlock } from "@/utils/xcp/rpc.ts";
+import * as xcp from "@/utils/xcp/rpc.ts";
+import * as tx from "@/services/ordersbook/tx.ts";
+import { CONFIG } from "@/config/index.ts";
 
 
 const DUST_THRESHOLD = 546;
@@ -167,22 +168,6 @@ export async function parseTxForAtomicSwap(txid: string): Promise<ParsedTransact
     return parseTransactionForAtomicSwap(transaction);
 }
 
-//TODO: This was before using UTXO, just for reference
-//async function parseTransactions(txs: string[]): Promise<{ transactions: Transaction[], atomic_swaps: ParsedTransaction[] }> {
-//    const transactions = await rpc.getMultipleTransactions(txs as string[], true, 1000);
-//    const atomic_swaps_transactions = await Promise.all(transactions.map((tx: Transaction) => {
-//        const transaction = parseTransactionForAtomicSwap(tx);
-//        return transaction;
-//    }));
-//    progress.finishProgress();
-//    const atomic_swaps = atomic_swaps_transactions.filter(Boolean) as ParsedTransaction[];
-//    return {
-//        transactions,
-//        atomic_swaps
-//    };
-//}
-
-
 export async function parseXCPEvents(events: XCPUtxoMoveInfo[]): Promise<ParsedTransaction[]> {
     const atomic_swaps = await Promise.all(events.map(async (event) => {
         const transaction = await rpc.getTransaction(event.txid) as Transaction;
@@ -190,6 +175,7 @@ export async function parseXCPEvents(events: XCPUtxoMoveInfo[]): Promise<ParsedT
         if (!extractedTx) {
             return undefined;
         }
+
         const { seller, buyer, total_price, unit_price, service_fee_recipient, service_fee } = extractedTx;
         if (seller && buyer && total_price && unit_price) {
             const result = {
@@ -213,11 +199,12 @@ export async function parseXCPEvents(events: XCPUtxoMoveInfo[]): Promise<ParsedT
 }
 
 
-export async function parseBlock(db: Database, blockInfo: Block): Promise<{ transactions: Transaction[], atomic_swaps: ParsedTransaction[] }> {
+export async function parseBlock(db: Database, blockInfo: Block): Promise<{ transactions: Transaction[], atomic_swaps: ParsedTransaction[], openbook_listings: OpenBookListing[] }> {
     //const { transactions, atomic_swaps } = await parseTransactions(blockInfo.tx as string[])
-    const events = await getEventsByBlock(blockInfo.height);
-    logger.info(`Found ${events.length} utxo move events for block ${blockInfo.height}`);
-    const atomic_swaps = await parseXCPEvents(events);
+    const utxo_move_events = await xcp.getSpecificEventsByBlock(blockInfo.height);
+    logger.info(`Found ${utxo_move_events.length} utxo move events for block ${blockInfo.height}`);
+    const atomic_swaps = await parseXCPEvents(utxo_move_events);
+    logger.info(`${atomic_swaps.length} atomic swaps`);
     const filtered_atomic_swaps = atomic_swaps.map((swap: ParsedTransaction) => {
         return {
             ...swap,
@@ -226,19 +213,64 @@ export async function parseBlock(db: Database, blockInfo: Block): Promise<{ tran
         }
     });
 
+    const events = await xcp.getEventsCountByBlock(blockInfo.height);
+    const transactions = filtered_atomic_swaps.map((swap) => swap?.txid);
+
+    let txs: Transaction[] = [];
+    let valid_openbook_listings: OpenBookListing[] = [];
+    if (blockInfo.height >= CONFIG.INDEXER.START_OPENBOOK_LISTINGS_BLOCK) {
+        txs = await rpc.getMultipleTransactions(blockInfo.tx as string[], true, 1000);
+        const potential_openbook_listings = txs.filter((tx) => tx.locktime === CONFIG.OPENBOOK.TIMELOCK)
+        const openbook_listings = await Promise.all(potential_openbook_listings.map(async (tx) => await parseOpenbookListingTx(tx)));
+        valid_openbook_listings = openbook_listings.filter(tx => tx !== undefined).map(tx => ({ ...tx, timestamp: blockInfo.time, block_index: blockInfo.height }));
+    }
+
     executeAtomicOperations(db, (db) => {
         try {
             storeBlockData(db, {
                 block_index: blockInfo.height,
-                block_hash: blockInfo.hash,
                 block_time: blockInfo.time,
-                transactions: JSON.stringify(filtered_atomic_swaps.map((swap) => swap?.txid))
+                transactions: JSON.stringify(transactions),
+                events: JSON.stringify(events)
             });
             storeAtomicSwaps(db, filtered_atomic_swaps as ParsedTransaction[]);
+            storeOpenbookListings(db, valid_openbook_listings as OpenBookListing[]);
         } catch (error) {
             logger.error("Error storing block data or atomic swaps:", error);
             throw error;
         }
     });
-    return { transactions: [], atomic_swaps: filtered_atomic_swaps };
+    return { transactions: [], atomic_swaps: filtered_atomic_swaps, openbook_listings: valid_openbook_listings };
+}
+
+function utxoBalanceAdapter(utxo_balance: UTXOBalance) {
+    return {
+        assetId: utxo_balance.asset,
+        qty: utxo_balance.quantity_normalized,
+    }
+}
+
+export async function parseOpenbookListingTx(transaction: Transaction) {
+    try {
+        const tx_hex = await rpc.getTransaction(transaction.txid, false);
+        const decoded = await tx.decodeListingTx(tx_hex);
+        if (decoded) {
+            const { utxo, price, seller, psbt } = decoded;
+            const balance = await xcp.getUTXOBalance(utxo);
+            const utxo_balance = balance.map(utxoBalanceAdapter);
+            const result = {
+                txid: transaction.txid,
+                utxo,
+                price,
+                seller,
+                psbt,
+                utxo_balance: JSON.stringify(utxo_balance)
+            }
+            return result;
+        }
+        return undefined;
+    } catch (error) {
+        logger.error(`Error parsing openbook listing tx ${transaction.txid}: ${error}`);
+        return undefined;
+    }
 }
