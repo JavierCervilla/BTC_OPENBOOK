@@ -1,7 +1,5 @@
 import { assert } from "@std/assert";
-import { Database } from "@db/sqlite";
 
-import * as rpc from "@/utils/btc/rpc.ts";
 import * as parser from "@/services/indexer/src/tx/parse.ts";
 
 Deno.test("parseTransaction: should parse a transaction with an OP_RETURN output", async () => {
@@ -9,10 +7,7 @@ Deno.test("parseTransaction: should parse a transaction with an OP_RETURN output
     const parsed = await parser.parseTxForAtomicSwap(txid);
     assert(parsed);
     assert(parsed.txid === txid, "txid mismatch");
-    assert(parsed.protocol === 0, "protocol mismatch");
     assert(parsed.block_index === 870466, "block index mismatch");
-    assert(parsed.assetId === "MINTS", "assetId mismatch");
-    assert(parsed.qty === 42000n, "qty mismatch");
     assert(parsed.total_price === 84000n, "total_price mismatch");
     assert(parsed.unit_price === 2n, "unit_price mismatch");
     assert(parsed.seller === "bc1qqvh9ea62nxvjsk24h3d6upt2fy4upyuglsdm57", "seller mismatch");
@@ -24,10 +19,7 @@ Deno.test("parseTransaction: should parse a transaction with an OP_RETURN output
     const parsed = await parser.parseTxForAtomicSwap(txid);
     assert(parsed);
     assert(parsed.txid === txid, "txid mismatch");
-    assert(parsed.protocol === 0, "protocol mismatch");
     assert(parsed.block_index === 867580, "block index mismatch");
-    assert(parsed.assetId === "PEPEFAIR", "assetId mismatch");
-    assert(parsed.qty === 1000n, "qty mismatch");
     assert(parsed.total_price === 30000n, "total_price mismatch");
     assert(parsed.unit_price === 30n, "unit_price mismatch");
     assert(parsed.seller === "bc1qwxzxm83nnqlr86vusgswvu3wd6hnq9u8d03zd9", "seller mismatch");

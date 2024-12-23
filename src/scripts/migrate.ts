@@ -10,17 +10,19 @@ const CONFIG = {
 
 const db = new Database(CONFIG.DATABASE.DB_NAME);
 
-db.exec("DROP TABLE IF EXISTS openbook_listings");
+db.exec("DROP TABLE IF EXISTS atomic_swaps");
 
 db.exec(`
-CREATE TABLE IF NOT EXISTS openbook_listings (
-    txid TEXT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS atomic_swaps (
+    tx_index INTEGER PRIMARY KEY,
+    txid TEXT,
     timestamp DATETIME,
+    block_hash TEXT,
     block_index INTEGER,
-    utxo TEXT,
-    price BIGINT,
     seller TEXT,
-    psbt TEXT,
+    buyer TEXT,
     utxo_balance TEXT,
-    status TEXT CHECK(status IN ('active', 'inactive', 'pending')) DEFAULT 'active'
+    total_price BIGINT,
+    unit_price BIGINT,
+    service_fees TEXT
 );`)

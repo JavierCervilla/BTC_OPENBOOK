@@ -17,14 +17,10 @@ CREATE TABLE IF NOT EXISTS atomic_swaps (
     block_index INTEGER,
     seller TEXT,
     buyer TEXT,
-    protocol TEXT,
-    assetId TEXT,
-    qty BIGINT,
+    utxo_balance TEXT,
     total_price BIGINT,
     unit_price BIGINT,
-    service_fee_recipient TEXT,
-    service_fee BIGINT
-    --- openbook BOOLEAN
+    service_fees TEXT
 );
 
 -- Create the openbook_listings table if not exists

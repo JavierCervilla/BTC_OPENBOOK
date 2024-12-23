@@ -8,7 +8,7 @@ export async function getAtomicSwaps(options: PaginationOptions) {
     const db = new Database(CONFIG.DATABASE.DB_NAME, {
         readonly: true,
     });
-    const query = "SELECT * FROM atomic_swaps";
+    const query = "SELECT *, json(utxo_balance) as utxo_balance, json(service_fees) as service_fees FROM atomic_swaps";
     const paginatedQuery = await paginate.buildPaginatedQuery(query, options);
     const atomicSwaps = await db.prepare(paginatedQuery).all();
     const total = await paginate.getTotalCount(db, query);
@@ -26,7 +26,7 @@ export async function getAtomicSwapByTxId(txId: string) {
     const db = new Database(CONFIG.DATABASE.DB_NAME, {
         readonly: true,
     });
-    const atomicSwaps = await db.prepare("SELECT * FROM atomic_swaps WHERE txid = ?").all(txId);
+    const atomicSwaps = await db.prepare("SELECT *, json(utxo_balance) as utxo_balance, json(service_fees) as service_fees FROM atomic_swaps WHERE txid = ?").all(txId);
     db.close();
     return {
         result: atomicSwaps as AtomicSwap[],
@@ -38,7 +38,7 @@ export async function getAtomicSwapByAsset(asset: string, options: PaginationOpt
     const db = new Database(CONFIG.DATABASE.DB_NAME, {
         readonly: true,
     });
-    const query = "SELECT * FROM atomic_swaps WHERE assetId = ?";
+    const query = "SELECT *, json(utxo_balance) as utxo_balance, json(service_fees) as service_fees FROM atomic_swaps WHERE assetId = ?";
     const paginatedQuery = await paginate.buildPaginatedQuery(query, options);
     const atomicSwaps = await db.prepare(paginatedQuery).all(asset);
     const total = await paginate.getTotalCount(db, paginatedQuery, [asset]);
@@ -57,7 +57,7 @@ export async function getAtomicSwapByAddress(address: string, options: Paginatio
     const db = new Database(CONFIG.DATABASE.DB_NAME, {
         readonly: true,
     });
-    const query = "SELECT * FROM atomic_swaps WHERE seller = ? OR buyer = ? OR service_fee_recipient = ?";
+    const query = "SELECT *, json(utxo_balance) as utxo_balance, json(service_fees) as service_fees FROM atomic_swaps WHERE seller = ? OR buyer = ? OR service_fee_recipient = ?";
     const paginatedQuery = await paginate.buildPaginatedQuery(query, options);
     const atomicSwaps = await db.prepare(paginatedQuery).all(address, address, address);
     const total = await paginate.getTotalCount(db, query, [address, address, address]);
