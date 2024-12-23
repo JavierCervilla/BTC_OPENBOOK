@@ -2,7 +2,7 @@ import type { Tspec } from 'tspec';
 
 import type { controller } from "./routes.ts";
 
-export type OrderBookApiSpec = Tspec.DefineApiSpec<{
+export type BlocksApiSpec = Tspec.DefineApiSpec<{
     tags: ["Blocks"];
     paths: {
         "/api/v1/blocks": {

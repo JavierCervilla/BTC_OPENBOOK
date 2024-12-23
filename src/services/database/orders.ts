@@ -1,31 +1,59 @@
 import { Database } from "@db/sqlite";
 import { CONFIG } from "@/config/index.ts";
 import type { OpenBookListing } from "@/services/indexer/src/tx/parse.d.ts";
+import type { PaginatedResult, PaginationOptions } from "@/services/database/utils/pagination.d.ts";
+import * as paginate from "@/services/database/utils/pagination.ts";
 
-export async function getOpenbookListings() {
+export async function getOpenbookListings(options: PaginationOptions): Promise<PaginatedResult<OpenBookListing>> {
     const db = new Database(CONFIG.DATABASE.DB_NAME, {
         readonly: true,
     });
-    const openbook_listings = await db.prepare("SELECT * FROM openbook_listings").all();
-    db.close();
-    return {
-        result: openbook_listings,
-        total: openbook_listings.length
-    };
+    try {
+        const baseQuery = "SELECT *, json(utxo_balance) as utxo_balance FROM openbook_listings";
+        const query = paginate.buildPaginatedQuery(baseQuery, options);
+
+        const openbook_listings = await db.prepare(query).all();
+        const total = await paginate.getTotalCount(db, baseQuery);
+        return {
+            page: options.page,
+            limit: options.limit,
+            total,
+            totalPages: Math.ceil(total / options.limit),
+            result: openbook_listings as OpenBookListing[],
+        };
+    } catch {
+        return {
+            page: options.page,
+            limit: options.limit,
+            total: 0,
+            totalPages: 0,
+            result: [],
+        };
+    } finally {
+        db.close();
+    }
 }
 
 export async function getOpenbookListingsByTxId(txId: string) {
     const db = new Database(CONFIG.DATABASE.DB_NAME, {
         readonly: true,
     });
-    const openbook_listings = await db.prepare("SELECT * FROM openbook_listings WHERE txid = ?").get(txId);
-    db.close();
-    return {
-        result: openbook_listings
-    };
+    try {
+        const openbook_listing = await db.prepare("SELECT *, json(utxo_balance) as utxo_balance FROM openbook_listings WHERE txid = ?").get(txId);
+
+        return {
+            result: openbook_listing as OpenBookListing
+        };
+    } catch {
+        return {
+            result: null
+        };
+    } finally {
+        db.close();
+    }
 }
 
-export async function getOpenbookListingsByAsset(asset: string): Promise<{ result: OpenBookListing[], total: number }> {
+export async function getOpenbookListingsByAsset(asset: string, options: PaginationOptions): Promise<PaginatedResult<OpenBookListing>> {
     const db = new Database(CONFIG.DATABASE.DB_NAME, {
         readonly: true,
     });
@@ -40,38 +68,62 @@ export async function getOpenbookListingsByAsset(asset: string): Promise<{ resul
                 WHERE json_extract(j.value, '$.assetId') = ?
             )
         `;
-        const openbook_listings_result = await db.prepare(query).all([asset]);
+        const paginatedQuery = paginate.buildPaginatedQuery(query, options);
+        const openbook_listings_result = await db.prepare(paginatedQuery).all([asset]);
 
+        const total = await paginate.getTotalCount(db, paginatedQuery, [asset]);
         const openbook_listings = openbook_listings_result.map((listing) => {
             return {
                 ...listing,
                 utxo_balance: JSON.parse(listing.utxo_balance as string)
-            };
+            } as OpenBookListing;
         });
 
         return {
+            page: options.page,
+            limit: options.limit,
+            total,
+            totalPages: Math.ceil(total / options.limit),
             result: openbook_listings,
-            total: openbook_listings.length
         };
-    } catch (error) {
-        console.error("Error getting openbook listings by asset:", error);
+    } catch {
         return {
+            page: options.page,
+            limit: options.limit,
+            total: 0,
+            totalPages: 0,
             result: [],
-            total: 0
         };
     } finally {
         db.close();
     }
 }
 
-export async function getOpenbookListingsByAddress(address: string) {
+export async function getOpenbookListingsByAddress(address: string, options: PaginationOptions): Promise<PaginatedResult<OpenBookListing>> {
     const db = new Database(CONFIG.DATABASE.DB_NAME, {
         readonly: true,
     });
-    const atomicSwap = await db.prepare("SELECT * FROM openbook_listing WHERE seller = ? ").all(address);
-    db.close();
-    return {
-        result: atomicSwap,
-        total: atomicSwap.length
-    };
+    try {
+        const query = "SELECT *, json(utxo_balance) as utxo_balance FROM openbook_listings WHERE seller = ? ";
+        const paginatedQuery = paginate.buildPaginatedQuery(query, options);
+        const openbook_listings = await db.prepare(paginatedQuery).all([address]);
+        const total = await paginate.getTotalCount(db, query, [address]);
+        return {
+            page: options.page,
+            limit: options.limit,
+            total,
+            totalPages: Math.ceil(total / options.limit),
+            result: openbook_listings as OpenBookListing[],
+        };
+    } catch {
+        return {
+            page: options.page,
+            limit: options.limit,
+            total: 0,
+            totalPages: 0,
+            result: [],
+        };
+    } finally {
+        db.close();
+    }
 }
