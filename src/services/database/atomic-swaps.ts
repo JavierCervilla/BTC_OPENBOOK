@@ -38,7 +38,14 @@ export async function getAtomicSwapByAsset(asset: string, options: PaginationOpt
     const db = new Database(CONFIG.DATABASE.DB_NAME, {
         readonly: true,
     });
-    const query = "SELECT *, json(utxo_balance) as utxo_balance, json(service_fees) as service_fees FROM atomic_swaps WHERE assetId = ?";
+    const query = `
+        SELECT atomic_swaps.*, json(utxo_balance) as utxo_balance, json(service_fees) as service_fees 
+        FROM atomic_swaps
+        WHERE EXISTS (
+            SELECT 1 FROM json_each(atomic_swaps.utxo_balance)
+            WHERE json_each.value->>'assetId' = ?
+        )
+    `;
     const paginatedQuery = await paginate.buildPaginatedQuery(query, options);
     const atomicSwaps = await db.prepare(paginatedQuery).all(asset);
     const total = await paginate.getTotalCount(db, paginatedQuery, [asset]);
