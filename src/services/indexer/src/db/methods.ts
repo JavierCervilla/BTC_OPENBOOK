@@ -38,7 +38,7 @@ export function executeAtomicOperations(db: Database, operations: (db: Database)
 
 type BlockInfo = {
     block_index: number;
-    block_time: number;
+    block_time: string | Date;
     transactions: string;
     events: string;
 }

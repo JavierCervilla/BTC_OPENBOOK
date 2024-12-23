@@ -2,8 +2,8 @@
 
 CREATE TABLE IF NOT EXISTS blocks (
     block_index INTEGER PRIMARY KEY,
-    transactions BLOB,
-    events BLOB,
+    transactions TEXT,
+    events TEXT,
     block_time DATETIME
 );
 
@@ -37,5 +37,6 @@ CREATE TABLE IF NOT EXISTS openbook_listings (
     price BIGINT,
     seller TEXT,
     psbt TEXT,
-    utxo_balance BLOB
+    utxo_balance TEXT,
+    status TEXT CHECK(status IN ('active', 'inactive', 'pending')) DEFAULT 'active'
 );

@@ -1,5 +1,5 @@
 import { CONFIG } from "@/config/index.ts";
-import type { UTXOBalance, XCPEvent, XCPEventCount, XCPEventName } from "./rpc.d.ts";
+import type { UTXOBalance, XCPEvent, XCPEventCount } from "./rpc.d.ts";
 import { apiLogger } from "@/utils/logger.ts";
 
 
@@ -42,6 +42,24 @@ export const EVENT_NAMES = [
     "DETACH_FROM_UTXO",
     "UTXO_MOVE",
     "BURN",
+    "BET_EXPIRATION",
+    "BET_MATCH",
+    "BET_MATCH_EXPIRATION",
+    "BET_MATCH_RESOLUTON",
+    "BET_MATCH_UPDATE",
+    "BET_UPDATE",
+    "CANCEL_BET",
+    "INCREMENT_TRANSACTION_COUNT",
+    "INVALID_CANCEL",
+    "NEW_ADDRESS_OPTIONS",
+    "OPEN_BET",
+    "OPEN_RPS",
+    "RPS_EXPIRATION",
+    "RPS_MATCH",
+    "RPS_MATCH_EXPIRATION",
+    "RPS_MATCH_UPDATE",
+    "RPS_RESOLVE",
+    "RPS_UPDATE",
 ];
 
 export async function retry<T>(fn: () => Promise<T>, retries = 3, delay = 500): Promise<T> {

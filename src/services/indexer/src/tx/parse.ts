@@ -1,5 +1,3 @@
-import * as bitcoin from "bitcoinjs-lib";
-
 import logger from "@/utils/logger.ts";
 import * as rpc from "@/utils/btc/rpc.ts";
 import { OpenBook } from "@/services/openbook/openbook.ts";
@@ -12,7 +10,6 @@ import * as xcp from "@/utils/xcp/rpc.ts";
 import * as tx from "@/services/ordersbook/tx.ts";
 import * as hex from "@/utils/index.ts";
 import { CONFIG } from "@/config/index.ts";
-
 
 const DUST_THRESHOLD = 546;
 
@@ -126,6 +123,7 @@ function isValidTransaction(
     }
     return true;
 }
+
 export async function parseTransactionForAtomicSwap(transaction: Transaction): Promise<ParsedTransaction | undefined> {
     const op_ret = hasOPRETURN(transaction);
     if (op_ret) {
@@ -142,7 +140,7 @@ export async function parseTransactionForAtomicSwap(transaction: Transaction): P
             if (seller && buyer && total_price !== undefined && unit_price !== undefined) {
                 return {
                     txid: transaction.txid,
-                    timestamp: transaction.time,
+                    timestamp: new Date(transaction.time * 1000).toISOString(),
                     seller,
                     buyer,
                     ...openbook_data,
@@ -190,7 +188,7 @@ export async function parseXCPEvents(events: XCPUtxoMoveInfo[]): Promise<ParsedT
                 buyer,
                 total_price,
                 unit_price,
-                timestamp: event.timestamp,
+                timestamp: new Date(event.timestamp * 1000).toISOString(),
                 service_fee_recipient: service_fee_recipient || null,
                 service_fee: service_fee || null
             };
@@ -215,9 +213,7 @@ function getLockTimeFromTXHex(tx_hex: string) {
 export async function parseBlock(db: Database, blockInfo: Block): Promise<{ transactions: Transaction[], atomic_swaps: ParsedTransaction[], openbook_listings: OpenBookListing[] }> {
     //const { transactions, atomic_swaps } = await parseTransactions(blockInfo.tx as string[])
     const utxo_move_events = await xcp.getSpecificEventsByBlock(blockInfo.height);
-    logger.info(`Found ${utxo_move_events.length} utxo move events for block ${blockInfo.height}`);
     const atomic_swaps = await parseXCPEvents(utxo_move_events);
-    logger.info(`${atomic_swaps.length} atomic swaps`);
     const filtered_atomic_swaps = atomic_swaps.map((swap: ParsedTransaction) => {
         return {
             ...swap,
@@ -236,13 +232,14 @@ export async function parseBlock(db: Database, blockInfo: Block): Promise<{ tran
         const potential_openbook_listings = txs.filter((tx) => getLockTimeFromTXHex(tx.hex) === CONFIG.OPENBOOK.TIMELOCK)
         const openbook_listings = await Promise.all(potential_openbook_listings.map(async (tx) => await parseOpenbookListingTx(tx)));
         valid_openbook_listings = openbook_listings.filter(tx => tx !== undefined).map(tx => ({ ...tx, timestamp: blockInfo.time, block_index: blockInfo.height }));
+        transactions.push(...valid_openbook_listings.map(tx => tx.txid));
     }
 
     executeAtomicOperations(db, (db) => {
         try {
             storeBlockData(db, {
                 block_index: blockInfo.height,
-                block_time: blockInfo.time,
+                block_time: new Date(blockInfo.time * 1000).toISOString(),
                 transactions: JSON.stringify(transactions),
                 events: JSON.stringify(events)
             });
@@ -260,6 +257,8 @@ function utxoBalanceAdapter(utxo_balance: UTXOBalance) {
     return {
         assetId: utxo_balance.asset,
         qty: utxo_balance.quantity_normalized,
+        protocol: 0,
+        protocol_name: "COUNTERPARTY"
     }
 }
 

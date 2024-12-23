@@ -5,7 +5,10 @@
     "test": "NODE_ENV=test deno test -A",
     "broadcast": "deno run -A src/scripts/broadcast.ts",
     "decode": "deno run -A src/scripts/decode.ts",
-    "clean": "deno run -A src/scripts/clean.ts"
+    "clean": "deno run -A src/scripts/clean.ts",
+    "migrate": "deno run -A src/scripts/migrate.ts",
+    "check": "deno run -A src/scripts/check.ts",
+    "date": "deno run -A src/scripts/date.ts"
   },
   "nodeModulesDir":"auto",
   "imports": {

@@ -1,11 +1,11 @@
 import express from "express";
 import type { Application, Request, Response } from "express";
-import morgan from "morgan";
 import cors from "cors";
 
 import { docsLoader } from "@/loaders/docs.ts";
 import { configureMarketDataRoutes } from "../services/api/routes/atomic-swaps/routes.ts";
 import morganMiddleware from "@/middleware/morgan.ts";
+import { configureBlocksRoutes } from "@/services/api/routes/blocks/routes.ts";
 //import { apiKeyMiddleware } from "@/auth/middleware.ts";
 
 
@@ -18,9 +18,10 @@ export function expressLoader({ app }: { app: Application }) {
     app.use(express.json());
     app.use(morganMiddleware);
     
-    app.use("/api/v1/"/*, apiKeyMiddleware*/, configureMarketDataRoutes(router));
+    app.use("/api/v1/sales"/*, apiKeyMiddleware*/, configureMarketDataRoutes(router));
+    app.use("/api/v1/blocks"/*, apiKeyMiddleware*/, configureBlocksRoutes(router));
     
-    //docsLoader(app);
+    docsLoader(app);
     console.log('🚀 Express Initialized');
     return app;
 }

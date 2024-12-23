@@ -7,7 +7,7 @@ export type ParsedTransaction = {
     buyer: string,
     total_price: bigint,
     unit_price: bigint,
-    timestamp: number,
+    timestamp: Date | string,
     block_index: number,
     block_hash: string,
     service_fee_recipient: string | null,
@@ -23,5 +23,5 @@ export type OpenBookListing = {
     price: bigint,
     seller: string,
     psbt: string,
-    utxo_balance: string,
+    utxo_balance: string | Record<string, string>,
 }

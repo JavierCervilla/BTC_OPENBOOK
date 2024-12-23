@@ -51,7 +51,7 @@ const INDEXER_CONFIG = () => ({
 });
 
 const DATABASE_CONFIG = () => ({
-    DB_NAME: "openbook.db",
+    DB_NAME: Deno.env.get("DATABASE_NAME") ?? "openbook.db",
     SCHEMA_PATH: "schema.sql",
 });
 

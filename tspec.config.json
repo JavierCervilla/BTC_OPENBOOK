@@ -1,0 +1,13 @@
+{
+	"specPathGlobs": ["src/**/*.ts"],
+	"tsconfigPath": "./deno.json",
+	"outputPath": "./generate/openapi.json",
+	"specVersion": 3,
+	"openapi": {
+		"title": "OPENBOOK API by Universelle",
+		"version": "0.0.1",
+		"description": "This is the OPENBOOK API Documentation by Universelle"
+	},
+	"debug": true,
+	"ignoreErrors": true
+}

@@ -13,12 +13,10 @@ export async function initializeIndexer(db: Database) {
     while (true) {
         if (block <= endBlock) {
             const start = new Date();
-            logger.info(`[${start.toISOString()}] Start processing Block ${block}`);
-
             const blockInfo = await rpc.getBlock(block);
             const { atomic_swaps, openbook_listings } = await parser.parseBlock(db, blockInfo);
             const end = new Date();
-            logger.info(`[${end.toISOString()}] Block ${block} processed ${atomic_swaps.length} transactions in ${(end.getTime() - start.getTime()) / 1000}s ${atomic_swaps.length} atomic swaps ${openbook_listings.length} listings`);
+            logger.info(`[${end.toISOString()}] Block ${block} (${atomic_swaps.length + openbook_listings.length} Txs - ${atomic_swaps.length} Swaps - ${openbook_listings.length} Listings) [${(Number(end.getTime() - start.getTime()) / 1000).toFixed(3)}s]`);
             block++;
         }
 

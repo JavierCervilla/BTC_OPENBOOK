@@ -4,11 +4,16 @@ import { apiLogger } from "@/utils/logger.ts";
 
 
 function safeStringify<T>(data: T): string {
-    return JSON.stringify(data, (_key, value) => {
-        if (typeof value === 'bigint') return value.toString();
-        if (value instanceof bitcoin.Psbt) return value.toHex();
-        return value;
-    });
+    try {
+        return JSON.stringify(data, (_key, value) => {
+            if (typeof value === 'bigint') return value.toString();
+            if (value instanceof bitcoin.Psbt) return value.toHex();
+            return value;
+        });
+    } catch (error) {
+        apiLogger.error("Error stringifying data:", error);
+        throw new Error("Data serialization error");
+    }
 }
 
 export function handleSuccess<T>(res: Response, data: T) {

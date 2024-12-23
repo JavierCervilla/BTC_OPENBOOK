@@ -3,6 +3,7 @@ import { CONFIG } from "@/config/index.ts";
 
 export async function initializeDatabase(db: Database) {
     try {
+        db.exec("PRAGMA journal_mode = WAL;");
         const schemaSql = await Deno.readTextFile(CONFIG.DATABASE.SCHEMA_PATH);
         db.exec(schemaSql);
     } catch (error) {
