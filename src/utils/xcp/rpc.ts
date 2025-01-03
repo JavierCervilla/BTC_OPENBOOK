@@ -85,6 +85,8 @@ function getUtxoMoveAdapter(event: XCPEvent) {
         openbook: false,
         block_index: event.params.block_index,
         block_hash: "",
+        source: event.params.source,
+        destination: event.params.destination,
     }
 }
 

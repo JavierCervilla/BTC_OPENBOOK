@@ -45,6 +45,8 @@ export interface XCPUtxoMoveInfo {
     qty: bigint
     assetId: string
     openbook: boolean
+    source: string
+    destination: string
 }
 
 export interface UTXOBalance {

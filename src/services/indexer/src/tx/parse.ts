@@ -45,7 +45,8 @@ function parseOPRETURN(op_ret: string) {
 
 async function extractTransactionDetails(
     transaction: Transaction,
-    openbook_data: { qty: bigint }
+    openbook_data: { qty: bigint },
+    event: XCPUtxoMoveInfo
 ): Promise<{
     seller?: string,
     buyer?: string,
@@ -59,13 +60,14 @@ async function extractTransactionDetails(
     let unit_price: bigint | undefined;
     const service_fees: { address: string, fee: bigint }[] = [];
 
-    const vinAddresses = await getVinAddresses(transaction, (address, isDust) => {
-        if (isDust) {
+    const vinAddresses = await getVinAddresses(transaction, (address, isSeller) => {
+        
+        if (isSeller) {
             seller = address;
         } else {
             buyer = address;
         }
-    });
+    }, event);
 
     const voutAddresses = new Set<string>();
     for (const vout of transaction.vout) {
@@ -90,7 +92,8 @@ async function extractTransactionDetails(
 
 async function getVinAddresses(
     transaction: Transaction,
-    assignRoles: (address: string, isDust: boolean) => void
+    assignRoles: (address: string, isDust: boolean) => void,
+    event: XCPUtxoMoveInfo
 ): Promise<Set<string>> {
     const vinAddresses = new Set<string>();
     for (const vin of transaction.vin) {
@@ -100,7 +103,7 @@ async function getVinAddresses(
             const address = getAddressFromVout(vout);
             if (address) {
                 vinAddresses.add(address);
-                assignRoles(address, isDustAmount(vout.value));
+                assignRoles(address, `${vin.txid}:${vin.vout}` === event.source);
             }
         }
     }
@@ -171,7 +174,7 @@ export async function parseTxForAtomicSwap(txid: string) {
 export async function parseXCPEvents(events: XCPUtxoMoveInfo[]): Promise<ParsedTransaction[]> {
     const atomic_swaps = await Promise.all(events.map(async (event) => {
         const transaction = await rpc.getTransaction(event.txid) as Transaction;
-        const extractedTx = await extractTransactionDetails(transaction, { qty: event.qty });
+        const extractedTx = await extractTransactionDetails(transaction, { qty: event.qty }, event);
         if (!extractedTx) {
             return undefined;
         }
@@ -241,6 +244,7 @@ function getLockTimeFromTXHex(tx_hex: string) {
     return lockTime;
 }
 
+//TODO: USe utxo instead of dustSize to track atomic swaps
 export async function parseBlock(db: Database, blockInfo: Block): Promise<{ transactions: Transaction[], atomic_swaps: ParsedTransaction[], openbook_listings: OpenBookListing[] }> {
     const utxo_move_events = await xcp.getSpecificEventsByBlock(blockInfo.height);
     const atomic_swaps = await parseXCPEvents(utxo_move_events);
