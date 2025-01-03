@@ -6,7 +6,7 @@ const db = new Database(CONFIG.DATABASE.DB_NAME);
 
 console.log('Database opened', db);
 
-const block_index = 875330;
+const block_index = 876496;
 
 
 console.log('Deleting blocks and atomic swaps');
