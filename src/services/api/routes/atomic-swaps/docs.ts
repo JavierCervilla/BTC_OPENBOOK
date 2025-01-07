@@ -7,11 +7,10 @@ export type AtomicSwapsApiSpec = Tspec.DefineApiSpec<{
     paths: {
         "/api/v1/atomic-swaps": {
             get: {
-                tags: ["Atomic Swaps"];
                 summary: "GET a paginated list of atomic swaps sorted by block",
                 query: {
-                    page: number,
-                    limit: number,
+                    page?: number, // Default: 1
+                    limit?: number, // Default: 10
                 },
                 handler: typeof controller.getAtomicSwaps,
                 responses: {
@@ -47,7 +46,6 @@ export type AtomicSwapsApiSpec = Tspec.DefineApiSpec<{
         },
         "/api/v1/atomic-swaps/tx/{txId}": {
             get: {
-                tags: ["Atomic Swaps"];
                 summary: "GET a paginated list of atomic swaps by tx id",
                 path: {
                     txId: string,
@@ -83,7 +81,6 @@ export type AtomicSwapsApiSpec = Tspec.DefineApiSpec<{
         },
         "/api/v1/atomic-swaps/{asset}": {
             get: {
-                tags: ["Atomic Swaps"];
                 summary: "GET a paginated list of atomic swaps by asset",
                 path: {
                     asset: string,
@@ -126,7 +123,6 @@ export type AtomicSwapsApiSpec = Tspec.DefineApiSpec<{
         },
         "/api/v1/atomic-swaps/address/{address}": {
             get: {
-                tags: ["Atomic Swaps"];
                 summary: "GET a paginated list of atomic swaps where address is the seller, buyer, or service fee recipient",
                 path: {
                     address: string,
@@ -169,7 +165,6 @@ export type AtomicSwapsApiSpec = Tspec.DefineApiSpec<{
         },
         "/api/v1/atomic-swaps/addresses": {
             get: {
-                tags: ["Atomic Swaps"];
                 summary: "GET a paginated list of unique addresses that have participated in atomic swaps",
                 query: {
                     page: number,
@@ -194,7 +189,6 @@ export type AtomicSwapsApiSpec = Tspec.DefineApiSpec<{
         },
         "/api/v1/atomic-swaps/addresses/{type}": {
             get: {
-                tags: ["Atomic Swaps"];
                 summary: "GET a paginated list of unique addresses that have participated in atomic swaps by type (seller, buyer)",
                 path: {
                     type: string,

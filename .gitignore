@@ -6,4 +6,3 @@ logs/
 *.zip
 .DS_Store
 summary.json
-generate

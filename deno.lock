@@ -27,7 +27,8 @@
     "npm:express@^4.21.2": "4.21.2",
     "npm:morgan@^1.10.0": "1.10.0",
     "npm:tiny-secp256k1@^2.2.3": "2.2.3",
-    "npm:tspec@~0.1.116": "0.1.116_express@4.21.2",
+    "npm:tspec@0.1.116": "0.1.116_express@4.21.2_@types+node@22.5.4",
+    "npm:tspec@~0.1.116": "0.1.116_express@4.21.2_@types+node@22.5.4",
     "npm:uint8array-tools@^0.0.9": "0.0.9"
   },
   "jsr": {
@@ -1096,7 +1097,22 @@
         "openapi-types",
         "swagger-ui-express",
         "typescript",
-        "typescript-json-schema",
+        "typescript-json-schema@0.62.0_typescript@5.1.6",
+        "yargs"
+      ]
+    },
+    "tspec@0.1.116_express@4.21.2_@types+node@22.5.4": {
+      "integrity": "sha512-wPln1/0JR97RWALE7WcMZxZvf5lKWkh+WoWKXvbzwq4l4KZuPEpQXUYl5f/y8sR7sHReWmBVmdtHfTF496S6hA==",
+      "dependencies": [
+        "debug@4.4.0",
+        "express",
+        "glob@8.1.0",
+        "http-proxy-middleware",
+        "json-schema-to-openapi-schema",
+        "openapi-types",
+        "swagger-ui-express",
+        "typescript",
+        "typescript-json-schema@0.62.0_@types+node@22.5.4_typescript@5.1.6",
         "yargs"
       ]
     },
@@ -1109,6 +1125,19 @@
     },
     "typeforce@1.18.0": {
       "integrity": "sha512-7uc1O8h1M1g0rArakJdf0uLRSSgFcYexrVoKo+bzJd32gd4gDy2L/Z+8/FjPnU9ydY3pEnVPtr9FyscYY60K1g=="
+    },
+    "typescript-json-schema@0.62.0_@types+node@22.5.4_typescript@5.1.6": {
+      "integrity": "sha512-qRO6pCgyjKJ230QYdOxDRpdQrBeeino4v5p2rYmSD72Jf4rD3O+cJcROv46sQukm46CLWoeusqvBgKpynEv25g==",
+      "dependencies": [
+        "@types/json-schema",
+        "@types/node@16.18.114",
+        "glob@7.2.3",
+        "path-equal",
+        "safe-stable-stringify",
+        "ts-node",
+        "typescript",
+        "yargs"
+      ]
     },
     "typescript-json-schema@0.62.0_typescript@5.1.6": {
       "integrity": "sha512-qRO6pCgyjKJ230QYdOxDRpdQrBeeino4v5p2rYmSD72Jf4rD3O+cJcROv46sQukm46CLWoeusqvBgKpynEv25g==",

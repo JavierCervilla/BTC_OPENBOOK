@@ -7,7 +7,6 @@ export type OrdersApiSpec = Tspec.DefineApiSpec<{
     paths: {
         "/api/v1/orders/create": {
             post: {
-                tags: ["Orders"];
                 summary: "Create an Order PSBT and return the PSBT for signing",
                 body: {
                     utxo: string,
@@ -34,10 +33,8 @@ export type OrdersApiSpec = Tspec.DefineApiSpec<{
         },
         "/api/v1/blocks/summary": {
             get: {
-                tags: ["Blocks"];
                 summary: `GET a list of blocks grouped by day with the sum of events happening in each block of this day`,
                 handler: typeof controller.getBlocksGroupedByDayWithEventSums,
-                "x-disable-try-it-out": true,
                 responses: {
                     200: {
                         result: {

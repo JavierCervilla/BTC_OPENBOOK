@@ -7,7 +7,6 @@ export type BlocksApiSpec = Tspec.DefineApiSpec<{
     paths: {
         "/api/v1/blocks": {
             get: {
-                tags: ["Blocks"];
                 summary: `GET a paginated list of blocks with a summary of the event counts happening in this block and an array of important transactions (atomic swaps or order listings)`,
                 query: {
                     page: number,
@@ -99,10 +98,8 @@ export type BlocksApiSpec = Tspec.DefineApiSpec<{
         },
         "/api/v1/blocks/summary": {
             get: {
-                tags: ["Blocks"];
                 summary: `GET a list of blocks grouped by day with the sum of events happening in each block of this day`,
                 handler: typeof controller.getBlocksGroupedByDayWithEventSums,
-                "x-disable-try-it-out": true,
                 responses: {
                     200: {
                         result: {

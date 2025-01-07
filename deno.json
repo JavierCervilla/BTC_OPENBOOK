@@ -1,8 +1,9 @@
 {
   "tasks": {
     "dev": "NODE_ENV=development deno run -A --watch src/main.ts",
-    "start": "deno run -A src/main.ts",
+    "start": "NODE_ENV=production deno run -A src/main.ts",
     "test": "NODE_ENV=test deno test -A",
+    "docs": "tspec generate --outputPath ./generate/openapi.json",
     "broadcast": "deno run -A src/scripts/broadcast.ts",
     "decode": "deno run -A src/scripts/decode.ts",
     "clean": "deno run -A src/scripts/clean.ts",
