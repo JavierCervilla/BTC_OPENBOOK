@@ -1,11 +1,27 @@
 # BTC_OPENBOOK
 
-OPENBOOK stands to be an easy way to track market data across platforms using atomic swaps.
+# ABSTRACT
 
-Starting with Counterparty (Protocol 0)
+Openbook is a system that allows marketplace and service providers to share a common atomic swaps orderbook across platforms using onchain listings.
+This systems aims to be an standarized way to transact with atomic swaps, initially using Counterparty (Protocol 0) as the underlying protocol but extensible to other protocols like Ordinals or Runes.
 
-example of transaction using this OP_RETURN
-https://mempool.space/es/tx/4634ba56ab10dfddab1585fd4d078e0e5bb0e1af5f623b4bb03f7f79f31adc79
+# GETTING STARTED
+
+1. Ensure you have deno installed, if you dont have it you can install it running the following command:
+
+```bash
+curl -fsSL https://deno.land/install.sh | sh
+```
+
+2. Clone the repository and create a new file called `.env` with the env vars included in `.sample.env`:
+
+3. Run the following command to start the server:
+
+```bash
+deno task start
+```
+
+# SYSTEM ARCHITECTURE
 
 ```mermaid
 graph TB
@@ -90,3 +106,4 @@ graph TB
     OpenBookProtocol -->|"Processes"| AtomicSwaps
     OpenBookProtocol -->|"Manages"| OrdersBook
 ```
+
