@@ -21,6 +21,48 @@ curl -fsSL https://deno.land/install.sh | sh
 deno task start
 ```
 
+# ONCHAIN TRANSACTIONS FORMAT
+The way the listing transactions encodes the listing data to be stored in bitcoin follows the next logic:
+
+The required things to be able to recreate the listing PSBT transaction are the following four things:
+1.- The utxo that contains the asset to b listed.
+2.- The price of the asset in satoshis.
+4.- The signature of the original PSBT signed by the seller
+
+As the OP_RETURN is a 80 bytes field we need to encode the data in 2 ways.
+1.- We use the OP_RETURN to store the price and the UTXO that contains the asset to be listed.
+2.- we use the OLGA encoding using P2WSH to store the signature of the original PSBT signed by the seller.
+
+The indexer will be able to decode the listing transaction and reconstruct the original PSBT, store it on a SQLite DB and use it to create the atomic swap.
+
+```mermaid
+graph TB
+    subgraph Listing Transaction
+        A[Listing Transacción nLockTime 888]
+        A --> B[Inputs]
+        A --> C[Outputs]
+    end
+
+    %% Outputs
+    subgraph Outputs
+        C1[PartialSig 1 - P2WSH]
+        C2[PartialSig 2 - P2WSH]
+        C3[PartialSig 3 - P2WSH]
+        C4[UTXO + Price - OP_RETURN]
+        C4[Change]
+        C --> C1
+        C --> C2
+        C --> C3
+        C --> C4
+    end
+
+    %% Inputs
+    subgraph Inputs
+        B1[UTXO To pay miner fees]
+        B --> B1
+    end
+```
+
 # SYSTEM ARCHITECTURE
 
 ```mermaid
