@@ -1,0 +1,8 @@
+*.db
+*.db*
+node_modules
+.env
+logs/
+*.zip
+.DS_Store
+summary.json

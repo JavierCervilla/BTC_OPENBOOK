@@ -12,6 +12,7 @@
  *     - MESSAGE: [0x01][ASSET_ID: 64bytes][INDEX: 1byte][leb128 qty][leb128 price]
  *
  */
+import { CONFIG } from "@/config/index.ts";
 
 
 import * as leb128 from "@thi.ng/leb128";
@@ -20,11 +21,13 @@ import { ascii2hex, bin2hex, hex2ascii, hex2bin } from "@/utils/index.ts";
 
 interface Config {
     PREFIX: string;
-    VERSIONS: {
-        [key: number]: {
-            TIMELOCK: number;
-        }
+    VERSION: {
+        MAJOR: number;
+        MINOR: number;
+        PATCH: number;
+        STRING: string;
     },
+    TIMELOCK: number;
     [key: number]: ProtocolConfig;
 };
 
@@ -32,6 +35,7 @@ interface ProtocolConfig {
     name: string;
     asset_id_bytes: number;
     index_bytes: number;
+    divisible_bytes?: number;
 }
 
 interface EncodeMessageParams {
@@ -42,6 +46,12 @@ interface EncodeMessageParams {
     divisible_bytes?: number;
 }
 
+interface EncodeListingOPReturnParams {
+    protocol: number;
+    utxo: string;
+    price: number;
+}
+
 interface DecodeMessageParams {
     protocol: number;
     message: string;
@@ -49,27 +59,58 @@ interface DecodeMessageParams {
 
 // biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 class OpenBook {
-    static OB_PROTOCOL_CONFIG: Config = {
-        PREFIX: "OB",
-        VERSIONS: {
-            0: {
-                TIMELOCK: 800,
-            }
-        },
-        0: {
-            name: "XCP",
-            asset_id_bytes: 20,
-            divisible_bytes: 1,
-            index_bytes: 0,
-        },
-        1: {
-            name: "ORDINALS",
-            asset_id_bytes: 64,
-            index_bytes: 1,
-        }
-    };
+    static OB_PROTOCOL_CONFIG: Config = CONFIG.OPENBOOK;
 
-    static encodeMessage(params: EncodeMessageParams) {
+    static encode_Listing_OP_RETURN(params: EncodeListingOPReturnParams) {
+        const { utxo, price } = params;
+        const protocolConfig = OpenBook.OB_PROTOCOL_CONFIG[params.protocol];
+        if (!protocolConfig) {
+            throw new Error("Invalid protocol");
+        }
+        const [utxoTxId, utxoVout] = utxo.split(":");
+        const utxoBytes = hex2bin(utxoTxId);
+        const utxoVoutBytes = leb128.encodeULEB128(parseInt(utxoVout));
+        const priceBytes = leb128.encodeULEB128(price);
+        const prefixBytes = new TextEncoder().encode(OpenBook.OB_PROTOCOL_CONFIG.PREFIX);
+        const msg_len = prefixBytes.length + utxoBytes.length + utxoVoutBytes.length + priceBytes.length;
+
+        const message = new Uint8Array(msg_len);
+        let offset = 0;
+        message.set(prefixBytes, offset);
+        offset += prefixBytes.length;
+        message.set(utxoBytes, offset);
+        offset += utxoBytes.length;
+        message.set(utxoVoutBytes, offset);
+        offset += utxoVoutBytes.length;
+        message.set(priceBytes, offset);
+        return message;
+    }
+
+    static decode_Listing_OP_RETURN(params: DecodeMessageParams) {
+        const { message, protocol } = params;
+        const UTXO_BYTES = 32;
+        const protocolConfig = OpenBook.OB_PROTOCOL_CONFIG[protocol];
+        if (!protocolConfig) {
+            throw new Error("Invalid protocol");
+        }
+        const prefixBytes = new TextEncoder().encode(OpenBook.OB_PROTOCOL_CONFIG.PREFIX);
+        const utxoStart = prefixBytes.length;
+        const utxoEnd = utxoStart + UTXO_BYTES;
+
+        const bin_msg = hex2bin(message);
+        const utxo = bin2hex(bin_msg.slice(utxoStart, utxoEnd));
+        const [utxoVout, utxoVoutLength] = leb128.decodeULEB128(bin_msg.slice(utxoEnd));
+        const priceStart = utxoEnd + utxoVoutLength;
+        const priceBytes = bin_msg.slice(priceStart);
+        const [ price ] = leb128.decodeULEB128(priceBytes);
+
+        return {
+            utxo: `${utxo}:${utxoVout}`,
+            price: price,
+        };
+    }
+
+    static encode_OP_RETURN(params: EncodeMessageParams) {
         const protocolConfig = OpenBook.OB_PROTOCOL_CONFIG[params.protocol];
         if (!protocolConfig) {
             throw new Error("Invalid protocol");
@@ -109,7 +150,7 @@ class OpenBook {
         return message;
     }
 
-    static decodeMessage(params: DecodeMessageParams) {
+    static decode_OP_RETURN(params: DecodeMessageParams) {
         const protocolConfig = OpenBook.OB_PROTOCOL_CONFIG[params.protocol];
         if (!protocolConfig) {
             throw new Error("Invalid protocol");
@@ -138,8 +179,9 @@ class OpenBook {
 
         return {
             assetId: trimmedAssetId,
-            index,
+            indexBytes: index,
             qty: qty[0],
+            protocol: params.protocol,
         };
     }
 }
@@ -147,17 +189,3 @@ class OpenBook {
 export {
     OpenBook,
 }
-
-const message = OpenBook.encodeMessage({
-    protocol: 0,
-    asset_id: "A6524912715479370914",
-    qty: 1n,
-});
-const hex_message = bin2hex(message);
-console.log(hex_message);
-console.log(hex_message.length);
-const decoded = OpenBook.decodeMessage({
-    protocol: 0,
-    message: bin2hex(message),
-});
-console.log(decoded);
