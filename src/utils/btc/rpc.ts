@@ -113,6 +113,7 @@ export async function getBlock(block_index: number): Promise<Block> {
 }
 
 export async function getBlockCount(): Promise<number> {
+    const start = new Date();
     apiLogger.debug(`[${new Date().toISOString()}] Getting block count`)
     const blockCount = await callRPC({
         endpoint: CONFIG.BITCOIN.RPC_URL,
@@ -125,11 +126,14 @@ export async function getBlockCount(): Promise<number> {
             params: []
         }
     });
-    apiLogger.debug(`[${new Date().toISOString()}] Block count: ${blockCount.result}`)
+    const end = new Date();
+    apiLogger.debug(`[${new Date().toISOString()}] Block count: ${blockCount.result} in ${end.getTime() - start.getTime()}ms`)
     return blockCount.result;
 }
 
 export async function getTransaction(txid: string, verbose = true): Promise<Transaction | string> {
+    const start = new Date();
+    apiLogger.debug(`[${new Date().toISOString()}] Getting Transaction`)
     const transaction = await callRPC({
         endpoint: CONFIG.BITCOIN.RPC_URL,
         rpcUser: CONFIG.BITCOIN.RPC_USER,
@@ -141,11 +145,15 @@ export async function getTransaction(txid: string, verbose = true): Promise<Tran
             params: [txid, verbose]
         }
     });
+    const end = new Date();
+    apiLogger.debug(`[${new Date().toISOString()}] transaction fetched in ${end.getTime() - start.getTime()}ms`)
     return transaction.result;
 }
 
 export async function getUTXOFromMempoolSpace(address: string): Promise<UTXO[]> {
     try {
+        const start = new Date();
+        apiLogger.debug(`[${new Date().toISOString()}] Getting UTXO from mempool.space`)
         const response = await fetch(`https://mempool.space/api/address/${address}/utxo`, {
             method: "GET",
             headers: {
@@ -158,8 +166,10 @@ export async function getUTXOFromMempoolSpace(address: string): Promise<UTXO[]> 
             console.error(`HTTP Error: ${response.status} ${response.statusText} - ${text}`);
             throw new Error(`Failed to fetch UTXO: ${response.statusText}`);
         }
-
         const data = await response.json();
+
+        const end = new Date();
+        apiLogger.debug(`[${new Date().toISOString()}] UTXO fetched in ${end.getTime() - start.getTime()}ms`)
         return data;
     } catch (error: any) {
         console.error(`Error fetching UTXO: ${error.message}`);
@@ -169,6 +179,8 @@ export async function getUTXOFromMempoolSpace(address: string): Promise<UTXO[]> 
 
 export async function getUTXO(address: string): Promise<UTXO[]> {
     try {
+        const start = new Date();
+        apiLogger.debug(`[${new Date().toISOString()}] Getting UTXO from Electrum`)
         const params = {
             endpoint: CONFIG.ELECTRUM.RPC_URL as string,
             rpcUser: CONFIG.ELECTRUM.RPC_USER as string,
@@ -192,6 +204,8 @@ export async function getUTXO(address: string): Promise<UTXO[]> {
             value: utxo.value,
             height: utxo.height
         }));
+        const end = new Date();
+        apiLogger.debug(`[${new Date().toISOString()}] UTXO fetched in ${end.getTime() - start.getTime()}ms`)
         return adapted;
     } catch (_error) {
         return await getUTXOFromMempoolSpace(address);
