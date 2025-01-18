@@ -7,7 +7,7 @@ import * as parser from "@/services/indexer/src/tx/parse.ts";
 export async function initializeIndexer(db: Database) {
     const nextBlock = await getNextBlock(db);
     let endBlock = await rpc.getBlockCount();
-
+    logger.debug(`[${new Date().toISOString()}] Next block: ${nextBlock} - End block: ${endBlock}`)
 
     let block = nextBlock;
     while (true) {

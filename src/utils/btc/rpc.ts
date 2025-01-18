@@ -1,5 +1,5 @@
 import { CONFIG } from "@/config/index.ts";
-import {apiLogger} from "../logger.ts";
+import { apiLogger } from "../logger.ts";
 import type { Transaction, rpcCall, Block } from './rpc.d.ts'
 import * as progress from "../progress.ts";
 import { address2ScriptHash } from "@/utils/btc/tx.ts";
@@ -9,23 +9,28 @@ export async function retry<T>(
     retries = 3,
     fnName = "anonymous"
 ): Promise<T> {
-    for (let i = 0; i < retries; i++) {
+    let attempt = 0;
+    while (true) {
         try {
             return await fn();
-        } catch (err: unknown) {
-            if (i === retries - 1) {
-                apiLogger.warn(`RPC call ${fnName} failed ${i + 1} times`);
-                apiLogger.error(err);
-                throw err;
+        } catch (_err: unknown) {
+            attempt++;
+            if (attempt >= retries) {
+                apiLogger.warn(`RPC call ${fnName} failed ${attempt} times`);
+                apiLogger.error(`Error detected in ${fnName}, sleeping for 10 seconds before retry again.Error detected, sleeping for 10 seconds before retry again..Error detected, sleeping for 10 seconds before retry again.Error detected, sleeping for 10 seconds before retry again...`);
+                await new Promise(resolve => setTimeout(resolve, 10000));
+                attempt = 0;
+            } else {
+                await new Promise(resolve => setTimeout(resolve, 200));
             }
-            await new Promise(resolve => setTimeout(resolve, 200));
         }
     }
-    throw new Error(`RPC call ${fnName} failed after ${retries} retries`);
 }
 
 export async function callRPC(rpcCall: rpcCall, retries = 3) {
+    apiLogger.debug(`[${new Date().toISOString()}] Calling RPC ${rpcCall.call.method}`)
     return await retry(async () => {
+        apiLogger.debug(`[${new Date().toISOString()}] Calling RPC ${rpcCall.call.method}`)
         const response = await fetch(rpcCall.endpoint, {
             method: "POST",
             mode: "no-cors",
@@ -108,6 +113,7 @@ export async function getBlock(block_index: number): Promise<Block> {
 }
 
 export async function getBlockCount(): Promise<number> {
+    apiLogger.debug(`[${new Date().toISOString()}] Getting block count`)
     const blockCount = await callRPC({
         endpoint: CONFIG.BITCOIN.RPC_URL,
         rpcUser: CONFIG.BITCOIN.RPC_USER,
@@ -119,6 +125,7 @@ export async function getBlockCount(): Promise<number> {
             params: []
         }
     });
+    apiLogger.debug(`[${new Date().toISOString()}] Block count: ${blockCount.result}`)
     return blockCount.result;
 }
 
@@ -137,10 +144,27 @@ export async function getTransaction(txid: string, verbose = true): Promise<Tran
     return transaction.result;
 }
 
-async function getUTXOFromMempoolSpace(address: string): Promise<UTXO[]> {
-    const mempoolSpace = await fetch(`https://mempool.space/api/address/${address}/utxo`);
-    const data = await mempoolSpace.json();
-    return data;
+export async function getUTXOFromMempoolSpace(address: string): Promise<UTXO[]> {
+    try {
+        const response = await fetch(`https://mempool.space/api/address/${address}/utxo`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (!response.ok) {
+            const text = await response.text();
+            console.error(`HTTP Error: ${response.status} ${response.statusText} - ${text}`);
+            throw new Error(`Failed to fetch UTXO: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error: any) {
+        console.error(`Error fetching UTXO: ${error.message}`);
+        throw error;
+    }
 }
 
 export async function getUTXO(address: string): Promise<UTXO[]> {
@@ -206,7 +230,7 @@ export async function getMultipleTransactions(
 
             const data = await response.json();
             const transaction = data.result;
-            if(!verbose) {
+            if (!verbose) {
                 return {
                     txid: txid,
                     hex: transaction

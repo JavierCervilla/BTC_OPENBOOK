@@ -112,7 +112,12 @@ const TESTING_CONFIG = () => ({
     WIF: Deno.env.get("TESTING_WIF") ?? ""
 });
 
+const NODE_ENV = () => (Deno.env.get("NODE_ENV") ?? "development") as "development" | "production" | "testing";
 
+const DEBUG = () => ({
+    ACTIVE: Deno.env.get("DEBUG") === "true",
+    LOGS_FILE: "./logs/debug.log.txt"
+})
 
 export const CONFIG = {
     VERSION: VERSION_CONFIG(),
@@ -124,5 +129,7 @@ export const CONFIG = {
     ELECTRUM: ELECTRUM_CONFIG()[NETWORK()],
     XCP: XCP_CONFIG()[NETWORK()],
     API: API_CONFIG(),
-    TESTING: TESTING_CONFIG()
+    TESTING: TESTING_CONFIG(),
+    NODE_ENV: NODE_ENV(),
+    DEBUG: DEBUG()
 }

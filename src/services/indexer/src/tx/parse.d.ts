@@ -29,4 +29,5 @@ export type OpenBookListing = {
     seller: string,
     psbt: string,
     utxo_balance: string | UTXOBalance[],
+    status?: string,
 }

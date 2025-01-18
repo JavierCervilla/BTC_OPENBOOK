@@ -25,7 +25,7 @@ export const controller = {
             const result = await orders.getOpenbookListingsByTxId(txId);
             return handleSuccess<{
                 result: OpenBookListing,
-            }>(res, result);
+            } | null>(res, result);
         } catch (error: unknown) {
             return handleError(res, error as Error);
         }
@@ -54,9 +54,7 @@ export const controller = {
         } catch (error: unknown) {
             return handleError(res, error as Error);
         }
-    }
-
-
+    },
     //createOrder: async (req: Request, res: Response) => {
     //    try {
     //        const { body } = req;
