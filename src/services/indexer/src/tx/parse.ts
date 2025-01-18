@@ -246,16 +246,20 @@ function getLockTimeFromTXHex(tx_hex: string) {
 
 //TODO: USe utxo instead of dustSize to track atomic swaps
 export async function parseBlock(db: Database, blockInfo: Block): Promise<{ transactions: Transaction[], atomic_swaps: ParsedTransaction[], openbook_listings: OpenBookListing[] }> {
-    const utxo_move_events = await xcp.getSpecificEventsByBlock(blockInfo.height);
-    const atomic_swaps = await parseXCPEvents(utxo_move_events);
+    let filtered_atomic_swaps: ParsedTransaction[] = [];
+    if (blockInfo.height >= CONFIG.INDEXER.START_UTXO_MOVE_BLOCK) {
 
-    const filtered_atomic_swaps =  atomic_swaps.map((swap: ParsedTransaction) => {
-        return {
-            ...swap,
-            block_hash: blockInfo.hash,
-            block_index: blockInfo.height
-        }
-    });
+        const utxo_move_events = await xcp.getSpecificEventsByBlock(blockInfo.height);
+        const atomic_swaps = await parseXCPEvents(utxo_move_events);
+        
+        filtered_atomic_swaps =  atomic_swaps.map((swap: ParsedTransaction) => {
+            return {
+                ...swap,
+                block_hash: blockInfo.hash,
+                block_index: blockInfo.height
+            }
+        });
+    }
 
     const events = await xcp.getEventsCountByBlock(blockInfo.height);
     const transactions = filtered_atomic_swaps.map((swap) => swap?.txid);

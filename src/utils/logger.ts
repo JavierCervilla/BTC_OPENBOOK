@@ -52,6 +52,9 @@ export const InitialPrompt = () => {
     logger.info(`Database: ${CONFIG.DATABASE.DB_NAME}`)
     logger.info(`Indexer logs file: ${CONFIG.INDEXER.LOGS_FILE}`)
     logger.info(`API logs file: ${CONFIG.API.LOGS_FILE}`)
+    logger.info(`Bitcoin RPC URL: ${CONFIG.BITCOIN.RPC_URL}`)
+    logger.info(`Counterparty RPC URL: ${CONFIG.XCP.RPC_URL}`)
+    logger.info(`Electrum RPC URL: ${CONFIG.ELECTRUM.RPC_URL}`)
 }
 
 export { logger, apiLogger, testingLogger };

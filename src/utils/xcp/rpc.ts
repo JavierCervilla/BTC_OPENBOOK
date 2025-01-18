@@ -100,6 +100,10 @@ export async function getSpecificEventsByBlock(block: number, event = "UTXO_MOVE
 
     const response = await retry(() => fetch(endpoint.toString()));
     const data = await response.json();
+    if (data.error) {
+        apiLogger.error(data.error);
+        throw new Error(data.error);
+    }
     return data.result.map(getUtxoMoveAdapter);
 }
 
@@ -117,10 +121,13 @@ function getEventsCountAdapter(eventList: XCPEventCount[]) {
 }
 
 export async function getEventsCountByBlock(block: number) {
+    const start = new Date();
     const endpoint = new URL(`${CONFIG.XCP.RPC_URL}/v2/blocks/${block}/events/counts`);
     endpoint.searchParams.set("verbose", "true");
     const response = await retry(() => fetch(endpoint.toString()));
     const data = await response.json();
+    const end = new Date();
+    apiLogger.info(`${endpoint} [${response.status}] ${end.getTime() - start.getTime()}ms`);
     return getEventsCountAdapter(data.result);
 }
 
