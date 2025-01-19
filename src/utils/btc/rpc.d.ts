@@ -86,3 +86,11 @@ type ElectrsUTXO = {
     tx_pos: number,
     value: number,
 }
+
+type WSMessage = {
+    block?: BlockMessage
+}
+
+type BlockMessage = {
+  height: number;
+};

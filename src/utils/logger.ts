@@ -15,6 +15,9 @@ log.setup({
         console_testing: new log.ConsoleHandler("DEBUG", {
             formatter: (record: log.LogRecord) => `[TEST][${record.levelName}] ${record.msg}`,
         }),
+        console_cron: new log.ConsoleHandler("DEBUG", {
+            formatter: (record: log.LogRecord) => `[CRON][${record.levelName}] ${record.msg}`,
+        }),
         file: new log.FileHandler("WARN", {
             filename: CONFIG.INDEXER.LOGS_FILE,
             formatter: (record: log.LogRecord) => `[INDEXER][${record.levelName}] [${record.datetime}] ${record.msg}`,
@@ -26,6 +29,10 @@ log.setup({
         debug: new log.FileHandler("DEBUG", {
             filename: CONFIG.DEBUG.LOGS_FILE,
             formatter: (record: log.LogRecord) => `[DEBUG][${record.levelName}] ${record.msg}`,
+        }),
+        cron: new log.FileHandler("DEBUG", {
+            filename: CONFIG.CRON.LOGS_FILE,
+            formatter: (record: log.LogRecord) => `[CRON][${record.levelName}] ${record.msg}`,
         }),
     },
 
@@ -46,6 +53,10 @@ log.setup({
             level: "DEBUG",
             handlers: ["console_testing"],
         },
+        cronLogger: {
+            level: "DEBUG",
+            handlers: ["console_cron", "cron"],
+        },
         debug: {
             level: "DEBUG",
             handlers: ["debug", "console_debug"],
@@ -56,6 +67,7 @@ log.setup({
 const logger = CONFIG.DEBUG.ACTIVE ? log.getLogger("debug") : CONFIG.NODE_ENV === "testing" ? log.getLogger("testingLogger") : log.getLogger("indexerLogger");
 const apiLogger = CONFIG.DEBUG.ACTIVE ? log.getLogger("debug") : CONFIG.NODE_ENV === "testing" ? log.getLogger("testingLogger") : log.getLogger("apiLogger");
 const testingLogger = log.getLogger("testingLogger");
+const cronLogger = log.getLogger("cronLogger");
 
 export const InitialPrompt = () => {
     logger.info(`Openbook Indexer v${CONFIG.VERSION.MAJOR}.${CONFIG.VERSION.MINOR}.${CONFIG.VERSION.PATCH}`)
@@ -71,5 +83,5 @@ export const InitialPrompt = () => {
     }
 }
 
-export { logger, apiLogger, testingLogger };
+export { logger, apiLogger, testingLogger, cronLogger };
 export default log.getLogger("indexerLogger");

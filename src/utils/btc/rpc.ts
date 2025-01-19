@@ -4,6 +4,7 @@ import type { Transaction, rpcCall, Block } from './rpc.d.ts'
 import * as progress from "../progress.ts";
 import { address2ScriptHash } from "@/utils/btc/tx.ts";
 
+
 export async function retry<T>(
     fn: () => Promise<T>,
     retries = 3,
@@ -56,9 +57,9 @@ export async function asyncPool<T, R>(
     const ret: Promise<R>[] = [];
     const executing: Promise<void>[] = [];
 
-    const total = items.length;
+    //const total = items.length;
     let completed = 0;
-    progress.initProgress(total, 'Fetching transactions');
+    //progress.initProgress(total, 'Fetching transactions');
     for (const item of items) {
         const p = retry(() => asyncFn(item), retries, fnName);
         ret.push(p);
@@ -68,12 +69,12 @@ export async function asyncPool<T, R>(
         const e = p.then(() => {
             executing.splice(executing.indexOf(e), 1);
             completed++;
-            progress.updateProgress(completed, total, 'Fetching transactions');
+            //progress.updateProgress(completed, total, 'Fetching transactions');
         });
         executing.push(e);
     }
 
-    progress.finishProgress();
+    //progress.finishProgress();
     return Promise.all(ret);
 }
 
@@ -217,7 +218,7 @@ export async function getMultipleTransactions(
     verbose = true,
     concurrency = 5
 ): Promise<(Transaction | { txid: string, hex: string } | null)[]> {
-    progress.initProgress(txids.length, 'Fetching transactions');
+    //progress.initProgress(txids.length, 'Fetching transactions');
     const result = await asyncPool<string, Transaction | { txid: string, hex: string } | null>(
         txids,
         concurrency,
@@ -255,7 +256,7 @@ export async function getMultipleTransactions(
         3,
         "getMultipleTransactions"
     );
-    progress.finishProgress();
+    //progress.finishProgress();
     return result;
 }
 
@@ -273,4 +274,52 @@ export async function broadcastTransaction(tx: string) {
     }
     const data = await callRPC(params, 2);
     return data;
+}
+
+export async function getTXOUT(txid: string, vout: number) {
+    const params = {
+        endpoint: CONFIG.BITCOIN.RPC_URL as string,
+        rpcUser: CONFIG.BITCOIN.RPC_USER as string,
+        rpcPassword: CONFIG.BITCOIN.RPC_PASSWORD as string,
+        call: {
+            jsonrpc: "2.0",
+            id: 1,
+            method: "gettxout",
+            params: [txid, vout]
+        }
+    }
+    const data = await callRPC(params, 2);
+    return data.result;
+}
+
+export function subscribeToMempoolSpaceWebSocket(
+    topics: string[],
+    callback: (message: WSMessage) => void
+): void {
+    const connectWebSocket = () => {
+        const ws = new WebSocket("wss://mempool.space/api/v1/ws");
+        ws.onopen = () => {
+            console.log(`Connected to WebSocket with topics: ${topics.join(", ")}`);
+            ws.send(
+                JSON.stringify({
+                    action: "want",
+                    data: topics,
+                })
+            );
+        };
+        ws.onmessage = async (event) => {
+            try {
+                const message = JSON.parse(event.data);
+                callback(message);
+            } catch (error) {
+                console.error("Error parsing WebSocket message:", error);
+            }
+        };
+        ws.onerror = (_error) => {};
+        ws.onclose = () => {
+            console.warn("WebSocket connection closed. Reconnecting...");
+            setTimeout(connectWebSocket, 5000);
+        };
+    };
+    connectWebSocket();
 }

@@ -247,7 +247,11 @@ function getLockTimeFromTXHex(tx_hex: string) {
 //TODO: USe utxo instead of dustSize to track atomic swaps
 export async function parseBlock(db: Database, blockInfo: Block): Promise<{ transactions: Transaction[], atomic_swaps: ParsedTransaction[], openbook_listings: OpenBookListing[] }> {
     let filtered_atomic_swaps: ParsedTransaction[] = [];
-    if (blockInfo.height >= CONFIG.INDEXER.START_UTXO_MOVE_BLOCK) {
+    const events = await xcp.getEventsCountByBlock(blockInfo.height);
+    if (
+        blockInfo.height >= CONFIG.INDEXER.START_UTXO_MOVE_BLOCK &&
+        events.UTXO_MOVE > 0
+    ) {
 
         const utxo_move_events = await xcp.getSpecificEventsByBlock(blockInfo.height);
         const atomic_swaps = await parseXCPEvents(utxo_move_events);
@@ -261,7 +265,6 @@ export async function parseBlock(db: Database, blockInfo: Block): Promise<{ tran
         });
     }
 
-    const events = await xcp.getEventsCountByBlock(blockInfo.height);
     const transactions = filtered_atomic_swaps.map((swap) => swap?.txid);
 
     let txs: Transaction[] = [];
@@ -280,7 +283,8 @@ export async function parseBlock(db: Database, blockInfo: Block): Promise<{ tran
                 block_index: blockInfo.height,
                 block_time: new Date(blockInfo.time * 1000).toISOString(),
                 transactions: JSON.stringify(transactions),
-                events: JSON.stringify(events)
+                events: JSON.stringify(events),
+                nTxs: blockInfo.tx.length
             });
             storeAtomicSwaps(db, filtered_atomic_swaps as ParsedTransaction[]);
             storeOpenbookListings(db, valid_openbook_listings as OpenBookListing[]);

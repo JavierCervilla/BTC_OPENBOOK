@@ -42,16 +42,18 @@ type BlockInfo = {
     block_time: string | Date;
     transactions: string;
     events: string;
+    nTxs: number;
 }
 
 export function storeBlockData(db: Database, blockInfo: BlockInfo) {
     try {
-        const stmt = db.prepare('INSERT INTO blocks (block_index, block_time, transactions, events) VALUES (?,?,?,?)')
+        const stmt = db.prepare('INSERT INTO blocks (block_index, block_time, transactions, events, nTxs) VALUES (?,?,?,?,?)')
         stmt.run(
             blockInfo.block_index,
             blockInfo.block_time,
             blockInfo.transactions,
-            blockInfo.events
+            blockInfo.events,
+            blockInfo.nTxs
         );
     } catch (error) {
         logger.error("Error storing block data:", error);

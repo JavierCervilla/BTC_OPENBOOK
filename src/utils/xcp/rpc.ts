@@ -127,7 +127,7 @@ export async function getEventsCountByBlock(block: number) {
     const response = await retry(() => fetch(endpoint.toString()));
     const data = await response.json();
     const end = new Date();
-    apiLogger.info(`${endpoint} [${response.status}] ${end.getTime() - start.getTime()}ms`);
+    apiLogger.debug(`${endpoint} [${response.status}] ${end.getTime() - start.getTime()}ms`);
     return getEventsCountAdapter(data.result);
 }
 

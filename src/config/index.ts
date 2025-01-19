@@ -48,8 +48,8 @@ const INDEXER_CONFIG = () => ({
     //START_BLOCK: 867501, // FIRST ATOMIC SWAP IN FIREMINTS
     //START_BLOCK: 866942, // FIRST ATOMIC SWAP
     START_UTXO_MOVE_BLOCK: 866000,
-    //START_OPENBOOK_LISTINGS_BLOCK: 875332, // FIRST BLOCK WITH OPEN BOOK LISTINGS
-    START_OPENBOOK_LISTINGS_BLOCK: 9999999, // FIRST BLOCK WITH OPEN BOOK LISTINGS
+    START_OPENBOOK_LISTINGS_BLOCK: 875332, // FIRST BLOCK WITH OPEN BOOK LISTINGS
+    //START_OPENBOOK_LISTINGS_BLOCK: 9999999, // FIRST BLOCK WITH OPEN BOOK LISTINGS
 
 });
 
@@ -63,11 +63,13 @@ const BITCOIN_CONFIG = () => ({
         RPC_URL: Deno.env.get("BITCOIN_RPC_URL") ?? "https://bitcoin-rpc.publicnode.com",
         RPC_USER: Deno.env.get("BITCOIN_RPC_USER") ?? "rpc",
         RPC_PASSWORD: Deno.env.get("BITCOIN_RPC_PASSWORD") ?? "rpc",
+        ZMQ_URL: Deno.env.get("BITCOIN_ZMQ_URL") ?? "tcp://127.0.0.1:19333",
     },
     TESTNET: {
         RPC_URL: Deno.env.get("BITCOIN_TESTNET_RPC_URL") ?? "https://bitcoin-testnet-rpc.publicnode.com",
         RPC_USER: Deno.env.get("BITCOIN_TESTNET_RPC_USER") ?? "rpc",
         RPC_PASSWORD: Deno.env.get("BITCOIN_TESTNET_RPC_PASSWORD") ?? "rpc",
+        ZMQ_URL: Deno.env.get("BITCOIN_ZMQ_URL") ?? "tcp://127.0.0.1:19333",
     }
 });
 /*
@@ -105,6 +107,11 @@ const API_CONFIG = () => ({
     LOGS_FILE: Deno.env.get("API_LOGS_PATH") ?? "./logs/api.log.txt",
 });
 
+const CRON_CONFIG = () => ({
+    CHECK_ORDERS_CRON: Deno.env.get("CHECK_ORDERS_CRON") ?? "*/5 * * * *",
+    LOGS_FILE: Deno.env.get("CRON_LOGS_PATH") ?? "./logs/cron.log.txt",
+});
+
 type NetworkType = 'MAINNET' | 'TESTNET';
 const NETWORK = () => (Deno.env.get("NETWORK") ?? "MAINNET") as NetworkType;
 
@@ -129,6 +136,7 @@ export const CONFIG = {
     ELECTRUM: ELECTRUM_CONFIG()[NETWORK()],
     XCP: XCP_CONFIG()[NETWORK()],
     API: API_CONFIG(),
+    CRON: CRON_CONFIG(),
     TESTING: TESTING_CONFIG(),
     NODE_ENV: NODE_ENV(),
     DEBUG: DEBUG()
