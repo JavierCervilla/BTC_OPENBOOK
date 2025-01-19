@@ -16,10 +16,10 @@ async function checkOrders() {
         for (const order of orders) {
             const {utxo} = order;
             const [txid, vout] = utxo.split(':');
-            cronLogger.info(`Checking order ${order.txid} with UTXO ${utxo}`);
+            cronLogger.info(`Checking order ${order.txid.slice(0, 6)}...${order.txid.slice(-6)} with UTXO ${utxo.slice(0, 6)}...${utxo.slice(-6)}`);
             const tx = await rpc.getTXOUT(txid, Number(vout));
             if (!tx) {
-                cronLogger.error(`TXOUT not found for order ${order.txid}. UTXO ${utxo} has been spent`);
+                cronLogger.error(`TXOUT not found for order ${order.txid.slice(0, 6)}...${order.txid.slice(-6)}. UTXO ${utxo.slice(0, 6)}...${utxo.slice(-6)} has been spent`);
                 await Order.updateOpenbookListing(order.txid, 'inactive');
             }
         }

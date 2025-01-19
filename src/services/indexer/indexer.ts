@@ -10,10 +10,16 @@ export async function initializeIndexer(db: Database) {
 
     logger.debug(`[${new Date().toISOString()}] Starting sync: Next block: ${block}, End block: ${endBlock}`);
 
-    rpc.subscribeToMempoolSpaceWebSocket(["blocks"], (message) => {
-        if (message.block) {
-            endBlock = Math.max(endBlock, message.block.height);
-            logger.info(`New block detected via WebSocket the tip now is ${message.block.height}`);
+    rpc.subscribeToMempoolSpaceWebSocket(["blocks"], {
+        onMessage: async (message) => {
+            if (message.block) {
+                endBlock = Math.max(endBlock, message.block.height);
+                logger.info(`New block detected via WebSocket the tip now is ${message.block.height}`);
+            }
+        },
+        onConnect: async () => {
+            endBlock = await rpc.getBlockCount();
+            logger.info(`WebSocket connected, current tip is ${endBlock}`);
         }
     });
 

@@ -294,11 +294,11 @@ export async function getTXOUT(txid: string, vout: number) {
 
 export function subscribeToMempoolSpaceWebSocket(
     topics: string[],
-    callback: (message: WSMessage) => void
+    { onMessage, onConnect }: WebSocketCallbacks
 ): void {
     const connectWebSocket = () => {
         const ws = new WebSocket("wss://mempool.space/api/v1/ws");
-        ws.onopen = () => {
+        ws.onopen = async () => {
             console.log(`Connected to WebSocket with topics: ${topics.join(", ")}`);
             ws.send(
                 JSON.stringify({
@@ -306,16 +306,17 @@ export function subscribeToMempoolSpaceWebSocket(
                     data: topics,
                 })
             );
+            await onConnect?.();
         };
         ws.onmessage = async (event) => {
             try {
                 const message = JSON.parse(event.data);
-                callback(message);
+                await onMessage?.(message);
             } catch (error) {
                 console.error("Error parsing WebSocket message:", error);
             }
         };
-        ws.onerror = (_error) => {};
+        ws.onerror = (_error) => { };
         ws.onclose = () => {
             console.warn("WebSocket connection closed. Reconnecting...");
             setTimeout(connectWebSocket, 5000);

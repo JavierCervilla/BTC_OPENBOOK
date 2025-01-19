@@ -94,3 +94,8 @@ type WSMessage = {
 type BlockMessage = {
   height: number;
 };
+
+interface WebSocketCallbacks {
+    onMessage: (message: WSMessage) => void | Promise<void>;
+    onConnect: () => void | Promise<void>;
+}
