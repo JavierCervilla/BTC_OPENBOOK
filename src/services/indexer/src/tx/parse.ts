@@ -1,3 +1,5 @@
+import * as bitcoin from "bitcoinjs-lib";
+
 import logger from "@/utils/logger.ts";
 import * as rpc from "@/utils/btc/rpc.ts";
 import { OpenBook } from "@/services/openbook/openbook.ts";
@@ -244,6 +246,11 @@ function getLockTimeFromTXHex(tx_hex: string) {
     return lockTime;
 }
 
+export function hasOpReturnOutputs(txHex: string): boolean {
+    const tx = bitcoin.Transaction.fromHex(txHex);
+    return tx.outs.some((output) => output.script[0] === bitcoin.opcodes.OP_RETURN);
+}
+
 //TODO: USe utxo instead of dustSize to track atomic swaps
 export async function parseBlock(db: Database, blockInfo: Block): Promise<{ transactions: Transaction[], atomic_swaps: ParsedTransaction[], openbook_listings: OpenBookListing[] }> {
     let filtered_atomic_swaps: ParsedTransaction[] = [];
@@ -271,7 +278,7 @@ export async function parseBlock(db: Database, blockInfo: Block): Promise<{ tran
     let valid_openbook_listings: OpenBookListing[] = [];
     if (blockInfo.height >= CONFIG.INDEXER.START_OPENBOOK_LISTINGS_BLOCK) {
         txs = await rpc.getMultipleTransactions(blockInfo.tx as string[], false, 1000);
-        const potential_openbook_listings = txs.filter((tx) => getLockTimeFromTXHex(tx.hex) === CONFIG.OPENBOOK.TIMELOCK)
+        const potential_openbook_listings = txs.filter((tx) => getLockTimeFromTXHex(tx.hex) === CONFIG.OPENBOOK.TIMELOCK && hasOpReturnOutputs(tx.hex))
         const openbook_listings = await Promise.all(potential_openbook_listings.map(async (tx) => await parseOpenbookListingTx(tx)));
         valid_openbook_listings = openbook_listings.filter(tx => tx !== undefined).map(tx => ({ ...tx, timestamp: blockInfo.time, block_index: blockInfo.height }));
         transactions.push(...valid_openbook_listings.map(tx => tx.txid));
