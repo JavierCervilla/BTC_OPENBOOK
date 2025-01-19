@@ -73,8 +73,8 @@ type UTXO = {
     txid: string;
     vout: number;
     status: {
-      confirmed:boolean;
-      block_height: number;
+        confirmed: boolean;
+        block_height: number;
     },
     value: number;
     height: number;
@@ -92,10 +92,12 @@ type WSMessage = {
 }
 
 type BlockMessage = {
-  height: number;
+    height: number;
 };
 
 interface WebSocketCallbacks {
     onMessage: (message: WSMessage) => void | Promise<void>;
     onConnect: () => void | Promise<void>;
+    onError: (error: Event | ErrorEvent) => void | Promise<void>;
+    onClose: () => void | Promise<void>;
 }

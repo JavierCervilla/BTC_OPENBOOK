@@ -10,6 +10,7 @@ export async function initializeIndexer(db: Database) {
 
     logger.debug(`[${new Date().toISOString()}] Starting sync: Next block: ${block}, End block: ${endBlock}`);
 
+    const topics = ["blocks"];
     rpc.subscribeToMempoolSpaceWebSocket(["blocks"], {
         onMessage: async (message) => {
             if (message.block) {
@@ -19,7 +20,11 @@ export async function initializeIndexer(db: Database) {
         },
         onConnect: async () => {
             endBlock = await rpc.getBlockCount();
-            logger.info(`WebSocket connected, current tip is ${endBlock}`);
+            logger.info(`WebSocket connected for ${topics.join(", ")}, current tip is ${endBlock}`);
+        },
+        onError: (_error) => {},
+        onClose: () => {
+            logger.info(`WebSocket connection closed`);
         }
     });
 
