@@ -42,6 +42,10 @@ export async function callRPC(rpcCall: rpcCall, retries = 3) {
             body: JSON.stringify(rpcCall.call),
         },
         );
+        if (!response.ok) {
+            const text = await response.text();
+            throw new Error(`HTTP Error: ${response.status} ${response.statusText} - ${text}`);
+        }
         const data = await response.json();
         return data;
     }, retries, rpcCall.call.method);

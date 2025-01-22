@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS atomic_swaps (
     block_index INTEGER,
     seller TEXT,
     buyer TEXT,
+    utxo TEXT,
     utxo_balance TEXT,
     total_price BIGINT,
     unit_price BIGINT,

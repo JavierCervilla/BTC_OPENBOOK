@@ -8,6 +8,7 @@ export type UTXOBalance = {
 export type ParsedTransaction = {
     txid: string,
     protocol: number,
+    utxo: string,
     utxo_balance: UTXOBalance[],
     seller: string,
     buyer: string,

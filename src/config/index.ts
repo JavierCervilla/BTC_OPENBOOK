@@ -43,14 +43,8 @@ const OPENBOOK_PROTOCOL_CONFIG = () => {
 const INDEXER_CONFIG = () => ({
     LOGS_FILE: Deno.env.get("INDEXER_LOGS_PATH") ?? "./logs/indexer.log.txt",
     START_BLOCK: 280330, // FIRST COUNTERPARTY BLOCK
-    //START_BLOCK: 866000, // FIRST BLOCK WITH ACTIVE CHANGE FOR ATOMIC SWAPS
-    //START_BLOCK: 868136, // MULTIPLE ATOMIC SWAPS IN SAME TX
-    //START_BLOCK: 867501, // FIRST ATOMIC SWAP IN FIREMINTS
-    //START_BLOCK: 866942, // FIRST ATOMIC SWAP
-    START_UTXO_MOVE_BLOCK: 866000,
+    START_UTXO_MOVE_BLOCK: 866000, // FIRST BLOCK WITH ACTIVE CHANGE FOR ATOMIC SWAPS
     START_OPENBOOK_LISTINGS_BLOCK: 875332, // FIRST BLOCK WITH OPEN BOOK LISTINGS
-    //START_OPENBOOK_LISTINGS_BLOCK: 9999999, // FIRST BLOCK WITH OPEN BOOK LISTINGS
-
 });
 
 const DATABASE_CONFIG = () => ({
@@ -78,12 +72,12 @@ public nodes taken from here:
 */
 const ELECTRUM_CONFIG = () => ({
     MAINNET: {
-        RPC_URL: Deno.env.get("ELECTRUM_RPC_URL") ?? "https://erbium1.sytes.net:51002",
+        RPC_URL: Deno.env.get("ELECTRUM_RPC_URL") ?? "https://mempool.space:50002",
         RPC_USER: Deno.env.get("ELECTRUM_RPC_USER") ?? "rpc",
         RPC_PASSWORD: Deno.env.get("ELECTRUM_RPC_PASSWORD") ?? "rpc",
     },
     TESTNET: {
-        RPC_URL: Deno.env.get("ELECTRUM_TESTNET_RPC_URL") ?? "https://testnetnode.arihanc.com:51002",
+        RPC_URL: Deno.env.get("ELECTRUM_TESTNET_RPC_URL") ?? "https://mempool.space:40002",
         RPC_USER: Deno.env.get("ELECTRUM_TESTNET_RPC_USER") ?? "rpc",
         RPC_PASSWORD: Deno.env.get("ELECTRUM_TESTNET_RPC_PASSWORD") ?? "rpc",
     }

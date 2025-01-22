@@ -12,7 +12,7 @@ export async function initializeIndexer(db: Database) {
 
     const topics = ["blocks"];
     rpc.subscribeToMempoolSpaceWebSocket(["blocks"], {
-        onMessage: async (message) => {
+        onMessage: (message) => {
             if (message.block) {
                 endBlock = Math.max(endBlock, message.block.height);
                 logger.info(`New block detected via WebSocket the tip now is ${message.block.height}`);
@@ -20,12 +20,10 @@ export async function initializeIndexer(db: Database) {
         },
         onConnect: async () => {
             endBlock = await rpc.getBlockCount();
-            logger.info(`WebSocket connected for ${topics.join(", ")}, current tip is ${endBlock}`);
+            logger.info(`WebSocket connected. [${endBlock}]`);
         },
         onError: (_error) => {},
-        onClose: () => {
-            logger.info(`WebSocket connection closed`);
-        }
+        onClose: () => {}
     });
 
     while (true) {
@@ -47,7 +45,7 @@ export async function initializeIndexer(db: Database) {
                 await new Promise((resolve) => setTimeout(resolve, 5000));
             }
         }
-
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         logger.info(`[${new Date().toISOString()}] No new blocks to process. Waiting for updates...`);
         while (block > endBlock) {
             await new Promise((resolve) => setTimeout(resolve, 1000));

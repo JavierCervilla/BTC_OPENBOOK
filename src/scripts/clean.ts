@@ -6,12 +6,13 @@ const db = new Database(CONFIG.DATABASE.DB_NAME);
 
 console.log('Database opened', db);
 
-const block_index = 876496;
+const block_index = 875332;
 
 
 console.log('Deleting blocks and atomic swaps');
 db.exec('DELETE FROM blocks WHERE block_index > ?', [block_index]);
 db.exec('DELETE FROM atomic_swaps WHERE block_index > ?', [block_index]);
+db.exec('DELETE FROM openbook_listings WHERE block_index > ?', [block_index]);
 
 db.close();
 

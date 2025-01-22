@@ -192,6 +192,7 @@ export async function parseXCPEvents(events: XCPUtxoMoveInfo[]): Promise<ParsedT
                 buyer,
                 total_price,
                 unit_price,
+                utxo: event.source,
                 timestamp: new Date(event.timestamp * 1000).toISOString(),
                 service_fees
             };
@@ -212,6 +213,7 @@ export async function parseXCPEvents(events: XCPUtxoMoveInfo[]): Promise<ParsedT
                 total_price: swap.total_price,
                 unit_price: swap.unit_price,
                 timestamp: swap.timestamp,
+                utxo: swap.utxo,
                 utxo_balance: [
                     {
                         assetId: swap?.assetId as string,
