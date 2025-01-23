@@ -3,8 +3,11 @@ import type { Router, Request, Response } from "express";
 import { handleSuccess, handleError } from "@/services/api/handler.ts";
 import * as paginate from "@/services/database/utils/pagination.ts";
 import * as orders from "@/services/database/orders.ts";
+import * as buy from "@/services/buy/buy.ts";
 import type { OpenBookListing } from "@/services/indexer/src/tx/parse.d.ts";
 import type { PaginatedResult } from "@/services/database/utils/pagination.d.ts";
+import { apiKeyMiddleware } from "@/middleware/auth/middleware.ts";
+import { CreateBuyPSBTResult, ServiceFee } from "@/services/buy/buy.d.ts";
 
 export const controller = {
     getOpenbookListings: async (req: Request, res: Response) => {
@@ -55,18 +58,18 @@ export const controller = {
             return handleError(res, error as Error);
         }
     },
-    //createOrder: async (req: Request, res: Response) => {
-    //    try {
-    //        const { body } = req;
-    //        const result = await orders.createOrder(body);
-    //        return handleSuccess<{
-    //            result: Order,
-    //            total: number
-    //        }>(res, result);
-    //    } catch (error: unknown) {
-    //        return handleError(res, error as Error);
-    //    }
-    //}
+    buyOrder: async (req: Request, res: Response) => {
+        try {
+            const { body, partner } = req;
+            const result = await buy.createBuy({
+                ...body,
+                serviceFee: [...body.serviceFee, ...partner.serviceFee] as ServiceFee[]
+            });
+            return handleSuccess<CreateBuyPSBTResult>(res, result);
+        } catch (error: unknown) {
+            return handleError(res, error as Error);
+        }
+    }
 }
 
 export function configureOpenBookRoutes(router: Router) {
@@ -74,5 +77,6 @@ export function configureOpenBookRoutes(router: Router) {
     router.get("/:txId", controller.getOpenbookListingsByTxId);
     router.get("/asset/:asset", controller.getOpenbookListingsByAsset);
     router.get("/address/:address", controller.getOpenbookListingsByAddress);
+    router.post("/buy", apiKeyMiddleware, controller.buyOrder);
     return router;
 }

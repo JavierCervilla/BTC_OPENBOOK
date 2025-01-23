@@ -1,7 +1,6 @@
 import { CONFIG } from "@/config/index.ts";
 import { apiLogger } from "../logger.ts";
 import type { Transaction, rpcCall, Block } from './rpc.d.ts'
-import * as progress from "../progress.ts";
 import { address2ScriptHash } from "@/utils/btc/tx.ts";
 
 
@@ -61,9 +60,7 @@ export async function asyncPool<T, R>(
     const ret: Promise<R>[] = [];
     const executing: Promise<void>[] = [];
 
-    //const total = items.length;
     let completed = 0;
-    //progress.initProgress(total, 'Fetching transactions');
     for (const item of items) {
         const p = retry(() => asyncFn(item), retries, fnName);
         ret.push(p);
@@ -73,12 +70,10 @@ export async function asyncPool<T, R>(
         const e = p.then(() => {
             executing.splice(executing.indexOf(e), 1);
             completed++;
-            //progress.updateProgress(completed, total, 'Fetching transactions');
         });
         executing.push(e);
     }
 
-    //progress.finishProgress();
     return Promise.all(ret);
 }
 

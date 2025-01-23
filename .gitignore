@@ -7,3 +7,4 @@ logs/
 *.zip
 .DS_Store
 summary.json
+partners/config.json

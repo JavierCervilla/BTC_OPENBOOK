@@ -40,85 +40,102 @@ const OPENBOOK_PROTOCOL_CONFIG = () => {
     }
 };
 
-const INDEXER_CONFIG = () => ({
-    LOGS_FILE: Deno.env.get("INDEXER_LOGS_PATH") ?? "./logs/indexer.log.txt",
-    START_BLOCK: 280330, // FIRST COUNTERPARTY BLOCK
-    START_UTXO_MOVE_BLOCK: 866000, // FIRST BLOCK WITH ACTIVE CHANGE FOR ATOMIC SWAPS
-    START_OPENBOOK_LISTINGS_BLOCK: 875332, // FIRST BLOCK WITH OPEN BOOK LISTINGS
-});
+const INDEXER_CONFIG = () => {
 
-const DATABASE_CONFIG = () => ({
-    DB_NAME: Deno.env.get("DATABASE_NAME") ?? "openbook.db",
-    SCHEMA_PATH: "schema.sql",
-});
+    const LOGS_FILE = Deno.env.get("INDEXER_LOGS_PATH") ?? "./logs/indexer.log.txt";
+    const START_BLOCK = 280330 // FIRST COUNTERPARTY BLOCK
+    const START_UTXO_MOVE_BLOCK = 866000 // FIRST BLOCK WITH ACTIVE CHANGE FOR ATOMIC SWAPS
+    const START_OPENBOOK_LISTINGS_BLOCK = 875332 // FIRST BLOCK WITH OPEN BOOK LISTINGS
+    return { LOGS_FILE, START_BLOCK, START_UTXO_MOVE_BLOCK, START_OPENBOOK_LISTINGS_BLOCK };
+}
 
-const BITCOIN_CONFIG = () => ({
-    MAINNET: {
+const DATABASE_CONFIG = () => {
+    const DB_NAME = Deno.env.get("DATABASE_NAME") ?? "openbook.db";
+    const SCHEMA_PATH = "schema.sql";
+    return { DB_NAME, SCHEMA_PATH };
+};
+
+const BITCOIN_CONFIG = () => {
+    const MAINNET = {
         RPC_URL: Deno.env.get("BITCOIN_RPC_URL") ?? "https://bitcoin-rpc.publicnode.com",
         RPC_USER: Deno.env.get("BITCOIN_RPC_USER") ?? "rpc",
         RPC_PASSWORD: Deno.env.get("BITCOIN_RPC_PASSWORD") ?? "rpc",
         ZMQ_URL: Deno.env.get("BITCOIN_ZMQ_URL") ?? "tcp://127.0.0.1:19333",
-    },
-    TESTNET: {
+    };
+    const TESTNET= {
         RPC_URL: Deno.env.get("BITCOIN_TESTNET_RPC_URL") ?? "https://bitcoin-testnet-rpc.publicnode.com",
         RPC_USER: Deno.env.get("BITCOIN_TESTNET_RPC_USER") ?? "rpc",
         RPC_PASSWORD: Deno.env.get("BITCOIN_TESTNET_RPC_PASSWORD") ?? "rpc",
         ZMQ_URL: Deno.env.get("BITCOIN_ZMQ_URL") ?? "tcp://127.0.0.1:19333",
-    }
-});
+    };
+    return { MAINNET, TESTNET };
+};
 /*
 public nodes taken from here:
 [list of nodes](https://github.com/spesmilo/electrum/blob/afa1a4d22a31d23d088c6670e1588eed32f7114d/lib/network.py#L57)
 */
-const ELECTRUM_CONFIG = () => ({
-    MAINNET: {
+const ELECTRUM_CONFIG = () => {
+    const MAINNET= {
         RPC_URL: Deno.env.get("ELECTRUM_RPC_URL") ?? "https://mempool.space:50002",
         RPC_USER: Deno.env.get("ELECTRUM_RPC_USER") ?? "rpc",
         RPC_PASSWORD: Deno.env.get("ELECTRUM_RPC_PASSWORD") ?? "rpc",
-    },
-    TESTNET: {
+    };
+    const TESTNET = {
         RPC_URL: Deno.env.get("ELECTRUM_TESTNET_RPC_URL") ?? "https://mempool.space:40002",
         RPC_USER: Deno.env.get("ELECTRUM_TESTNET_RPC_USER") ?? "rpc",
         RPC_PASSWORD: Deno.env.get("ELECTRUM_TESTNET_RPC_PASSWORD") ?? "rpc",
     }
-});
+    return { MAINNET, TESTNET };
+};
 
-const XCP_CONFIG = () => ({
-    MAINNET: {
+const XCP_CONFIG = () => {
+    const MAINNET = {
         RPC_URL: Deno.env.get("XCP_RPC_URL") ?? "https://api.counterparty.io:4000",
         RPC_USER: Deno.env.get("XCP_RPC_USER") ?? "rpc",
         RPC_PASSWORD: Deno.env.get("XCP_RPC_PASSWORD") ?? "rpc",
-    },
-    TESTNET: {
+    }
+    const TESTNET = {
         RPC_URL: Deno.env.get("XCP_TESTNET_RPC_URL") ?? "https://api.counterparty.io:14000",
         RPC_USER: Deno.env.get("XCP_TESTNET_RPC_USER") ?? "rpc",
         RPC_PASSWORD: Deno.env.get("XCP_TESTNET_RPC_PASSWORD") ?? "rpc",
     }
-});
+    return { MAINNET, TESTNET };
+};
 
-const API_CONFIG = () => ({
-    PORT: Deno.env.get("API_PORT") ?? 3001,
-    LOGS_FILE: Deno.env.get("API_LOGS_PATH") ?? "./logs/api.log.txt",
-});
+const API_CONFIG = () => {
+    const PORT = Deno.env.get("API_PORT") ?? 3001;
+    const LOGS_FILE = Deno.env.get("API_LOGS_PATH") ?? "./logs/api.log.txt";
+    return { PORT, LOGS_FILE };
+}
 
-const CRON_CONFIG = () => ({
-    CHECK_ORDERS_CRON: Deno.env.get("CHECK_ORDERS_CRON") ?? "*/5 * * * *",
-    LOGS_FILE: Deno.env.get("CRON_LOGS_PATH") ?? "./logs/cron.log.txt",
-});
+const CRON_CONFIG = () => {
+    const CHECK_ORDERS_CRON = Deno.env.get("CHECK_ORDERS_CRON") ?? "*/5 * * * *";
+    const LOGS_FILE = Deno.env.get("CRON_LOGS_PATH") ?? "./logs/cron.log.txt";
+    return { CHECK_ORDERS_CRON, LOGS_FILE };
+}
 
 type NetworkType = 'MAINNET' | 'TESTNET';
 const NETWORK = () => (Deno.env.get("NETWORK") ?? "MAINNET") as NetworkType;
 
-const TESTING_CONFIG = () => ({
-    WIF: Deno.env.get("TESTING_WIF") ?? ""
-});
+const TESTING_CONFIG = () => {
+    const WIF = Deno.env.get("TESTING_WIF") ?? "";
+    return { WIF };
+}
 
 const NODE_ENV = () => (Deno.env.get("NODE_ENV") ?? "development") as "development" | "production" | "testing";
 
-const DEBUG = () => ({
-    ACTIVE: Deno.env.get("DEBUG") === "true",
-    LOGS_FILE: "./logs/debug.log.txt"
-})
+const DEBUG = () => {
+    const ACTIVE = Deno.env.get("DEBUG") === "true";
+    const LOGS_FILE = "./logs/debug.log.txt";
+    return { ACTIVE, LOGS_FILE };
+}
+
+const PARTNERS_CONFIG = () => {
+    const HEADER_NAME = "x-api-key";
+    const CONFIG_PATH = Deno.env.get("PARTNERS_CONFIG_PATH") ?? "./partners/config.json";
+    const CONFIG = JSON.parse(Deno.readTextFileSync(CONFIG_PATH));
+    return { HEADER_NAME, CONFIG_PATH, CONFIG };
+}
 
 export const CONFIG = {
     VERSION: VERSION_CONFIG(),
@@ -133,5 +150,6 @@ export const CONFIG = {
     CRON: CRON_CONFIG(),
     TESTING: TESTING_CONFIG(),
     NODE_ENV: NODE_ENV(),
+    PARTNERS: PARTNERS_CONFIG(),
     DEBUG: DEBUG()
 }

@@ -5,7 +5,7 @@ import { CONFIG } from "@/config/index.ts";
 import { apiLogger } from "@/utils/logger.ts";
 import * as rpc from "@/utils/btc/rpc.ts";
 import * as tx from "@/utils/btc/tx.ts";
-import type { createBuyProps, createBuyPSBTProps } from "./buy.d.ts";
+import type { createBuyProps, createBuyPSBTProps, FixedServiceFee, ServiceFee, CreateBuyPSBTResult } from "./buy.d.ts";
 import { hex2bin } from "@/utils/hex.ts";
 import type { inputToSign } from "@/services/ordersbook/tx.d.ts";
 import type { OpenBookListing } from "@/services/indexer/src/tx/parse.d.ts";
@@ -54,12 +54,41 @@ async function processSelectedUtxos(
     }
 }
 
-async function createBuyPSBT(prepare: createBuyPSBTProps): Promise<{psbt:string, inputsToSign:inputToSign[], fee: bigint, btc_in: bigint, btc_out: bigint}> {
+export function calculateServiceFee(
+    serviceFees: ServiceFee[],
+    price: bigint
+): FixedServiceFee[] {
+    const formattedServiceFees: FixedServiceFee[] = [];
+
+    for (const fee of serviceFees) {
+        if ('percentage' in fee && 'threshold' in fee) {
+            const percentage = Math.round(fee.percentage * 100); // Multiplicamos por 100 para manejar decimales si es necesario
+            const calculatedAmount = Math.round((Number(price) * percentage) / 10000); 
+            const amount = BigInt(Math.max(Number(calculatedAmount), fee.threshold));
+            formattedServiceFees.push({
+                concept: fee.concept,
+                address: fee.address,
+                amount: amount,
+            });
+        } else if ('amount' in fee) {
+            formattedServiceFees.push({
+                concept: fee.concept,
+                address: fee.address,
+                amount: BigInt(fee.amount),
+            });
+        }
+    };
+
+    return formattedServiceFees;
+}
+
+async function createBuyPSBT(prepare: createBuyPSBTProps): Promise<CreateBuyPSBTResult> {
     try {
         const psbt = new bitcoin.Psbt();
         const sellerPsbt = bitcoin.Psbt.fromHex(prepare.psbt);
-        const utxos = await rpc.getUTXOFromMempoolSpace(prepare.buyer);
-        const requiredAmountForPriceAndFees = BigInt(prepare.price) + prepare.serviceFee.reduce((acc, fee) => acc + fee.amount, 0n);
+        const utxos = await rpc.getUTXO(prepare.buyer);
+        const formattedServiceFees = calculateServiceFee(prepare.serviceFee, BigInt(prepare.price));
+        const requiredAmountForPriceAndFees = BigInt(prepare.price) + formattedServiceFees.reduce((acc: bigint, fee: FixedServiceFee) => acc + BigInt(fee.amount), 0n);
 
         psbt.addOutput({ address: prepare.buyer, value: 546n });
 
@@ -71,8 +100,8 @@ async function createBuyPSBT(prepare: createBuyPSBTProps): Promise<{psbt:string,
         const inputs2sign: inputToSign[] = [];
 
         await processSelectedUtxos(psbt, selectedUtxos, inputs2sign, sellerPsbt);
-        for(const fee of prepare.serviceFee){
-            psbt.addOutput({ address:fee.address, value:fee.amount });
+        for (const fee of formattedServiceFees) {
+            psbt.addOutput({ address: fee.address, value: fee.amount });
         }
         const size = calculateTransactionSize(
             {
@@ -86,10 +115,10 @@ async function createBuyPSBT(prepare: createBuyPSBTProps): Promise<{psbt:string,
         const btc_in = selectedUtxos.reduce((acc, input) => acc + BigInt(input.value), 0n);
         const btc_out = psbt.txOutputs.reduce((acc, output) => acc + output.value, 0n);
         const btc_change = btc_in - (btc_out + BigInt(size.expectedFee));
-        if(btc_change < 0n){
+        if (btc_change < 0n) {
             throw new Error("Not enough funds");
         }
-        if(btc_change > 456n){
+        if (btc_change > 456n) {
             psbt.addOutput({ address: prepare.buyer, value: btc_change });
         }
         return { psbt: psbt.toHex(), inputsToSign: inputs2sign, fee: BigInt(size.expectedFee), btc_in, btc_out };
