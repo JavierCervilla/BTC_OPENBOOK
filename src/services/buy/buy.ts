@@ -121,7 +121,7 @@ async function createBuyPSBT(prepare: createBuyPSBTProps): Promise<CreateBuyPSBT
         if (btc_change > 456n) {
             psbt.addOutput({ address: prepare.buyer, value: btc_change });
         }
-        return { psbt: psbt.toHex(), inputsToSign: inputs2sign, fee: BigInt(size.expectedFee), btc_in, btc_out };
+        return { psbt: psbt.toHex(), inputsToSign: inputs2sign, fee: BigInt(size.expectedFee), btc_in, btc_out, ...size };
     } catch (error: unknown) {
         apiLogger.error(error);
         throw error;
@@ -163,6 +163,9 @@ export async function createBuy(createBuyProps: createBuyProps) {
             fee: buyPsbtResult.fee,
             btc_in: buyPsbtResult.btc_in,
             btc_out: buyPsbtResult.btc_out,
+            vSize: buyPsbtResult.vSize,
+            baseSize: buyPsbtResult.baseSize,
+            expectedFee: buyPsbtResult.expectedFee,
         };
     } catch (error: unknown) {
         apiLogger.error(error);

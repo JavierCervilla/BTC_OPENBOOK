@@ -33,13 +33,7 @@ export async function getBlocks(options: PaginationOptions = { page: 1, limit: 1
     };
 }
 
-export async function getBlocksGroupedByDayWithEventSums(): Promise<{ result: BlockSummary[], total: number }> {
-    const cacheKey = "blocks_grouped_by_day_with_event_sums";
-    const cachedResult = cache.getFromCache(cacheKey);
-    if (cachedResult) {
-        return cachedResult;
-    }
-
+export async function getDaySummary(){
     const db = new Database(CONFIG.DATABASE.DB_NAME, {
         readonly: true,
     });
@@ -79,11 +73,33 @@ export async function getBlocksGroupedByDayWithEventSums(): Promise<{ result: Bl
         date,
         events: eventSums,
     }));
+    return result;
+}
 
-    cache.setInCache({ key: cacheKey, data: result, expiration: 60 * 10 * 1000 }); // 1 hour
+export async function getBlocksGroupedByDayWithEventSums(): Promise<{ result: BlockSummary[], total: number }> {
+    const cacheKey = "blocks_grouped_by_day_with_event_sums";
+    const cachedResult = cache.getFromCache(cacheKey) as BlockSummary[];
+    if (cachedResult) {
+        return {
+            result: cachedResult,
+            total: cachedResult.length,
+        };
+    }
+
+    const result = await getDaySummary();
+
+    cache.setInCache({ key: cacheKey, data: result, expiration: 60 * 10 * 1000 });
 
     return {
         result: result,
         total: result.length,
     };
+}
+
+export async function resyncSummary(){
+    const start = new Date();
+    const result = await getDaySummary();
+    const end = new Date();
+    console.log(`Cached daily summary in ${end.getTime() - start.getTime()}ms`);
+    cache.setInCache({ key: "blocks_grouped_by_day_with_event_sums", data: result, expiration: 60 * 10 * 1000 });
 }

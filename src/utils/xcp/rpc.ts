@@ -1,6 +1,7 @@
 import { CONFIG } from "@/config/index.ts";
-import type { UTXOBalance, XCPEvent, XCPEventCount } from "./rpc.d.ts";
+import type { DetachParams, UTXOBalance, XCPEvent, XCPEventCount } from "./rpc.d.ts";
 import { apiLogger } from "@/utils/logger.ts";
+import { AttachParams } from "@/services/counterparty/attach.d.ts";
 
 
 export const EVENT_NAMES = [
@@ -143,5 +144,54 @@ export async function getUTXOBalance(utxo: string): Promise<UTXOBalance[]> {
     } catch (error) {
         apiLogger.error(error);
         throw error;
+    }
+}
+
+export async function attachAssetToUTXO(params: AttachParams) {
+    const { asset, quantity, address, feeRate } = params;
+    let response;
+    const endpoint = new URL(`${CONFIG.XCP.RPC_URL}/v2/addresses/${address}/compose/attach`);
+    endpoint.searchParams.set("exclude_utxos_with_balances", "true");
+    endpoint.searchParams.set("utxo_value", "546");
+    endpoint.searchParams.set("asset", asset);
+    endpoint.searchParams.set("quantity", quantity.toString());
+    endpoint.searchParams.set("sat_per_vbyte", feeRate.toString());
+    endpoint.searchParams.set("verbose", "false");
+
+    try {
+        response = await retry(() => fetch(endpoint.toString()));
+        const data = await response.json();
+        return data.result;
+    } catch (error) {
+        apiLogger.error(error);
+        throw error;
+    } finally {
+        if (response) {
+            apiLogger.info(`${endpoint} [${response.status}]`);
+        }
+    }
+}
+
+export async function detachAssetFromUTXO(params: DetachParams) {
+    const { utxo, address, feeRate } = params;
+    let response;
+    const endpoint = new URL(`${CONFIG.XCP.RPC_URL}/v2/addresses/${address}/compose/detach`);
+    endpoint.searchParams.set("exclude_utxos_with_balances", "true");
+    endpoint.searchParams.set("utxo_value", "546");
+    endpoint.searchParams.set("utxo", utxo);
+    endpoint.searchParams.set("sat_per_vbyte", feeRate.toString());
+    endpoint.searchParams.set("verbose", "false");
+
+    try {
+        response = await retry(() => fetch(endpoint.toString()));
+        const data = await response.json();
+        return data.result;
+    } catch (error) {
+        apiLogger.error(error);
+        throw error;
+    } finally {
+        if (response) {
+            apiLogger.info(`${endpoint} [${response.status}]`);
+        }
     }
 }

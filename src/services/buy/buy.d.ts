@@ -42,5 +42,9 @@ export interface CreateBuyPSBTResult {
     inputsToSign: inputToSign[],
     fee: bigint,
     btc_in: bigint,
-    btc_out: bigint
+    btc_out: bigint,
+    
+    expectedFee: number,
+    baseSize: number,
+    vSize: number,
 }

@@ -4,10 +4,12 @@ import { handleSuccess, handleError } from "@/services/api/handler.ts";
 import * as paginate from "@/services/database/utils/pagination.ts";
 import * as orders from "@/services/database/orders.ts";
 import * as buy from "@/services/buy/buy.ts";
+import * as cancel from "@/services/ordersbook/cancel.ts";
 import type { OpenBookListing } from "@/services/indexer/src/tx/parse.d.ts";
 import type { PaginatedResult } from "@/services/database/utils/pagination.d.ts";
 import { apiKeyMiddleware } from "@/middleware/auth/middleware.ts";
 import { CreateBuyPSBTResult, ServiceFee } from "@/services/buy/buy.d.ts";
+import { CreateCancelResult } from "@/services/ordersbook/cancel.d.ts";
 
 export const controller = {
     getOpenbookListings: async (req: Request, res: Response) => {
@@ -28,7 +30,7 @@ export const controller = {
             const result = await orders.getOpenbookListingsByTxId(txId);
             return handleSuccess<{
                 result: OpenBookListing,
-            } | null>(res, result);
+            } | { result: null }>(res, result);
         } catch (error: unknown) {
             return handleError(res, error as Error);
         }
@@ -58,6 +60,15 @@ export const controller = {
             return handleError(res, error as Error);
         }
     },
+    cancelOrder: async (req: Request, res: Response) => {
+        try {
+            const { body } = req;
+            const result = await cancel.createCancel(body);
+            return handleSuccess<CreateCancelResult>(res, result);
+        } catch (error: unknown) {
+            return handleError(res, error as Error);
+        }
+    },
     buyOrder: async (req: Request, res: Response) => {
         try {
             const { body, partner } = req;
@@ -78,5 +89,6 @@ export function configureOpenBookRoutes(router: Router) {
     router.get("/asset/:asset", controller.getOpenbookListingsByAsset);
     router.get("/address/:address", controller.getOpenbookListingsByAddress);
     router.post("/buy", apiKeyMiddleware, controller.buyOrder);
+    router.post("/cancel", controller.cancelOrder);
     return router;
 }

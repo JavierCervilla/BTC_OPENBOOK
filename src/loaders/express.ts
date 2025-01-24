@@ -7,6 +7,7 @@ import { configureMarketDataRoutes } from "../services/api/routes/atomic-swaps/r
 import morganMiddleware from "@/middleware/morgan.ts";
 import { configureBlocksRoutes } from "@/services/api/routes/blocks/routes.ts";
 import { configureOpenBookRoutes } from "@/services/api/routes/orders/routes.ts";
+import { configureCounterpartyRoutes } from "@/services/api/routes/counterparty/routes.ts";
 //import { apiKeyMiddleware } from "@/auth/middleware.ts";
 
 
@@ -18,10 +19,10 @@ export function expressLoader({ app }: { app: Application }) {
     app.use(express.json());
     app.use(morganMiddleware);
 
-    app.use("/api/v1/atomic-swaps" /*, apiKeyMiddleware*/, configureMarketDataRoutes(express.Router()));
-    app.use("/api/v1/blocks" /*, apiKeyMiddleware*/, configureBlocksRoutes(express.Router()));
-    app.use("/api/v1/orders" /*, apiKeyMiddleware*/, configureOpenBookRoutes(express.Router()));
-
+    app.use("/api/v1/atomic-swaps", configureMarketDataRoutes(express.Router()));
+    app.use("/api/v1/blocks", configureBlocksRoutes(express.Router()));
+    app.use("/api/v1/orders", configureOpenBookRoutes(express.Router()));
+    app.use("/api/v1/xcp", configureCounterpartyRoutes(express.Router()));
     docsLoader(app);
     console.log('🚀 Express Initialized');
     return app;

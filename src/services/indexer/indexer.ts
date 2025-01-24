@@ -2,6 +2,7 @@ import type { Database } from "@db/sqlite";
 import { InitialPrompt, logger } from "@/utils/logger.ts";
 import { getNextBlock } from "./src/db/methods.ts";
 import * as rpc from "@/utils/btc/rpc.ts";
+import * as blocks from "@/services/database/blocks.ts";
 import * as parser from "@/services/indexer/src/tx/parse.ts";
 
 export async function initializeIndexer(db: Database) {
@@ -10,12 +11,12 @@ export async function initializeIndexer(db: Database) {
 
     logger.debug(`[${new Date().toISOString()}] Starting sync: Next block: ${block}, End block: ${endBlock}`);
 
-    const topics = ["blocks"];
     rpc.subscribeToMempoolSpaceWebSocket(["blocks"], {
-        onMessage: (message) => {
+        onMessage: async(message) => {
             if (message.block) {
                 endBlock = Math.max(endBlock, message.block.height);
                 logger.info(`New block detected via WebSocket the tip now is ${message.block.height}`);
+                await blocks.resyncSummary();
             }
         },
         onConnect: async () => {

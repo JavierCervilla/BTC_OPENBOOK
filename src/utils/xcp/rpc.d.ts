@@ -66,3 +66,16 @@ export interface AssetInfo {
     divisible: boolean
     locked: boolean
 }
+
+export interface AttachParams {
+    asset: string;
+    quantity: number;
+    address: string;
+    feeRate: number;
+}
+
+export interface DetachParams {
+    utxo: string;
+    address: string;
+    feeRate: number;
+}
