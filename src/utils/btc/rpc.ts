@@ -4,6 +4,8 @@ import type { Transaction, rpcCall, Block } from './rpc.d.ts'
 import { address2ScriptHash } from "@/utils/btc/tx.ts";
 
 
+import * as xcp from "@/utils/xcp/rpc.ts";
+
 export async function retry<T>(
     fn: () => Promise<T>,
     retries = 3,

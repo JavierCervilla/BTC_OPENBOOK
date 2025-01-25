@@ -23,11 +23,21 @@ export const controller = {
         } catch (error: unknown) {
             return handleError(res, error as Error);
         }
+    },
+    getUTXOS: async (req: Request, res: Response) => {
+        const { address } = req.params;
+        const utxos = await xcp.getUtxos({
+            address,
+            includeWithBalance: true
+        });
+        const utxos_with_balance = utxos.filter((utxo) => utxo.balance === true);
+        return handleSuccess(res, { utxos, total: utxos.length, utxos_with_balance, total_utxos_with_balance: utxos_with_balance.length });
     }
 }
 
 export function configureCounterpartyRoutes(router: Router) {
     router.post("/attach", controller.attach);
     router.post("/detach", controller.detach);
+    router.get("/utxos/:address", controller.getUTXOS);
     return router;
 }

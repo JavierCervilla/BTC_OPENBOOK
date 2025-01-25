@@ -195,3 +195,12 @@ export async function detachAssetFromUTXO(params: DetachParams) {
         }
     }
 }
+
+export async function getUTXOSWithBalances(utxos: string[]) {
+    const endpoint = new URL(`${CONFIG.XCP.RPC_URL}/v2/utxos/withbalances`);
+    endpoint.searchParams.set("utxos", utxos.join(","));
+    endpoint.searchParams.set("verbose", "true");
+    const response = await retry(() => fetch(endpoint.toString()));
+    const data = await response.json();
+    return data.result;
+}

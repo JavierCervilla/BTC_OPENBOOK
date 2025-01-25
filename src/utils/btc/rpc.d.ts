@@ -78,6 +78,8 @@ type UTXO = {
     },
     value: number;
     height: number;
+    balance?: boolean;
+    utxo_balance?:unknown;
 }
 
 type ElectrsUTXO = {
