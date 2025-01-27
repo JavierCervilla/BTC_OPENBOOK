@@ -10,18 +10,17 @@ import { configureBlocksRoutes } from "@/services/api/routes/blocks/routes.ts";
 import { configureOpenBookRoutes } from "@/services/api/routes/orders/routes.ts";
 import { configureCounterpartyRoutes } from "@/services/api/routes/counterparty/routes.ts";
 import { configureChartRoutes } from "@/services/charts/routes.ts";
+import { configureHealthRoutes } from "@/services/api/routes/health/routes.ts";
 
 
 
 export function expressLoader({ app }: { app: Application }) {
     app.use('/static', express.static(path.resolve(Deno.cwd(), 'static')));
-    app.get('/health', (_req: Request, res: Response) => res.status(200).json({ status: 'ok' }));
-    app.head('/health', (_req: Request, res: Response) => res.status(200).json({ status: 'ok' }))
     app.enable('trust proxy');
     app.use(cors());
     app.use(express.json());
     app.use(morganMiddleware);
-
+    app.use("/api/v1/health", configureHealthRoutes(express.Router()));
     app.use("/api/v1/atomic-swaps", configureMarketDataRoutes(express.Router()));
     app.use("/api/v1/blocks", configureBlocksRoutes(express.Router()));
     app.use("/api/v1/orders", configureOpenBookRoutes(express.Router()));

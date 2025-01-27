@@ -1,5 +1,5 @@
 import { CONFIG } from "@/config/index.ts";
-import type { DetachParams, UTXOBalance, XCPEvent, XCPEventCount } from "./rpc.d.ts";
+import type { CounterpartyV2Result, DetachParams, UTXOBalance, XCPEvent, XCPEventCount } from "./rpc.d.ts";
 import { apiLogger } from "@/utils/logger.ts";
 import { AttachParams } from "@/services/counterparty/attach.d.ts";
 
@@ -200,6 +200,13 @@ export async function getUTXOSWithBalances(utxos: string[]) {
     const endpoint = new URL(`${CONFIG.XCP.RPC_URL}/v2/utxos/withbalances`);
     endpoint.searchParams.set("utxos", utxos.join(","));
     endpoint.searchParams.set("verbose", "true");
+    const response = await retry(() => fetch(endpoint.toString()));
+    const data = await response.json();
+    return data.result;
+}
+
+export async function checkCounterpartyVersion(): Promise<CounterpartyV2Result> {
+    const endpoint = new URL(`${CONFIG.XCP.RPC_URL}/v2`);
     const response = await retry(() => fetch(endpoint.toString()));
     const data = await response.json();
     return data.result;

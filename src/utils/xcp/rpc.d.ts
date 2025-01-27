@@ -79,3 +79,14 @@ export interface DetachParams {
     address: string;
     feeRate: number;
 }
+
+export interface CounterpartyV2Result {
+    server_ready: boolean
+    network: "mainnet" | "testnet4"
+    version: string
+    backend_height: number
+    counterparty_height: number
+    documentation: string
+    routes: string
+    blueprint: string
+}
