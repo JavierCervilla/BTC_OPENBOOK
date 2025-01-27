@@ -73,11 +73,13 @@ type UTXO = {
     txid: string;
     vout: number;
     status: {
-      confirmed:boolean;
-      block_height: number;
+        confirmed: boolean;
+        block_height: number;
     },
     value: number;
     height: number;
+    balance?: boolean;
+    utxo_balance?:unknown;
 }
 
 type ElectrsUTXO = {
@@ -85,4 +87,19 @@ type ElectrsUTXO = {
     tx_hash: string,
     tx_pos: number,
     value: number,
+}
+
+type WSMessage = {
+    block?: BlockMessage
+}
+
+type BlockMessage = {
+    height: number;
+};
+
+interface WebSocketCallbacks {
+    onMessage: (message: WSMessage) => void | Promise<void>;
+    onConnect: () => void | Promise<void>;
+    onError: (error: Event | ErrorEvent) => void | Promise<void>;
+    onClose: () => void | Promise<void>;
 }

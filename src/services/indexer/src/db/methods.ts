@@ -42,16 +42,18 @@ type BlockInfo = {
     block_time: string | Date;
     transactions: string;
     events: string;
+    nTxs: number;
 }
 
 export function storeBlockData(db: Database, blockInfo: BlockInfo) {
     try {
-        const stmt = db.prepare('INSERT INTO blocks (block_index, block_time, transactions, events) VALUES (?,?,?,?)')
+        const stmt = db.prepare('INSERT INTO blocks (block_index, block_time, transactions, events, nTxs) VALUES (?,?,?,?,?)')
         stmt.run(
             blockInfo.block_index,
             blockInfo.block_time,
             blockInfo.transactions,
-            blockInfo.events
+            blockInfo.events,
+            blockInfo.nTxs
         );
     } catch (error) {
         logger.error("Error storing block data:", error);
@@ -62,7 +64,7 @@ export function storeBlockData(db: Database, blockInfo: BlockInfo) {
 export function storeAtomicSwaps(db: Database, atomic_swaps: ParsedTransaction[]) {
     try {
         const stmt = db.prepare(
-            'INSERT INTO atomic_swaps (txid, timestamp, block_hash, block_index, seller, buyer, total_price, unit_price, service_fees, utxo_balance) VALUES (?,?,?,?,?,?,?,?,?,?)',
+            'INSERT INTO atomic_swaps (txid, timestamp, block_hash, block_index, seller, buyer, total_price, unit_price, service_fees, utxo_balance, utxo) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
         );
         for (const swap of atomic_swaps) {
             stmt.run(
@@ -75,7 +77,8 @@ export function storeAtomicSwaps(db: Database, atomic_swaps: ParsedTransaction[]
                 swap.total_price,
                 swap.unit_price,
                 safeStringify(swap.service_fees),
-                safeStringify(swap.utxo_balance)
+                safeStringify(swap.utxo_balance),
+                swap.utxo,
             );
         }
     } catch (error) {

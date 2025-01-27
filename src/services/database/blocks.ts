@@ -2,7 +2,7 @@ import { Database } from "@db/sqlite";
 import { CONFIG } from "@/config/index.ts";
 import * as paginate from "@/services/database/utils/pagination.ts";
 
-import type { Block, BlockSummary } from "@/services/database/blocks.d.ts";
+import type { Block, BlockSummary, EventCounts } from "@/services/database/blocks.d.ts";
 import type { PaginatedResult, PaginationOptions } from "@/services/database/utils/pagination.d.ts";
 import * as cache from "@/services/database/utils/cache.ts";
 
@@ -33,13 +33,7 @@ export async function getBlocks(options: PaginationOptions = { page: 1, limit: 1
     };
 }
 
-export async function getBlocksGroupedByDayWithEventSums(): Promise<{result: BlockSummary[], total: number}> {
-    const cacheKey = "blocks_grouped_by_day_with_event_sums";
-    const cachedResult = cache.getFromCache(cacheKey);
-    if (cachedResult) {
-        return cachedResult;
-    }
-    
+export async function getDaySummary(){
     const db = new Database(CONFIG.DATABASE.DB_NAME, {
         readonly: true,
     });
@@ -47,6 +41,7 @@ export async function getBlocksGroupedByDayWithEventSums(): Promise<{result: Blo
     const baseQuery = `
         SELECT 
             DATE(block_time) as date, 
+            nTxs,
             events
         FROM blocks 
         ORDER BY DATE(block_time) ASC
@@ -54,16 +49,18 @@ export async function getBlocksGroupedByDayWithEventSums(): Promise<{result: Blo
     const blocks = await db.prepare(baseQuery).all();
     db.close();
 
-    const groupedBlocks: Record<string, EventSums> = {};
+    const groupedBlocks: Record<string, EventCounts> = {};
 
     for (const block of blocks) {
-        const date = block.date;
+        const { date, nTxs } = block;
         const events = JSON.parse(block.events);
 
         if (!groupedBlocks[date]) {
-            groupedBlocks[date] = {};
+            groupedBlocks[date] = {
+                BITCOIN_TRANSACTIONS: 0
+            };
         }
-
+        groupedBlocks[date]["BITCOIN_TRANSACTIONS"] += nTxs as number;
         for (const [event, count] of Object.entries(events)) {
             if (!groupedBlocks[date][event]) {
                 groupedBlocks[date][event] = 0;
@@ -76,11 +73,33 @@ export async function getBlocksGroupedByDayWithEventSums(): Promise<{result: Blo
         date,
         events: eventSums,
     }));
+    return result;
+}
 
-    cache.setInCache({ key: cacheKey, data: result, expiration: 60 * 60 * 1000 }); // 1 hour
+export async function getBlocksGroupedByDayWithEventSums(): Promise<{ result: BlockSummary[], total: number }> {
+    const cacheKey = "blocks_grouped_by_day_with_event_sums";
+    const cachedResult = cache.getFromCache(cacheKey) as BlockSummary[];
+    if (cachedResult) {
+        return {
+            result: cachedResult,
+            total: cachedResult.length,
+        };
+    }
+
+    const result = await getDaySummary();
+
+    cache.setInCache({ key: cacheKey, data: result, expiration: 60 * 10 * 1000 });
 
     return {
         result: result,
         total: result.length,
     };
+}
+
+export async function resyncSummary(){
+    const start = new Date();
+    const result = await getDaySummary();
+    const end = new Date();
+    console.log(`Cached daily summary in ${end.getTime() - start.getTime()}ms`);
+    cache.setInCache({ key: "blocks_grouped_by_day_with_event_sums", data: result, expiration: 60 * 10 * 1000 });
 }

@@ -1,0 +1,43 @@
+{
+    "UNIVERSELLE": {
+        "api-key": [
+            "ApiKeyUniverselle1",
+            "ApiKeyUniverselle2"
+        ],
+        "limit-rate": {
+            "block": false,
+            "order": false
+        },
+        "service-fee": [
+            {
+                "concept": "universelle",
+                "address":"bc1qkjdkyq9sn3fzn480ltjynqmyauptvgryuvnv0z",
+                "percentage": 2,
+                "threshold": 10000
+            }
+        ]
+    },
+    "JA": {
+        "api-key": [
+            "ApiKeyJA"
+        ],
+        "limit-rate": {
+            "block": false,
+            "order": false
+        },
+        "service-fee": [
+            {
+                "concept": "universelle",
+                "address":"bc1qkjdkyq9sn3fzn480ltjynqmyauptvgryuvnv0z",
+                "percentage": 1,
+                "threshold": 5000
+            },
+            {
+                "concept": "JA",
+                "address":"bc1qwfmtwelj00pghxhg0nsu0jqx0f76d5nm0axxvt",
+                "percentage": 1,
+                "threshold": 5000
+            }
+        ]
+    }
+}

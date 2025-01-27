@@ -4,7 +4,8 @@ CREATE TABLE IF NOT EXISTS blocks (
     block_index INTEGER PRIMARY KEY,
     transactions TEXT,
     events TEXT,
-    block_time DATETIME
+    block_time DATETIME,
+    nTxs INTEGER
 );
 
 -- Create the atomic_swaps table if not exists
@@ -17,6 +18,7 @@ CREATE TABLE IF NOT EXISTS atomic_swaps (
     block_index INTEGER,
     seller TEXT,
     buyer TEXT,
+    utxo TEXT,
     utxo_balance TEXT,
     total_price BIGINT,
     unit_price BIGINT,

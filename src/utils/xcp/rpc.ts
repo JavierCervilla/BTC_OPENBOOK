@@ -1,6 +1,7 @@
 import { CONFIG } from "@/config/index.ts";
-import type { UTXOBalance, XCPEvent, XCPEventCount } from "./rpc.d.ts";
+import type { CounterpartyV2Result, DetachParams, UTXOBalance, XCPEvent, XCPEventCount } from "./rpc.d.ts";
 import { apiLogger } from "@/utils/logger.ts";
+import { AttachParams } from "@/services/counterparty/attach.d.ts";
 
 
 export const EVENT_NAMES = [
@@ -100,6 +101,10 @@ export async function getSpecificEventsByBlock(block: number, event = "UTXO_MOVE
 
     const response = await retry(() => fetch(endpoint.toString()));
     const data = await response.json();
+    if (data.error) {
+        apiLogger.error(data.error);
+        throw new Error(data.error);
+    }
     return data.result.map(getUtxoMoveAdapter);
 }
 
@@ -117,10 +122,13 @@ function getEventsCountAdapter(eventList: XCPEventCount[]) {
 }
 
 export async function getEventsCountByBlock(block: number) {
+    const start = new Date();
     const endpoint = new URL(`${CONFIG.XCP.RPC_URL}/v2/blocks/${block}/events/counts`);
     endpoint.searchParams.set("verbose", "true");
     const response = await retry(() => fetch(endpoint.toString()));
     const data = await response.json();
+    const end = new Date();
+    apiLogger.debug(`${endpoint} [${response.status}] ${end.getTime() - start.getTime()}ms`);
     return getEventsCountAdapter(data.result);
 }
 
@@ -137,4 +145,69 @@ export async function getUTXOBalance(utxo: string): Promise<UTXOBalance[]> {
         apiLogger.error(error);
         throw error;
     }
+}
+
+export async function attachAssetToUTXO(params: AttachParams) {
+    const { asset, quantity, address, feeRate } = params;
+    let response;
+    const endpoint = new URL(`${CONFIG.XCP.RPC_URL}/v2/addresses/${address}/compose/attach`);
+    endpoint.searchParams.set("exclude_utxos_with_balances", "true");
+    endpoint.searchParams.set("utxo_value", "546");
+    endpoint.searchParams.set("asset", asset);
+    endpoint.searchParams.set("quantity", quantity.toString());
+    endpoint.searchParams.set("sat_per_vbyte", feeRate.toString());
+    endpoint.searchParams.set("verbose", "false");
+
+    try {
+        response = await retry(() => fetch(endpoint.toString()));
+        const data = await response.json();
+        return data.result;
+    } catch (error) {
+        apiLogger.error(error);
+        throw error;
+    } finally {
+        if (response) {
+            apiLogger.info(`${endpoint} [${response.status}]`);
+        }
+    }
+}
+
+export async function detachAssetFromUTXO(params: DetachParams) {
+    const { utxo, address, feeRate } = params;
+    let response;
+    const endpoint = new URL(`${CONFIG.XCP.RPC_URL}/v2/addresses/${address}/compose/detach`);
+    endpoint.searchParams.set("exclude_utxos_with_balances", "true");
+    endpoint.searchParams.set("utxo_value", "546");
+    endpoint.searchParams.set("utxo", utxo);
+    endpoint.searchParams.set("sat_per_vbyte", feeRate.toString());
+    endpoint.searchParams.set("verbose", "false");
+
+    try {
+        response = await retry(() => fetch(endpoint.toString()));
+        const data = await response.json();
+        return data.result;
+    } catch (error) {
+        apiLogger.error(error);
+        throw error;
+    } finally {
+        if (response) {
+            apiLogger.info(`${endpoint} [${response.status}]`);
+        }
+    }
+}
+
+export async function getUTXOSWithBalances(utxos: string[]) {
+    const endpoint = new URL(`${CONFIG.XCP.RPC_URL}/v2/utxos/withbalances`);
+    endpoint.searchParams.set("utxos", utxos.join(","));
+    endpoint.searchParams.set("verbose", "true");
+    const response = await retry(() => fetch(endpoint.toString()));
+    const data = await response.json();
+    return data.result;
+}
+
+export async function checkCounterpartyVersion(): Promise<CounterpartyV2Result> {
+    const endpoint = new URL(`${CONFIG.XCP.RPC_URL}/v2`);
+    const response = await retry(() => fetch(endpoint.toString()));
+    const data = await response.json();
+    return data.result;
 }

@@ -1,8 +1,9 @@
 import * as bitcoin from "bitcoinjs-lib";
 import { createHash } from "node:crypto"
 
+import * as rpc from "@/utils/btc/rpc.ts";
 import * as hex from "@/utils/hex.ts";
-import type { UTXO } from "./rpc.d.ts";
+import type { UTXO } from "@/utils/btc/rpc.d.ts";
 
 export function sha256(data: string | Uint8Array) {
     return createHash('sha256').update(data).digest('hex');
@@ -150,4 +151,40 @@ export function selectUtxos(utxos: UTXO[], requiredAmount: bigint, dustThreshold
     }
 
     throw new Error("Error: Not enough UTXOs to cover the required amount.");
+}
+
+async function getInputValue(input: { hash: Uint8Array; index: number }): Promise<bigint> {
+    const previousTx = await rpc.getTransaction(hex.bin2hex(input.hash.reverse()));
+
+    const output = previousTx.vout[input.index];
+    return BigInt(Math.floor(Number(output.value) * 100000000));
+}
+
+interface ConvertTxToPsbtResult {
+    psbt: bitcoin.Psbt;
+    btc_in: bigint;
+    btc_out: bigint;
+    fee: bigint;
+}
+
+export async function convertTxToPsbt(tx: bitcoin.Transaction): Promise<ConvertTxToPsbtResult> {
+    const psbt = new bitcoin.Psbt()
+    for (const input of tx.ins) {
+        psbt.addInput(input)
+    }
+    for (const output of tx.outs) {
+        psbt.addOutput(output)
+    }
+    const btc_in = await Promise.all(psbt.txInputs.map(getInputValue))
+        .then(values => values.reduce((acc, value) => acc + value, 0n));
+
+    const btc_out = psbt.txOutputs.reduce((acc, output) => acc + output.value, 0n);
+    const fee = btc_in - btc_out;
+
+    return {
+        psbt,
+        btc_in,
+        btc_out,
+        fee,
+    };
 }

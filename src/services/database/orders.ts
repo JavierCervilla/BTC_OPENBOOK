@@ -34,6 +34,21 @@ export async function getOpenbookListings(options: PaginationOptions): Promise<P
     }
 }
 
+export async function getOpenbookListingsByStatus(status: 'active' | 'inactive'): Promise<OpenBookListing[] | null> {
+    const db = new Database(CONFIG.DATABASE.DB_NAME, {
+        readonly: true,
+    });
+    try {
+        const query = "SELECT *, json(utxo_balance) as utxo_balance FROM openbook_listings WHERE status = ?";
+        const openbook_listings = await db.prepare(query).all(status);
+        return openbook_listings as OpenBookListing[];
+    } catch(_error) {
+        return null;
+    } finally {
+        db.close();
+    }
+}
+
 export async function getOpenbookListingsByTxId(txId: string) {
     const db = new Database(CONFIG.DATABASE.DB_NAME, {
         readonly: true,
@@ -123,6 +138,18 @@ export async function getOpenbookListingsByAddress(address: string, options: Pag
             totalPages: 0,
             result: [],
         };
+    } finally {
+        db.close();
+    }
+}
+
+export async function updateOpenbookListing(txid: string, status: 'active' | 'inactive'): Promise<boolean> {
+    const db = new Database(CONFIG.DATABASE.DB_NAME);
+    try {
+        await db.prepare("UPDATE openbook_listings SET status = ? WHERE txid = ?").run(status, txid);
+        return true;
+    } catch {
+        return false;
     } finally {
         db.close();
     }

@@ -129,13 +129,13 @@ function addListingOutputs(
     return { p2wsh_signature, op_return }
 }
 
-function calculateTransactionSize(
-    { seller, p2wshCount, feeRate, op_return }: { seller: string; p2wshCount: number; feeRate: number, op_return: Uint8Array }
+export function calculateTransactionSize(
+    { seller, p2wshCount, feeRate, op_return, buyer }: { seller: string; p2wshCount: number; feeRate: number, op_return: Uint8Array, buyer?: string }
 ): { baseSize: number; vSize: number; expectedFee: number } {
-    const nInputsLegacy = seller.startsWith("1") ? 1 : 0;
-    const nInputsSegWit = seller.startsWith("bc1q") || seller.startsWith("3") ? 1 : 0;
-    const nOutputsP2PKH = nInputsLegacy > 0 ? 1 : 0;
-    const nOutputsP2WPKH = nInputsSegWit > 0 ? 1 : 0;
+    const nInputsLegacy = (seller.startsWith("1") ? 1 : 0) + (buyer?.startsWith("1") ? 1 : 0);
+    const nInputsSegWit = (seller.startsWith("bc1q") ? 1 : 0) + (buyer?.startsWith("bc1q") ? 1 : 0);
+    const nOutputsP2PKH = nInputsLegacy > 0 ? nInputsLegacy : 0;
+    const nOutputsP2WPKH = nInputsSegWit > 0 ? nInputsSegWit : 0;
     const nOutputsP2WSH = p2wshCount;
 
     const {

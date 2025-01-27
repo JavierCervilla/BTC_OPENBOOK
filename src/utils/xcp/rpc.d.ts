@@ -66,3 +66,27 @@ export interface AssetInfo {
     divisible: boolean
     locked: boolean
 }
+
+export interface AttachParams {
+    asset: string;
+    quantity: number;
+    address: string;
+    feeRate: number;
+}
+
+export interface DetachParams {
+    utxo: string;
+    address: string;
+    feeRate: number;
+}
+
+export interface CounterpartyV2Result {
+    server_ready: boolean
+    network: "mainnet" | "testnet4"
+    version: string
+    backend_height: number
+    counterparty_height: number
+    documentation: string
+    routes: string
+    blueprint: string
+}

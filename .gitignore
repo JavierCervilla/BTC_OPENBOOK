@@ -2,7 +2,9 @@
 *.db*
 node_modules
 .env
+local.env
 logs/
 *.zip
 .DS_Store
 summary.json
+partners/config.json

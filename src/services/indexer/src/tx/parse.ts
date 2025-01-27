@@ -1,3 +1,5 @@
+import * as bitcoin from "bitcoinjs-lib";
+
 import logger from "@/utils/logger.ts";
 import * as rpc from "@/utils/btc/rpc.ts";
 import { OpenBook } from "@/services/openbook/openbook.ts";
@@ -190,6 +192,7 @@ export async function parseXCPEvents(events: XCPUtxoMoveInfo[]): Promise<ParsedT
                 buyer,
                 total_price,
                 unit_price,
+                utxo: event.source,
                 timestamp: new Date(event.timestamp * 1000).toISOString(),
                 service_fees
             };
@@ -210,6 +213,7 @@ export async function parseXCPEvents(events: XCPUtxoMoveInfo[]): Promise<ParsedT
                 total_price: swap.total_price,
                 unit_price: swap.unit_price,
                 timestamp: swap.timestamp,
+                utxo: swap.utxo,
                 utxo_balance: [
                     {
                         assetId: swap?.assetId as string,
@@ -244,27 +248,39 @@ function getLockTimeFromTXHex(tx_hex: string) {
     return lockTime;
 }
 
+export function hasOpReturnOutputs(txHex: string): boolean {
+    const tx = bitcoin.Transaction.fromHex(txHex);
+    return tx.outs.some((output) => output.script[0] === bitcoin.opcodes.OP_RETURN);
+}
+
 //TODO: USe utxo instead of dustSize to track atomic swaps
 export async function parseBlock(db: Database, blockInfo: Block): Promise<{ transactions: Transaction[], atomic_swaps: ParsedTransaction[], openbook_listings: OpenBookListing[] }> {
-    const utxo_move_events = await xcp.getSpecificEventsByBlock(blockInfo.height);
-    const atomic_swaps = await parseXCPEvents(utxo_move_events);
-
-    const filtered_atomic_swaps =  atomic_swaps.map((swap: ParsedTransaction) => {
-        return {
-            ...swap,
-            block_hash: blockInfo.hash,
-            block_index: blockInfo.height
-        }
-    });
-
+    let filtered_atomic_swaps: ParsedTransaction[] = [];
     const events = await xcp.getEventsCountByBlock(blockInfo.height);
+    if (
+        blockInfo.height >= CONFIG.INDEXER.START_UTXO_MOVE_BLOCK &&
+        events.UTXO_MOVE > 0
+    ) {
+
+        const utxo_move_events = await xcp.getSpecificEventsByBlock(blockInfo.height);
+        const atomic_swaps = await parseXCPEvents(utxo_move_events);
+        
+        filtered_atomic_swaps =  atomic_swaps.map((swap: ParsedTransaction) => {
+            return {
+                ...swap,
+                block_hash: blockInfo.hash,
+                block_index: blockInfo.height
+            }
+        });
+    }
+
     const transactions = filtered_atomic_swaps.map((swap) => swap?.txid);
 
     let txs: Transaction[] = [];
     let valid_openbook_listings: OpenBookListing[] = [];
     if (blockInfo.height >= CONFIG.INDEXER.START_OPENBOOK_LISTINGS_BLOCK) {
         txs = await rpc.getMultipleTransactions(blockInfo.tx as string[], false, 1000);
-        const potential_openbook_listings = txs.filter((tx) => getLockTimeFromTXHex(tx.hex) === CONFIG.OPENBOOK.TIMELOCK)
+        const potential_openbook_listings = txs.filter((tx) => getLockTimeFromTXHex(tx.hex) === CONFIG.OPENBOOK.TIMELOCK && hasOpReturnOutputs(tx.hex))
         const openbook_listings = await Promise.all(potential_openbook_listings.map(async (tx) => await parseOpenbookListingTx(tx)));
         valid_openbook_listings = openbook_listings.filter(tx => tx !== undefined).map(tx => ({ ...tx, timestamp: blockInfo.time, block_index: blockInfo.height }));
         transactions.push(...valid_openbook_listings.map(tx => tx.txid));
@@ -276,7 +292,8 @@ export async function parseBlock(db: Database, blockInfo: Block): Promise<{ tran
                 block_index: blockInfo.height,
                 block_time: new Date(blockInfo.time * 1000).toISOString(),
                 transactions: JSON.stringify(transactions),
-                events: JSON.stringify(events)
+                events: JSON.stringify(events),
+                nTxs: blockInfo.tx.length
             });
             storeAtomicSwaps(db, filtered_atomic_swaps as ParsedTransaction[]);
             storeOpenbookListings(db, valid_openbook_listings as OpenBookListing[]);
