@@ -49,11 +49,12 @@ graph TB
         C2[PartialSig 2 - P2WSH]
         C3[PartialSig 3 - P2WSH]
         C4[UTXO + Price - OP_RETURN]
-        C4[Change]
+        C5[Change]
         C --> C1
         C --> C2
         C --> C3
         C --> C4
+        C --> C5
     end
 
     %% Inputs
