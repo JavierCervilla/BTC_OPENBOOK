@@ -57,10 +57,10 @@ export async function getDaySummary(){
 
         if (!groupedBlocks[date]) {
             groupedBlocks[date] = {
-                BITCOIN: 0
+                BITCOIN_TRANSACTIONS: 0
             };
         }
-        groupedBlocks[date]["BITCOIN"] += nTxs as number;
+        groupedBlocks[date]["BITCOIN_TRANSACTIONS"] += nTxs as number;
         for (const [event, count] of Object.entries(events)) {
             if (!groupedBlocks[date][event]) {
                 groupedBlocks[date][event] = 0;
