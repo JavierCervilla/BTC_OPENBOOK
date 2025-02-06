@@ -3895,6 +3895,838 @@
         }
       }
     },
+    "/api/v1/xcp/attach": {
+      "post": {
+        "operationId": "XCPApiSpec_post_/api/v1/xcp/attach",
+        "tags": [
+          "Counterparty"
+        ],
+        "summary": "POST a request to attach a counterparty asset to an UTXO using Counterparty",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "asset": {
+                    "type": "string"
+                  },
+                  "address": {
+                    "type": "string"
+                  },
+                  "feeRate": {
+                    "type": "number"
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "address",
+                  "asset",
+                  "feeRate"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "object"
+                          ]
+                        },
+                        "properties": {
+                          "type": "object",
+                          "properties": {
+                            "psbt": {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "enum": [
+                                    "string"
+                                  ]
+                                },
+                                "description": {
+                                  "type": "string",
+                                  "enum": [
+                                    "The attaching PSBT for signing."
+                                  ]
+                                }
+                              },
+                              "additionalProperties": false,
+                              "required": [
+                                "description",
+                                "type"
+                              ]
+                            },
+                            "btc_in": {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "enum": [
+                                    "number"
+                                  ]
+                                },
+                                "description": {
+                                  "type": "string",
+                                  "enum": [
+                                    "The BTC input for the attaching."
+                                  ]
+                                }
+                              },
+                              "additionalProperties": false,
+                              "required": [
+                                "description",
+                                "type"
+                              ]
+                            },
+                            "btc_out": {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "enum": [
+                                    "number"
+                                  ]
+                                },
+                                "description": {
+                                  "type": "string",
+                                  "enum": [
+                                    "The BTC output for the attaching."
+                                  ]
+                                }
+                              },
+                              "additionalProperties": false,
+                              "required": [
+                                "description",
+                                "type"
+                              ]
+                            },
+                            "fee": {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "enum": [
+                                    "number"
+                                  ]
+                                },
+                                "description": {
+                                  "type": "string",
+                                  "enum": [
+                                    "The miners fee for the attaching."
+                                  ]
+                                }
+                              },
+                              "additionalProperties": false,
+                              "required": [
+                                "description",
+                                "type"
+                              ]
+                            }
+                          },
+                          "additionalProperties": false,
+                          "required": [
+                            "btc_in",
+                            "btc_out",
+                            "fee",
+                            "psbt"
+                          ]
+                        }
+                      },
+                      "additionalProperties": false,
+                      "required": [
+                        "properties",
+                        "type"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "result"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/xcp/detach": {
+      "post": {
+        "operationId": "XCPApiSpec_post_/api/v1/xcp/detach",
+        "tags": [
+          "Counterparty"
+        ],
+        "summary": "POST a request to detach a counterparty asset from an UTXO using Counterparty",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "utxo": {
+                    "type": "string"
+                  },
+                  "address": {
+                    "type": "string"
+                  },
+                  "feeRate": {
+                    "type": "number"
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "address",
+                  "feeRate",
+                  "utxo"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "object"
+                          ]
+                        },
+                        "properties": {
+                          "type": "object",
+                          "properties": {
+                            "psbt": {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "enum": [
+                                    "string"
+                                  ]
+                                },
+                                "description": {
+                                  "type": "string",
+                                  "enum": [
+                                    "The detaching PSBT for signing."
+                                  ]
+                                }
+                              },
+                              "additionalProperties": false,
+                              "required": [
+                                "description",
+                                "type"
+                              ]
+                            },
+                            "btc_in": {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "enum": [
+                                    "number"
+                                  ]
+                                },
+                                "description": {
+                                  "type": "string",
+                                  "enum": [
+                                    "The BTC input for the detaching."
+                                  ]
+                                }
+                              },
+                              "additionalProperties": false,
+                              "required": [
+                                "description",
+                                "type"
+                              ]
+                            },
+                            "btc_out": {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "enum": [
+                                    "number"
+                                  ]
+                                },
+                                "description": {
+                                  "type": "string",
+                                  "enum": [
+                                    "The BTC output for the detaching."
+                                  ]
+                                }
+                              },
+                              "additionalProperties": false,
+                              "required": [
+                                "description",
+                                "type"
+                              ]
+                            },
+                            "fee": {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "enum": [
+                                    "number"
+                                  ]
+                                },
+                                "description": {
+                                  "type": "string",
+                                  "enum": [
+                                    "The miners fee for the detaching."
+                                  ]
+                                }
+                              },
+                              "additionalProperties": false,
+                              "required": [
+                                "description",
+                                "type"
+                              ]
+                            }
+                          },
+                          "additionalProperties": false,
+                          "required": [
+                            "btc_in",
+                            "btc_out",
+                            "fee",
+                            "psbt"
+                          ]
+                        }
+                      },
+                      "additionalProperties": false,
+                      "required": [
+                        "properties",
+                        "type"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "result"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/xcp/utxos/:address": {
+      "get": {
+        "operationId": "XCPApiSpec_get_/api/v1/xcp/utxos/:address",
+        "tags": [
+          "Counterparty"
+        ],
+        "summary": "GET UTXOs for a given address including UTXOS with balances",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "array"
+                          ]
+                        },
+                        "properties": {
+                          "type": "object",
+                          "properties": {
+                            "txid": {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "enum": [
+                                    "string"
+                                  ]
+                                }
+                              },
+                              "additionalProperties": false,
+                              "required": [
+                                "type"
+                              ]
+                            },
+                            "vout": {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "enum": [
+                                    "number"
+                                  ]
+                                }
+                              },
+                              "additionalProperties": false,
+                              "required": [
+                                "type"
+                              ]
+                            },
+                            "status": {
+                              "type": "object",
+                              "properties": {
+                                "confirmed": {
+                                  "type": "object",
+                                  "properties": {
+                                    "type": {
+                                      "type": "string",
+                                      "enum": [
+                                        "boolean"
+                                      ]
+                                    }
+                                  },
+                                  "additionalProperties": false,
+                                  "required": [
+                                    "type"
+                                  ]
+                                },
+                                "block_height": {
+                                  "type": "object",
+                                  "properties": {
+                                    "type": {
+                                      "type": "string",
+                                      "enum": [
+                                        "number"
+                                      ]
+                                    }
+                                  },
+                                  "additionalProperties": false,
+                                  "required": [
+                                    "type"
+                                  ]
+                                }
+                              },
+                              "additionalProperties": false,
+                              "required": [
+                                "block_height",
+                                "confirmed"
+                              ]
+                            },
+                            "value": {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "enum": [
+                                    "number"
+                                  ]
+                                }
+                              },
+                              "additionalProperties": false,
+                              "required": [
+                                "type"
+                              ]
+                            },
+                            "height": {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "enum": [
+                                    "number"
+                                  ]
+                                }
+                              },
+                              "additionalProperties": false,
+                              "required": [
+                                "type"
+                              ]
+                            },
+                            "balance": {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "enum": [
+                                    "boolean"
+                                  ]
+                                }
+                              },
+                              "additionalProperties": false,
+                              "required": [
+                                "type"
+                              ]
+                            },
+                            "utxo_balance": {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "enum": [
+                                    "array"
+                                  ]
+                                },
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "type": {
+                                      "type": "string",
+                                      "enum": [
+                                        "object"
+                                      ]
+                                    },
+                                    "properties": {
+                                      "type": "object",
+                                      "properties": {
+                                        "asset": {
+                                          "type": "object",
+                                          "properties": {
+                                            "type": {
+                                              "type": "string",
+                                              "enum": [
+                                                "string"
+                                              ]
+                                            }
+                                          },
+                                          "additionalProperties": false,
+                                          "required": [
+                                            "type"
+                                          ]
+                                        },
+                                        "asset_longname": {
+                                          "type": "object",
+                                          "properties": {
+                                            "type": {
+                                              "type": "string",
+                                              "enum": [
+                                                "string"
+                                              ]
+                                            }
+                                          },
+                                          "additionalProperties": false,
+                                          "required": [
+                                            "type"
+                                          ]
+                                        },
+                                        "quantity": {
+                                          "type": "object",
+                                          "properties": {
+                                            "type": {
+                                              "type": "string",
+                                              "enum": [
+                                                "number"
+                                              ]
+                                            }
+                                          },
+                                          "additionalProperties": false,
+                                          "required": [
+                                            "type"
+                                          ]
+                                        },
+                                        "utxo": {
+                                          "type": "object",
+                                          "properties": {
+                                            "type": {
+                                              "type": "string",
+                                              "enum": [
+                                                "string"
+                                              ]
+                                            }
+                                          },
+                                          "additionalProperties": false,
+                                          "required": [
+                                            "type"
+                                          ]
+                                        },
+                                        "utxo_address": {
+                                          "type": "object",
+                                          "properties": {
+                                            "type": {
+                                              "type": "string",
+                                              "enum": [
+                                                "string"
+                                              ]
+                                            }
+                                          },
+                                          "additionalProperties": false,
+                                          "required": [
+                                            "type"
+                                          ]
+                                        },
+                                        "asset_info": {
+                                          "type": "object",
+                                          "properties": {
+                                            "type": {
+                                              "type": "string",
+                                              "enum": [
+                                                "object"
+                                              ]
+                                            }
+                                          },
+                                          "additionalProperties": false,
+                                          "required": [
+                                            "type"
+                                          ]
+                                        },
+                                        "quantity_normalized": {
+                                          "type": "object",
+                                          "properties": {
+                                            "type": {
+                                              "type": "string",
+                                              "enum": [
+                                                "string"
+                                              ]
+                                            }
+                                          },
+                                          "additionalProperties": false,
+                                          "required": [
+                                            "type"
+                                          ]
+                                        }
+                                      },
+                                      "additionalProperties": false,
+                                      "required": [
+                                        "asset",
+                                        "asset_info",
+                                        "asset_longname",
+                                        "quantity",
+                                        "quantity_normalized",
+                                        "utxo",
+                                        "utxo_address"
+                                      ]
+                                    }
+                                  },
+                                  "additionalProperties": false,
+                                  "required": [
+                                    "properties",
+                                    "type"
+                                  ]
+                                }
+                              },
+                              "additionalProperties": false,
+                              "required": [
+                                "items",
+                                "type"
+                              ]
+                            }
+                          },
+                          "additionalProperties": false,
+                          "required": [
+                            "balance",
+                            "height",
+                            "status",
+                            "txid",
+                            "utxo_balance",
+                            "value",
+                            "vout"
+                          ]
+                        }
+                      },
+                      "additionalProperties": false,
+                      "required": [
+                        "properties",
+                        "type"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "result"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/health": {
+      "get": {
+        "operationId": "HealthApiSpec_get_/api/v1/health",
+        "tags": [
+          "Health"
+        ],
+        "summary": "Performs a health check",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "object"
+                          ]
+                        },
+                        "properties": {
+                          "type": "object",
+                          "properties": {
+                            "indexer_version": {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "enum": [
+                                    "string"
+                                  ]
+                                }
+                              },
+                              "additionalProperties": false,
+                              "required": [
+                                "type"
+                              ]
+                            },
+                            "openbook_version": {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "enum": [
+                                    "string"
+                                  ]
+                                }
+                              },
+                              "additionalProperties": false,
+                              "required": [
+                                "type"
+                              ]
+                            },
+                            "counterparty_version": {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "enum": [
+                                    "string"
+                                  ]
+                                }
+                              },
+                              "additionalProperties": false,
+                              "required": [
+                                "type"
+                              ]
+                            },
+                            "counterparty_ready": {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "enum": [
+                                    "boolean"
+                                  ]
+                                }
+                              },
+                              "additionalProperties": false,
+                              "required": [
+                                "type"
+                              ]
+                            },
+                            "last_counterparty_block": {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "enum": [
+                                    "number"
+                                  ]
+                                }
+                              },
+                              "additionalProperties": false,
+                              "required": [
+                                "type"
+                              ]
+                            },
+                            "last_bitcoin_block": {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "enum": [
+                                    "number"
+                                  ]
+                                }
+                              },
+                              "additionalProperties": false,
+                              "required": [
+                                "type"
+                              ]
+                            },
+                            "last_openbook_block": {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "enum": [
+                                    "number"
+                                  ]
+                                }
+                              },
+                              "additionalProperties": false,
+                              "required": [
+                                "type"
+                              ]
+                            }
+                          },
+                          "additionalProperties": false,
+                          "required": [
+                            "counterparty_ready",
+                            "counterparty_version",
+                            "indexer_version",
+                            "last_bitcoin_block",
+                            "last_counterparty_block",
+                            "last_openbook_block",
+                            "openbook_version"
+                          ]
+                        }
+                      },
+                      "additionalProperties": false,
+                      "required": [
+                        "properties",
+                        "type"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "result"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/orders/create": {
       "post": {
         "operationId": "OrdersApiSpec_post_/api/v1/orders/create",

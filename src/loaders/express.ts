@@ -11,7 +11,8 @@ import { configureOpenBookRoutes } from "@/services/api/routes/orders/routes.ts"
 import { configureCounterpartyRoutes } from "@/services/api/routes/counterparty/routes.ts";
 import { configureChartRoutes } from "@/services/charts/routes.ts";
 import { configureHealthRoutes } from "@/services/api/routes/health/routes.ts";
-
+import { configureMarketRoutes } from "@/services/api/routes/market/routes.ts";
+import { configureUtilsRoutes } from "@/services/api/routes/utils/routes.ts";
 
 
 export function expressLoader({ app }: { app: Application }) {
@@ -26,6 +27,8 @@ export function expressLoader({ app }: { app: Application }) {
     app.use("/api/v1/orders", configureOpenBookRoutes(express.Router()));
     app.use("/api/v1/xcp", configureCounterpartyRoutes(express.Router()));
     app.use("/api/v1/charts", configureChartRoutes(express.Router()));
+    app.use("/api/v1/market", configureMarketRoutes(express.Router()));
+    app.use("/api/v1/utils", configureUtilsRoutes(express.Router()));
     docsLoader(app);
     console.log('🚀 Express Initialized');
     return app;

@@ -55,7 +55,7 @@ const EVENT_NAMES = [
   "RPS_MATCH_UPDATE",
   "RPS_RESOLVE",
   "RPS_UPDATE",
-  "BITCOIN"
+  "BITCOIN_TRANSACTIONS"
 ];
 
 class ErrorBoundary extends React.Component {
@@ -64,7 +64,7 @@ class ErrorBoundary extends React.Component {
     this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError(_error) {
     return { hasError: true };
   }
 
@@ -150,6 +150,8 @@ const fetchApiData = async (eventKey) => {
   }
 };
 
+
+
 function BarChart(props) {
   const { eventKey = "ASSET_ISSUANCE", aggregationLevel = "monthly", height = "800px", width = "100%", rawData } = props;
   const { useState, useEffect, useRef, useCallback } = React;
@@ -184,7 +186,8 @@ function BarChart(props) {
     if (!chartContainerRef.current) return;
 
     if (!chartRef.current) {
-      chartRef.current = LightweightCharts.createChart(chartContainerRef.current, {
+      console.log("Inicializando gráfico...");
+      chartRef.current = globalThis.LightweightCharts.createChart(chartContainerRef.current, {
         layout: {
           textColor: "#A0FFA0",
           background: { type: "solid", color: "black" },
@@ -196,11 +199,21 @@ function BarChart(props) {
         },
       });
 
-      // Crear la serie una vez
-      seriesRef.current = chartRef.current.addHistogramSeries({
-        color: "#A0FFA0",
-        scaleMargins: { top: 0.1, bottom: 0 },
-      });
+      console.log("chartRef.current:", chartRef.current);
+
+      // ✅ Usamos chart.addSeries() con el tipo de serie correcto
+      if (typeof chartRef.current.addSeries === "function") {
+        seriesRef.current = chartRef.current.addSeries(globalThis.LightweightCharts.HistogramSeries, {
+          color: "#A0FFA0",
+          priceScaleId: "right",
+          priceFormat: {
+            type: "volume",
+          },
+        });
+      } else {
+        console.error("La función addSeries no está disponible en LightweightCharts.");
+        return;
+      }
     }
 
     const chart = chartRef.current;
@@ -225,7 +238,6 @@ function BarChart(props) {
     style: { width, height },
   });
 }
-
 
 
 const getQueryParams = () => {

@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response, Router } from "express";
 export const controller = {
-  dailySummaryCart: (req: Request, res: Response, next: NextFunction) => {
+  dailySummaryCart: (_req: Request, res: Response, next: NextFunction) => {
     try {
       res.setHeader("Content-Type", "text/html");
       res.status(200).send(`
@@ -13,11 +13,10 @@ export const controller = {
             <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
             <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
             <!-- lightweight-charts desde CDN -->
-            <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+            <script src="https://unpkg.com/lightweight-charts@5.0.1/dist/lightweight-charts.standalone.production.js"></script>
           </head>
           <body>
             <div id="root"></div>
-            <!-- Tu script de componente -->
             <script type="module" src="/static/charts/counterparty.js"></script>
           </body>
         </html>

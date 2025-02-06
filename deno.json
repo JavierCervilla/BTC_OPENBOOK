@@ -2,6 +2,7 @@
   "tasks": {
     "dev": "NODE_ENV=development deno run -A --unstable-cron --watch src/main.ts",
     "start": "NODE_ENV=production deno run -A --unstable-cron src/main.ts",
+    "dev-local": "NODE_ENV=production deno run -A  --unstable-cron --watch src/main.ts",
     "test": "NODE_ENV=test deno test -A",
     "docs": "tspec generate --outputPath ./generate/openapi.json",
     "broadcast": "deno run -A src/scripts/broadcast.ts",

@@ -46,7 +46,8 @@ const INDEXER_CONFIG = () => {
     const START_BLOCK = 280330 // FIRST COUNTERPARTY BLOCK
     const START_UTXO_MOVE_BLOCK = 866000 // FIRST BLOCK WITH ACTIVE CHANGE FOR ATOMIC SWAPS
     const START_OPENBOOK_LISTINGS_BLOCK = 875332 // FIRST BLOCK WITH OPEN BOOK LISTINGS
-    return { LOGS_FILE, START_BLOCK, START_UTXO_MOVE_BLOCK, START_OPENBOOK_LISTINGS_BLOCK };
+    const WEBSOCKET_URL = Deno.env.get("WEBSOCKET_URL") ?? "wss://mempool.space/api/v1/ws";
+    return { LOGS_FILE, START_BLOCK, START_UTXO_MOVE_BLOCK, START_OPENBOOK_LISTINGS_BLOCK, WEBSOCKET_URL };
 }
 
 const DATABASE_CONFIG = () => {
@@ -70,10 +71,7 @@ const BITCOIN_CONFIG = () => {
     };
     return { MAINNET, TESTNET };
 };
-/*
-public nodes taken from here:
-[list of nodes](https://github.com/spesmilo/electrum/blob/afa1a4d22a31d23d088c6670e1588eed32f7114d/lib/network.py#L57)
-*/
+
 const ELECTRUM_CONFIG = () => {
     const MAINNET= {
         RPC_URL: Deno.env.get("ELECTRUM_RPC_URL") ?? "https://mempool.space:50002",
@@ -137,6 +135,11 @@ const PARTNERS_CONFIG = () => {
     return { HEADER_NAME, CONFIG_PATH, CONFIG };
 }
 
+const MARKET_CONFIG = () => {
+    const COINGECKO_API_KEY = Deno.env.get("COINGECKO_API_KEY") ?? "";
+    return { COINGECKO_API_KEY };
+}
+
 export const CONFIG = {
     VERSION: VERSION_CONFIG(),
     NETWORK: NETWORK(),
@@ -151,5 +154,6 @@ export const CONFIG = {
     TESTING: TESTING_CONFIG(),
     NODE_ENV: NODE_ENV(),
     PARTNERS: PARTNERS_CONFIG(),
+    MARKET: MARKET_CONFIG(),
     DEBUG: DEBUG()
 }

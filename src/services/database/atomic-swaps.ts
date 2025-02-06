@@ -64,7 +64,19 @@ export async function getAtomicSwapByAddress(address: string, options: Paginatio
     const db = new Database(CONFIG.DATABASE.DB_NAME, {
         readonly: true,
     });
-    const query = "SELECT *, json(utxo_balance) as utxo_balance, json(service_fees) as service_fees FROM atomic_swaps WHERE seller = ? OR buyer = ? OR service_fee_recipient = ?";
+    const query = `
+        SELECT *, 
+               json(utxo_balance) as utxo_balance, 
+               json(service_fees) as service_fees 
+        FROM atomic_swaps 
+        WHERE seller = ? 
+           OR buyer = ? 
+           OR EXISTS (
+               SELECT 1 
+               FROM json_each(atomic_swaps.service_fees) 
+               WHERE json_each.value->>'address' = ?
+           )
+    `;
     const paginatedQuery = await paginate.buildPaginatedQuery(query, options);
     const atomicSwaps = await db.prepare(paginatedQuery).all(address, address, address);
     const total = await paginate.getTotalCount(db, query, [address, address, address]);
@@ -88,7 +100,8 @@ export async function getUniqueAddresses(options: PaginationOptions = paginate.D
         UNION
         SELECT DISTINCT buyer AS address FROM atomic_swaps
         UNION
-        SELECT DISTINCT service_fee_recipient AS address FROM atomic_swaps
+        SELECT DISTINCT json_each.value->>'address' AS address 
+        FROM atomic_swaps, json_each(atomic_swaps.service_fees)
     `;
     const paginatedQuery = await paginate.buildPaginatedQuery(query, options);
     const addressesResult = await db.prepare(paginatedQuery).all();

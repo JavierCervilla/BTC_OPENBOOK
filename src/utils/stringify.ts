@@ -7,7 +7,7 @@ export function safeStringify<T>(data: T): string {
             if (typeof value === 'bigint') return value.toString();
             if (value instanceof bitcoin.Psbt) return value.toHex();
             return value;
-        });
+        }, 2);
     } catch (error) {
         apiLogger.error("Error stringifying data:", error);
         throw new Error("Data serialization error");

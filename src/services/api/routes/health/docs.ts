@@ -2,16 +2,12 @@ import type { Tspec } from 'tspec';
 
 import type { controller } from "./routes.ts";
 
-export type BlocksApiSpec = Tspec.DefineApiSpec<{
+export type HealthApiSpec = Tspec.DefineApiSpec<{
     tags: ["Health"];
     paths: {
         "/api/v1/health": {
             get: {
                 summary: "Performs a health check",
-                query: {
-                    page: number,
-                    limit: number,
-                },
                 handler: typeof controller.checkHealth,
                 responses: {
                     200: {

@@ -3,9 +3,6 @@ import { apiLogger } from "../logger.ts";
 import type { Transaction, rpcCall, Block } from './rpc.d.ts'
 import { address2ScriptHash } from "@/utils/btc/tx.ts";
 
-
-import * as xcp from "@/utils/xcp/rpc.ts";
-
 export async function retry<T>(
     fn: () => Promise<T>,
     retries = 3,
@@ -303,6 +300,41 @@ export function subscribeToMempoolSpaceWebSocket(
             ws.send(
                 JSON.stringify({
                     action: "want",
+                    data: topics,
+                })
+            );
+            await onConnect?.();
+        };
+        ws.onmessage = async (event) => {
+            try {
+                const message = JSON.parse(event.data);
+                await onMessage?.(message);
+            } catch (error) {
+                console.error("Error parsing WebSocket message:", error);
+            }
+        };
+        ws.onerror = (error) => {
+            onError?.(error);
+        };
+        ws.onclose = () => {
+            setTimeout(connectWebSocket, 5000);
+            onClose?.();
+        };
+    };
+    connectWebSocket();
+}
+
+
+export function subscribeToZMQWebSocket(
+    topics: string[],
+    { onMessage, onConnect, onError, onClose }: WebSocketCallbacks
+): void {
+    const connectWebSocket = () => {
+        const ws = new WebSocket(CONFIG.INDEXER.WEBSOCKET_URL);
+        ws.onopen = async () => {
+            ws.send(
+                JSON.stringify({
+                    action: "subscribe",
                     data: topics,
                 })
             );

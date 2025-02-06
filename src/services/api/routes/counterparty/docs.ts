@@ -53,6 +53,48 @@ export type XCPApiSpec = Tspec.DefineApiSpec<{
                 }
             },
         },
+        "/api/v1/xcp/utxos/:address": {
+            get: {
+                summary: "GET UTXOs for a given address including UTXOS with balances",
+                params: {
+                    address: string,
+                }
+                handler: typeof controller.getUTXOS,
+                responses: {
+                    200: {
+                        result: {
+                            type: 'array',
+                            properties: {
+                                txid: { type: 'string' },
+                                vout: { type: 'number' },
+                                status: {
+                                    confirmed: { type: 'boolean' },
+                                    block_height: { type: 'number' }
+                                },
+                                value: { type: 'number' },
+                                height: { type: 'number' },
+                                balance: { type: 'boolean' },
+                                utxo_balance: {
+                                    type: 'array',
+                                    items: {
+                                        type: 'object',
+                                        properties: {
+                                            asset: { type: 'string' },
+                                            asset_longname: { type: 'string' },
+                                            quantity: { type: 'number' },
+                                            utxo: { type: 'string' },
+                                            utxo_address: { type: 'string' },
+                                            asset_info: { type: 'object' },
+                                            quantity_normalized: { type: 'string' }
+                                        }
+                                    }
+                                }
+                            },
+                        },
+                    }
+                }
+            }
+        },
     }
 }>;
 
