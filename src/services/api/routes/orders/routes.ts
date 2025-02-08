@@ -11,7 +11,7 @@ import type { PaginatedResult } from "@/services/database/utils/pagination.d.ts"
 import { apiKeyMiddleware } from "@/middleware/auth/middleware.ts";
 import { CreateBuyPSBTResult, ServiceFee } from "@/services/buy/buy.d.ts";
 import { CreateCancelResult } from "@/services/ordersbook/cancel.d.ts";
-import { CreateSellOrderResult } from "@/services/ordersbook/sell.d.ts";
+import { CreateSellOrderResult, SubmitSellOrderResult } from "@/services/ordersbook/sell.d.ts";
 
 export const controller = {
     getOpenbookListings: async (req: Request, res: Response) => {
@@ -73,10 +73,17 @@ export const controller = {
     },
     buyOrder: async (req: Request, res: Response) => {
         try {
-            const { body, partner } = req;
+            const { body } = req;
             const result = await buy.createBuy({
                 ...body,
-                serviceFee: [...body.serviceFee, ...partner.serviceFee] as ServiceFee[]
+                serviceFee: [
+                    ...body.serviceFee,
+                    {
+                        concept: 'Openbook serviceFee',
+                        address: 'bc1qkjdkyq9sn3fzn480ltjynqmyauptvgryuvnv0z',
+                        percentage: 2,
+                        threshold: 10000,
+                    }] as ServiceFee[]
             });
             return handleSuccess<CreateBuyPSBTResult>(res, result);
         } catch (error: unknown) {
@@ -95,8 +102,8 @@ export const controller = {
     createListingTx: async (req: Request, res: Response) => {
         try {
             const { body } = req;
-            const result = await sell.createSellOrderPsbt(body);
-            return handleSuccess<CreateSellOrderResult>(res, result);
+            const result = await sell.submitSellOrder(body);
+            return handleSuccess<SubmitSellOrderResult>(res, result);
         } catch (error: unknown) {
             return handleError(res, error as Error);
         }

@@ -78,7 +78,14 @@ export async function submitSellOrder(submitOrderParams: SubmitSellOrderParams) 
             feeRate,
         })
 
-        return result;
+        return {
+            psbt: result.psbt,
+            btc_in: result.btcIn,
+            btc_out: result.btcOut,
+            change: result.change,
+            vsize: result.vSize,
+            fee: result.fee,
+        };
     } catch(error) {
         apiLogger.error(error);
         throw error;
