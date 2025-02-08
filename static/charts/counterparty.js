@@ -138,7 +138,6 @@ const fetchApiData = async (eventKey) => {
     }
 
     const apiData = await response.json();
-    console.log("API data received:", apiData);
 
     return apiData.result.map(item => ({
       time: dateToTimestamp(item.date),
@@ -149,8 +148,6 @@ const fetchApiData = async (eventKey) => {
     return [];
   }
 };
-
-
 
 function BarChart(props) {
   const { eventKey = "ASSET_ISSUANCE", aggregationLevel = "monthly", height = "800px", width = "100%", rawData } = props;
@@ -177,7 +174,6 @@ function BarChart(props) {
   useEffect(() => {
     if (rawData) {
       const processedData = processData(rawData);
-      console.log(`Datos Procesados (${aggregationLevel}, ${eventKey}):`, processedData);
       setChartData(processedData);
     }
   }, [rawData, eventKey, aggregationLevel, processData]);
@@ -186,7 +182,6 @@ function BarChart(props) {
     if (!chartContainerRef.current) return;
 
     if (!chartRef.current) {
-      console.log("Inicializando gráfico...");
       chartRef.current = globalThis.LightweightCharts.createChart(chartContainerRef.current, {
         layout: {
           textColor: "#A0FFA0",
@@ -199,9 +194,7 @@ function BarChart(props) {
         },
       });
 
-      console.log("chartRef.current:", chartRef.current);
 
-      // ✅ Usamos chart.addSeries() con el tipo de serie correcto
       if (typeof chartRef.current.addSeries === "function") {
         seriesRef.current = chartRef.current.addSeries(globalThis.LightweightCharts.HistogramSeries, {
           color: "#A0FFA0",
@@ -239,7 +232,6 @@ function BarChart(props) {
   });
 }
 
-
 const getQueryParams = () => {
   const params = new URLSearchParams(globalThis.location.search);
   const eventKey = params.get('eventKey') || "ASSET_ISSUANCE";
@@ -255,11 +247,9 @@ const getQueryParams = () => {
   return { eventKey, aggregationLevel: validatedAggregationLevel, height, width };
 };
 
-// Nuevo Componente Principal que incluye los controles
 function App() {
   const { useState, useEffect } = React;
 
-  // Extraer parámetros iniciales de la URL
   const { eventKey: initialEventKey, aggregationLevel: initialAggregationLevel, height, width } = getQueryParams();
 
   const [eventKey, setEventKey] = useState(initialEventKey);
@@ -268,7 +258,6 @@ function App() {
   const [isLoading, setIsLoading] = useState(true); // Estado para manejar la carga
   const [error, setError] = useState(null); // Estado para manejar errores
 
-  // Función para actualizar los parámetros de la URL
   const updateURL = (newEventKey, newAggregationLevel) => {
     const params = new URLSearchParams();
     params.set('eventKey', newEventKey);

@@ -355,3 +355,14 @@ export async function decodeListingTx(txhex: string): Promise<{
         throw error;
     }
 }
+
+export function checkPSBTForSignatures(psbt: bitcoin.Psbt) {
+    try {
+        return psbt.data.inputs.every(input => {
+            return input.finalScriptWitness !== undefined || input.finalScriptSig !== undefined;
+        });
+    } catch (error) {
+        apiLogger.error(error);
+        return false;
+    }
+}

@@ -4,12 +4,14 @@ import { handleSuccess, handleError } from "@/services/api/handler.ts";
 import * as paginate from "@/services/database/utils/pagination.ts";
 import * as orders from "@/services/database/orders.ts";
 import * as buy from "@/services/buy/buy.ts";
+import * as sell from "@/services/ordersbook/sell.ts";
 import * as cancel from "@/services/ordersbook/cancel.ts";
 import type { OpenBookListing } from "@/services/indexer/src/tx/parse.d.ts";
 import type { PaginatedResult } from "@/services/database/utils/pagination.d.ts";
 import { apiKeyMiddleware } from "@/middleware/auth/middleware.ts";
 import { CreateBuyPSBTResult, ServiceFee } from "@/services/buy/buy.d.ts";
 import { CreateCancelResult } from "@/services/ordersbook/cancel.d.ts";
+import { CreateSellOrderResult } from "@/services/ordersbook/sell.d.ts";
 
 export const controller = {
     getOpenbookListings: async (req: Request, res: Response) => {
@@ -80,6 +82,24 @@ export const controller = {
         } catch (error: unknown) {
             return handleError(res, error as Error);
         }
+    },
+    createOrderPsbt: async (req: Request, res: Response) => {
+        try {
+            const { body } = req;
+            const result = await sell.createSellOrderPsbt(body);
+            return handleSuccess<CreateSellOrderResult>(res, result);
+        } catch (error: unknown) {
+            return handleError(res, error as Error);
+        }
+    },
+    createListingTx: async (req: Request, res: Response) => {
+        try {
+            const { body } = req;
+            const result = await sell.createSellOrderPsbt(body);
+            return handleSuccess<CreateSellOrderResult>(res, result);
+        } catch (error: unknown) {
+            return handleError(res, error as Error);
+        }
     }
 }
 
@@ -88,6 +108,8 @@ export function configureOpenBookRoutes(router: Router) {
     router.get("/:txId", controller.getOpenbookListingsByTxId);
     router.get("/asset/:asset", controller.getOpenbookListingsByAsset);
     router.get("/address/:address", controller.getOpenbookListingsByAddress);
+    router.post("/list/sign", controller.createOrderPsbt);
+    router.post("/list/submit", controller.createListingTx);
     router.post("/buy", apiKeyMiddleware, controller.buyOrder);
     router.post("/cancel", controller.cancelOrder);
     return router;

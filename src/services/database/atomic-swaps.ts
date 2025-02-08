@@ -8,7 +8,7 @@ export async function getAtomicSwaps(options: PaginationOptions) {
     const db = new Database(CONFIG.DATABASE.DB_NAME, {
         readonly: true,
     });
-    const query = "SELECT *, json(utxo_balance) as utxo_balance, json(service_fees) as service_fees FROM atomic_swaps";
+    const query = "SELECT *, json(utxo_balance) as utxo_balance, json(service_fees) as service_fees FROM atomic_swaps ORDER BY tx_index DESC";
     const paginatedQuery = await paginate.buildPaginatedQuery(query, options);
     const atomicSwaps = await db.prepare(paginatedQuery).all();
     const total = await paginate.getTotalCount(db, query);
@@ -44,7 +44,7 @@ export async function getAtomicSwapByAsset(asset: string, options: PaginationOpt
         WHERE EXISTS (
             SELECT 1 FROM json_each(atomic_swaps.utxo_balance)
             WHERE json_each.value->>'assetId' = ?
-        )
+        ) ORDER BY tx_index DESC
     `;
     const paginatedQuery = await paginate.buildPaginatedQuery(query, options);
     const atomicSwaps = await db.prepare(paginatedQuery).all(asset);
@@ -76,6 +76,7 @@ export async function getAtomicSwapByAddress(address: string, options: Paginatio
                FROM json_each(atomic_swaps.service_fees) 
                WHERE json_each.value->>'address' = ?
            )
+        ORDER BY tx_index DESC
     `;
     const paginatedQuery = await paginate.buildPaginatedQuery(query, options);
     const atomicSwaps = await db.prepare(paginatedQuery).all(address, address, address);
