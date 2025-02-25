@@ -11,27 +11,18 @@ const feeRate = 10;
 const seller = "bc1q57y36a30vee07g8p3ra56svcrhean5rc0qr3vh";
 const utxo = "d7830e5b603f2b1b2a39c43d31c5d6155e5821cb2549b6ddb05aaf8be483be82:0";
 const price = 100000;
+const price2 = 15000
 const invalid_utxo = "d7830e5b603f2b1b2a39c43d31c5d6155e5821cb2549b6ddb05aaf8be483be83:0";
 const listingTx = "1c98219645f3bf8b845d290ff46eb1f62a7a908a289867507f03eeb2fd0b38a4";
+const listingTx2 = "66be489f2355f27667e700ad5d26d14a7c73fb59fa2b66403daf0b29b1741f46"
 
 async function setupTestingTX() {
-    if (unsignedPsbt && signedPsbt) return;
-    unsignedPsbt = await tx.createSellPSBT({
-        seller,
+    const { psbt: unsignedPsbt, inputsToSign } = await tx.createSellPSBT({
         utxo,
+        seller,
         price,
     });
-
-    const inputsToSign = [
-        {
-            index: 0,
-            sighashType: [
-                bitcoin.Transaction.SIGHASH_ANYONECANPAY |
-                bitcoin.Transaction.SIGHASH_SINGLE
-            ]
-        }
-    ];
-
+    if (unsignedPsbt && signedPsbt) return;
     const auxPsbt = unsignedPsbt.clone();
     signedPsbt = tx.signPsbt({
         psbt: auxPsbt,
@@ -103,9 +94,17 @@ Deno.test("createListingTX should create a listing PSBT from a valid signed sell
 
 Deno.test("decodeListingTx should decode a listing tx and reconstruct the original signed tx from and onchain tx", async () => {
     const tx_hex = await btc.getTransaction(listingTx, false);
-    const { psbt, utxo:result_utxo, seller:result_seller, price:result_price } = await tx.decodeListingTx(tx_hex);
+    const { psbt, utxo: result_utxo, seller: result_seller, price: result_price } = await tx.decodeListingTx(tx_hex);
     assert(psbt === signedPsbt.toHex(), "Resultant PSBT should be the same as signed PSBT");
     assert(result_utxo === utxo, "Resultant utxo should be the same as the original utxo");
     assert(result_seller === seller, "Resultant seller should be the same as the original seller");
     assert(result_price === BigInt(price), "Resultant price should be the same as the original price");
+});
+
+
+Deno.test("decodeListingTx should decode a listing tx 2 and reconstruct the original signed tx from and onchain tx", async () => {
+    const tx_hex = await btc.getTransaction(listingTx2, false);
+    const {   seller: result_seller, price: result_price } = await tx.decodeListingTx(tx_hex);
+    assert(result_seller === seller, "Resultant seller should be the same as the original seller");
+    assert(result_price === BigInt(price2), "Resultant price should be the same as the original price");
 });

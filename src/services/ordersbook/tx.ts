@@ -21,6 +21,7 @@ export async function createSellPSBT(sellOrderParams: SellOrderParams) {
         const [utxoTxId, utxoVout] = utxo.split(":");
         const psbt = new bitcoin.Psbt({ network: bitcoin.networks.bitcoin });
 
+        const inputsToSign = [{ index: 0, sighashTypes: [bitcoin.Transaction.SIGHASH_SINGLE | bitcoin.Transaction.SIGHASH_ANYONECANPAY], address: seller }];
         const utxoRawTx = await btc.getTransaction(utxoTxId, false);
         if (!utxoRawTx) {
             throw new Error("UTXO doesnt exist");
@@ -30,6 +31,7 @@ export async function createSellPSBT(sellOrderParams: SellOrderParams) {
             index: Number.parseInt(utxoVout),
             nonWitnessUtxo: hex2bin(utxoRawTx),
         });
+
         psbt.updateInput(
             0,
             { sighashType: bitcoin.Transaction.SIGHASH_SINGLE | bitcoin.Transaction.SIGHASH_ANYONECANPAY }
@@ -38,7 +40,10 @@ export async function createSellPSBT(sellOrderParams: SellOrderParams) {
             address: seller,
             value: BigInt(price),
         });
-        return psbt;
+        return {
+            psbt,
+            inputsToSign,
+        };
     } catch (error) {
         apiLogger.error(error);
         throw error;
@@ -60,7 +65,7 @@ export function signPsbt({ psbt, inputsToSign, wif }: { psbt: bitcoin.Psbt, inpu
         const keyPair = ECPair.fromWIF(wif, bitcoin.networks.bitcoin);
 
         for (const input of inputsToSign) {
-            psbt.signInput(input.index, keyPair, input.sighashType);
+            psbt.signInput(input.index, keyPair, input.sighashTypes);
             psbt.validateSignaturesOfInput(input.index, (pubkey, msghash, signature) => {
                 return ecc.verify(msghash, pubkey, signature);
             });
@@ -341,7 +346,7 @@ export async function decodeListingTx(txhex: string): Promise<{
         }];
 
         // Create the unsigned sell psbt
-        const unsignedSellPsbt = await createSellPSBT({ utxo, seller, price });
+        const { psbt: unsignedSellPsbt } = await createSellPSBT({ utxo, seller, price: Number(price) });
 
         // Add the signatures to the sell psbt
         const signedPsbt = reconstructTxFromPartialSigs({

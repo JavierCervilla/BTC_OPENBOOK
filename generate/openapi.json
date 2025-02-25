@@ -4738,7 +4738,7 @@
           {
             "name": "page",
             "in": "query",
-            "required": true,
+            "required": false,
             "schema": {
               "type": "number"
             }
@@ -4746,7 +4746,7 @@
           {
             "name": "limit",
             "in": "query",
-            "required": true,
+            "required": false,
             "schema": {
               "type": "number"
             }
@@ -4760,433 +4760,655 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "result": {
+                    "description": {
+                      "type": "string",
+                      "enum": [
+                        "Succesful response with a list of orders"
+                      ]
+                    },
+                    "content": {
                       "type": "object",
                       "properties": {
-                        "type": {
-                          "type": "string",
-                          "enum": [
-                            "object"
-                          ]
-                        },
-                        "properties": {
+                        "application/json": {
                           "type": "object",
                           "properties": {
-                            "total": {
+                            "schema": {
                               "type": "object",
                               "properties": {
                                 "type": {
                                   "type": "string",
                                   "enum": [
-                                    "number"
-                                  ]
-                                }
-                              },
-                              "additionalProperties": false,
-                              "required": [
-                                "type"
-                              ]
-                            },
-                            "page": {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "number"
-                                  ]
-                                }
-                              },
-                              "additionalProperties": false,
-                              "required": [
-                                "type"
-                              ]
-                            },
-                            "limit": {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "number"
-                                  ]
-                                }
-                              },
-                              "additionalProperties": false,
-                              "required": [
-                                "type"
-                              ]
-                            },
-                            "totalPages": {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "number"
-                                  ]
-                                }
-                              },
-                              "additionalProperties": false,
-                              "required": [
-                                "type"
-                              ]
-                            },
-                            "result": {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "array"
+                                    "object"
                                   ]
                                 },
-                                "items": {
+                                "properties": {
                                   "type": "object",
                                   "properties": {
-                                    "type": {
-                                      "type": "string",
-                                      "enum": [
-                                        "object"
-                                      ]
-                                    },
-                                    "properties": {
+                                    "total": {
                                       "type": "object",
                                       "properties": {
-                                        "txId": {
-                                          "type": "object",
-                                          "properties": {
-                                            "type": {
-                                              "type": "string",
-                                              "enum": [
-                                                "string"
-                                              ]
-                                            },
-                                            "description": {
-                                              "type": "string",
-                                              "enum": [
-                                                "The txId of the order TX. This is the main identifier for the order."
-                                              ]
-                                            }
-                                          },
-                                          "additionalProperties": false,
-                                          "required": [
-                                            "description",
-                                            "type"
+                                        "type": {
+                                          "type": "string",
+                                          "enum": [
+                                            "number"
+                                          ]
+                                        }
+                                      },
+                                      "additionalProperties": false,
+                                      "required": [
+                                        "type"
+                                      ]
+                                    },
+                                    "page": {
+                                      "type": "object",
+                                      "properties": {
+                                        "type": {
+                                          "type": "string",
+                                          "enum": [
+                                            "number"
+                                          ]
+                                        }
+                                      },
+                                      "additionalProperties": false,
+                                      "required": [
+                                        "type"
+                                      ]
+                                    },
+                                    "limit": {
+                                      "type": "object",
+                                      "properties": {
+                                        "type": {
+                                          "type": "string",
+                                          "enum": [
+                                            "number"
+                                          ]
+                                        }
+                                      },
+                                      "additionalProperties": false,
+                                      "required": [
+                                        "type"
+                                      ]
+                                    },
+                                    "totalPages": {
+                                      "type": "object",
+                                      "properties": {
+                                        "type": {
+                                          "type": "string",
+                                          "enum": [
+                                            "number"
+                                          ]
+                                        }
+                                      },
+                                      "additionalProperties": false,
+                                      "required": [
+                                        "type"
+                                      ]
+                                    },
+                                    "result": {
+                                      "type": "object",
+                                      "properties": {
+                                        "type": {
+                                          "type": "string",
+                                          "enum": [
+                                            "array"
                                           ]
                                         },
-                                        "timestamp": {
+                                        "items": {
                                           "type": "object",
                                           "properties": {
                                             "type": {
                                               "type": "string",
                                               "enum": [
-                                                "number"
+                                                "object"
                                               ]
                                             },
-                                            "description": {
-                                              "type": "string",
-                                              "enum": [
-                                                "The timestamp of the block containing the order."
-                                              ]
-                                            }
-                                          },
-                                          "additionalProperties": false,
-                                          "required": [
-                                            "description",
-                                            "type"
-                                          ]
-                                        },
-                                        "block_index": {
-                                          "type": "object",
-                                          "properties": {
-                                            "type": {
-                                              "type": "string",
-                                              "enum": [
-                                                "number"
-                                              ]
-                                            },
-                                            "description": {
-                                              "type": "string",
-                                              "enum": [
-                                                "The index of the block containing the order."
-                                              ]
-                                            }
-                                          },
-                                          "additionalProperties": false,
-                                          "required": [
-                                            "description",
-                                            "type"
-                                          ]
-                                        },
-                                        "utxo": {
-                                          "type": "object",
-                                          "properties": {
-                                            "type": {
-                                              "type": "string",
-                                              "enum": [
-                                                "string"
-                                              ]
-                                            },
-                                            "description": {
-                                              "type": "string",
-                                              "enum": [
-                                                "The utxo used for the order that contains the assets."
-                                              ]
-                                            }
-                                          },
-                                          "additionalProperties": false,
-                                          "required": [
-                                            "description",
-                                            "type"
-                                          ]
-                                        },
-                                        "seller": {
-                                          "type": "object",
-                                          "properties": {
-                                            "type": {
-                                              "type": "string",
-                                              "enum": [
-                                                "string"
-                                              ]
-                                            },
-                                            "description": {
-                                              "type": "string",
-                                              "enum": [
-                                                "The seller address."
-                                              ]
-                                            }
-                                          },
-                                          "additionalProperties": false,
-                                          "required": [
-                                            "description",
-                                            "type"
-                                          ]
-                                        },
-                                        "psbt": {
-                                          "type": "object",
-                                          "properties": {
-                                            "type": {
-                                              "type": "string",
-                                              "enum": [
-                                                "string"
-                                              ]
-                                            },
-                                            "description": {
-                                              "type": "string",
-                                              "enum": [
-                                                "The PSBT of the order that needs to be fulfilled for finishing the swap."
-                                              ]
-                                            }
-                                          },
-                                          "additionalProperties": false,
-                                          "required": [
-                                            "description",
-                                            "type"
-                                          ]
-                                        },
-                                        "utxo_balance": {
-                                          "type": "object",
-                                          "properties": {
-                                            "type": {
-                                              "type": "string",
-                                              "enum": [
-                                                "array"
-                                              ]
-                                            },
-                                            "items": {
+                                            "properties": {
                                               "type": "object",
                                               "properties": {
-                                                "type": {
-                                                  "type": "string",
-                                                  "enum": [
-                                                    "object"
-                                                  ]
-                                                },
-                                                "properties": {
+                                                "txId": {
                                                   "type": "object",
                                                   "properties": {
-                                                    "assetId": {
-                                                      "type": "object",
-                                                      "properties": {
-                                                        "type": {
-                                                          "type": "string",
-                                                          "enum": [
-                                                            "string"
-                                                          ]
-                                                        },
-                                                        "description": {
-                                                          "type": "string",
-                                                          "enum": [
-                                                            "The assetId of the asset."
-                                                          ]
-                                                        }
-                                                      },
-                                                      "additionalProperties": false,
-                                                      "required": [
-                                                        "description",
-                                                        "type"
+                                                    "type": {
+                                                      "type": "string",
+                                                      "enum": [
+                                                        "string"
                                                       ]
                                                     },
-                                                    "qty": {
-                                                      "type": "object",
-                                                      "properties": {
-                                                        "type": {
-                                                          "type": "string",
-                                                          "enum": [
-                                                            "number"
-                                                          ]
-                                                        },
-                                                        "description": {
-                                                          "type": "string",
-                                                          "enum": [
-                                                            "The quantity of the assetId attached to that utxo."
-                                                          ]
-                                                        }
-                                                      },
-                                                      "additionalProperties": false,
-                                                      "required": [
-                                                        "description",
-                                                        "type"
+                                                    "description": {
+                                                      "type": "string",
+                                                      "enum": [
+                                                        "The txId of the order TX. This is the main identifier for the order."
+                                                      ]
+                                                    }
+                                                  },
+                                                  "additionalProperties": false,
+                                                  "required": [
+                                                    "description",
+                                                    "type"
+                                                  ]
+                                                },
+                                                "timestamp": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                    "type": {
+                                                      "type": "string",
+                                                      "enum": [
+                                                        "number"
                                                       ]
                                                     },
-                                                    "protocol": {
-                                                      "type": "object",
-                                                      "properties": {
-                                                        "type": {
-                                                          "type": "string",
-                                                          "enum": [
-                                                            "number"
-                                                          ]
-                                                        },
-                                                        "description": {
-                                                          "type": "string",
-                                                          "enum": [
-                                                            "The protocol of the asset, 0 for COUNTERPARTY"
-                                                          ]
-                                                        }
-                                                      },
-                                                      "additionalProperties": false,
-                                                      "required": [
-                                                        "description",
-                                                        "type"
+                                                    "description": {
+                                                      "type": "string",
+                                                      "enum": [
+                                                        "The timestamp of the block containing the order."
+                                                      ]
+                                                    }
+                                                  },
+                                                  "additionalProperties": false,
+                                                  "required": [
+                                                    "description",
+                                                    "type"
+                                                  ]
+                                                },
+                                                "block_index": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                    "type": {
+                                                      "type": "string",
+                                                      "enum": [
+                                                        "number"
                                                       ]
                                                     },
-                                                    "protocol_name": {
+                                                    "description": {
+                                                      "type": "string",
+                                                      "enum": [
+                                                        "The index of the block containing the order."
+                                                      ]
+                                                    }
+                                                  },
+                                                  "additionalProperties": false,
+                                                  "required": [
+                                                    "description",
+                                                    "type"
+                                                  ]
+                                                },
+                                                "utxo": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                    "type": {
+                                                      "type": "string",
+                                                      "enum": [
+                                                        "string"
+                                                      ]
+                                                    },
+                                                    "description": {
+                                                      "type": "string",
+                                                      "enum": [
+                                                        "The utxo used for the order that contains the assets."
+                                                      ]
+                                                    }
+                                                  },
+                                                  "additionalProperties": false,
+                                                  "required": [
+                                                    "description",
+                                                    "type"
+                                                  ]
+                                                },
+                                                "seller": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                    "type": {
+                                                      "type": "string",
+                                                      "enum": [
+                                                        "string"
+                                                      ]
+                                                    },
+                                                    "description": {
+                                                      "type": "string",
+                                                      "enum": [
+                                                        "The seller address."
+                                                      ]
+                                                    }
+                                                  },
+                                                  "additionalProperties": false,
+                                                  "required": [
+                                                    "description",
+                                                    "type"
+                                                  ]
+                                                },
+                                                "psbt": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                    "type": {
+                                                      "type": "string",
+                                                      "enum": [
+                                                        "string"
+                                                      ]
+                                                    },
+                                                    "description": {
+                                                      "type": "string",
+                                                      "enum": [
+                                                        "The PSBT of the order that needs to be fulfilled for finishing the swap."
+                                                      ]
+                                                    }
+                                                  },
+                                                  "additionalProperties": false,
+                                                  "required": [
+                                                    "description",
+                                                    "type"
+                                                  ]
+                                                },
+                                                "utxo_balance": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                    "type": {
+                                                      "type": "string",
+                                                      "enum": [
+                                                        "array"
+                                                      ]
+                                                    },
+                                                    "items": {
                                                       "type": "object",
                                                       "properties": {
                                                         "type": {
                                                           "type": "string",
                                                           "enum": [
-                                                            "string"
+                                                            "object"
                                                           ]
                                                         },
-                                                        "description": {
-                                                          "type": "string",
-                                                          "enum": [
-                                                            "The name of the protocol, COUNTERPARTY"
+                                                        "properties": {
+                                                          "type": "object",
+                                                          "properties": {
+                                                            "assetId": {
+                                                              "type": "object",
+                                                              "properties": {
+                                                                "type": {
+                                                                  "type": "string",
+                                                                  "enum": [
+                                                                    "string"
+                                                                  ]
+                                                                },
+                                                                "description": {
+                                                                  "type": "string",
+                                                                  "enum": [
+                                                                    "The assetId of the asset."
+                                                                  ]
+                                                                }
+                                                              },
+                                                              "additionalProperties": false,
+                                                              "required": [
+                                                                "description",
+                                                                "type"
+                                                              ]
+                                                            },
+                                                            "qty": {
+                                                              "type": "object",
+                                                              "properties": {
+                                                                "type": {
+                                                                  "type": "string",
+                                                                  "enum": [
+                                                                    "number"
+                                                                  ]
+                                                                },
+                                                                "description": {
+                                                                  "type": "string",
+                                                                  "enum": [
+                                                                    "The quantity of the assetId attached to that utxo."
+                                                                  ]
+                                                                }
+                                                              },
+                                                              "additionalProperties": false,
+                                                              "required": [
+                                                                "description",
+                                                                "type"
+                                                              ]
+                                                            },
+                                                            "protocol": {
+                                                              "type": "object",
+                                                              "properties": {
+                                                                "type": {
+                                                                  "type": "string",
+                                                                  "enum": [
+                                                                    "number"
+                                                                  ]
+                                                                },
+                                                                "description": {
+                                                                  "type": "string",
+                                                                  "enum": [
+                                                                    "The protocol of the asset, 0 for COUNTERPARTY"
+                                                                  ]
+                                                                }
+                                                              },
+                                                              "additionalProperties": false,
+                                                              "required": [
+                                                                "description",
+                                                                "type"
+                                                              ]
+                                                            },
+                                                            "protocol_name": {
+                                                              "type": "object",
+                                                              "properties": {
+                                                                "type": {
+                                                                  "type": "string",
+                                                                  "enum": [
+                                                                    "string"
+                                                                  ]
+                                                                },
+                                                                "description": {
+                                                                  "type": "string",
+                                                                  "enum": [
+                                                                    "The name of the protocol, COUNTERPARTY"
+                                                                  ]
+                                                                }
+                                                              },
+                                                              "additionalProperties": false,
+                                                              "required": [
+                                                                "description",
+                                                                "type"
+                                                              ]
+                                                            }
+                                                          },
+                                                          "additionalProperties": false,
+                                                          "required": [
+                                                            "assetId",
+                                                            "protocol",
+                                                            "protocol_name",
+                                                            "qty"
                                                           ]
                                                         }
                                                       },
                                                       "additionalProperties": false,
                                                       "required": [
-                                                        "description",
+                                                        "properties",
                                                         "type"
                                                       ]
                                                     }
                                                   },
                                                   "additionalProperties": false,
                                                   "required": [
-                                                    "assetId",
-                                                    "protocol",
-                                                    "protocol_name",
-                                                    "qty"
+                                                    "items",
+                                                    "type"
+                                                  ]
+                                                },
+                                                "status": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                    "type": {
+                                                      "type": "string",
+                                                      "enum": [
+                                                        "string"
+                                                      ]
+                                                    },
+                                                    "description": {
+                                                      "type": "string",
+                                                      "enum": [
+                                                        "The status of the order"
+                                                      ]
+                                                    }
+                                                  },
+                                                  "additionalProperties": false,
+                                                  "required": [
+                                                    "description",
+                                                    "type"
                                                   ]
                                                 }
                                               },
                                               "additionalProperties": false,
                                               "required": [
-                                                "properties",
-                                                "type"
+                                                "block_index",
+                                                "psbt",
+                                                "seller",
+                                                "status",
+                                                "timestamp",
+                                                "txId",
+                                                "utxo",
+                                                "utxo_balance"
                                               ]
                                             }
                                           },
                                           "additionalProperties": false,
                                           "required": [
-                                            "items",
-                                            "type"
-                                          ]
-                                        },
-                                        "status": {
-                                          "type": "object",
-                                          "properties": {
-                                            "type": {
-                                              "type": "string",
-                                              "enum": [
-                                                "string"
-                                              ]
-                                            },
-                                            "description": {
-                                              "type": "string",
-                                              "enum": [
-                                                "The status of the order"
-                                              ]
-                                            }
-                                          },
-                                          "additionalProperties": false,
-                                          "required": [
-                                            "description",
+                                            "properties",
                                             "type"
                                           ]
                                         }
                                       },
                                       "additionalProperties": false,
                                       "required": [
-                                        "block_index",
-                                        "psbt",
-                                        "seller",
-                                        "status",
-                                        "timestamp",
-                                        "txId",
-                                        "utxo",
-                                        "utxo_balance"
+                                        "items",
+                                        "type"
                                       ]
                                     }
                                   },
                                   "additionalProperties": false,
                                   "required": [
-                                    "properties",
-                                    "type"
+                                    "limit",
+                                    "page",
+                                    "result",
+                                    "total",
+                                    "totalPages"
                                   ]
                                 }
                               },
                               "additionalProperties": false,
                               "required": [
-                                "items",
+                                "properties",
                                 "type"
+                              ]
+                            },
+                            "example": {
+                              "type": "object",
+                              "properties": {
+                                "page": {
+                                  "type": "number",
+                                  "enum": [
+                                    1
+                                  ],
+                                  "default": 1
+                                },
+                                "limit": {
+                                  "type": "number",
+                                  "enum": [
+                                    10
+                                  ],
+                                  "default": 10
+                                },
+                                "total": {
+                                  "type": "number",
+                                  "enum": [
+                                    1
+                                  ],
+                                  "default": 1
+                                },
+                                "totalPages": {
+                                  "type": "number",
+                                  "enum": [
+                                    1
+                                  ],
+                                  "default": 1
+                                },
+                                "result": {
+                                  "type": "array",
+                                  "items": [
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "txid": {
+                                          "type": "string",
+                                          "enum": [
+                                            "1c98219645f3bf8b845d290ff46eb1f62a7a908a289867507f03eeb2fd0b38a4"
+                                          ],
+                                          "default": "1c98219645f3bf8b845d290ff46eb1f62a7a908a289867507f03eeb2fd0b38a4"
+                                        },
+                                        "timestamp": {
+                                          "type": "number",
+                                          "enum": [
+                                            1734545579
+                                          ],
+                                          "default": 1734545579
+                                        },
+                                        "block_index": {
+                                          "type": "number",
+                                          "enum": [
+                                            875332
+                                          ],
+                                          "default": 875332
+                                        },
+                                        "utxo": {
+                                          "type": "string",
+                                          "enum": [
+                                            "d7830e5b603f2b1b2a39c43d31c5d6155e5821cb2549b6ddb05aaf8be483be82:0"
+                                          ],
+                                          "default": "d7830e5b603f2b1b2a39c43d31c5d6155e5821cb2549b6ddb05aaf8be483be82:0"
+                                        },
+                                        "price": {
+                                          "type": "number",
+                                          "enum": [
+                                            100000
+                                          ],
+                                          "default": 100000
+                                        },
+                                        "seller": {
+                                          "type": "string",
+                                          "enum": [
+                                            "bc1q57y36a30vee07g8p3ra56svcrhean5rc0qr3vh"
+                                          ],
+                                          "default": "bc1q57y36a30vee07g8p3ra56svcrhean5rc0qr3vh"
+                                        },
+                                        "psbt": {
+                                          "type": "string",
+                                          "enum": [
+                                            "70736274ff010052020000000182be83e48baf5ab0ddb64925cb21585e15d6c5313dc4392a1b2b3f605b0e83d70000000000ffffffff01a086010000000000160014a7891d762f6672ff20e188fb4d41981df3d9d07800000000000100fd7401020000000001029497fdb1da5289d432adb3afc1c00763de175ef746df9fb817572240ce2031130000000000ffffffff2d345bcc5a0eb1aea3ad0aa49489d866e46458132c3f96664bfd28768fe7ef770000000000ffffffff022202000000000000160014a7891d762f6672ff20e188fb4d41981df3d9d07800200000000000001600147276b767f27bc28b9ae87ce1c7c8067a7da6d27b02483045022100ca40cf027f90c3113a67c31f11b9993bc77242365beafa1fc0d2ca158e2af43502204b7a4c19f6559fb155b8e231c078d7fe19ee1f4e019b7962062415f29d008fa0012103120eb2eec2503ccf19649ce4d867461b0f93fecff46563cde37d1c5dff58c48702483045022100bb0ce3df0e9e571c0a2160557a5238b1bdc21695e584d38d7569eeb254e1d44202206eb1ae6b4ab535a46f82ddeb4d03382a75d96a3e4348c95ceba8d27d81997e62012103120eb2eec2503ccf19649ce4d867461b0f93fecff46563cde37d1c5dff58c48700000000220202b5bf70e8ed4e33a56d449fd99a9b1f704a4d91682b6aaf984af8501c7118ebd5483045022100d983997cdf36655fc840ae90d9a466dc7e77d20bbb5342d063d618b4def1bf6002205190591af22db792e4e5922218de879550af91fefd918561e0262e6095c3ed2983010304830000000000"
+                                          ],
+                                          "default": "70736274ff010052020000000182be83e48baf5ab0ddb64925cb21585e15d6c5313dc4392a1b2b3f605b0e83d70000000000ffffffff01a086010000000000160014a7891d762f6672ff20e188fb4d41981df3d9d07800000000000100fd7401020000000001029497fdb1da5289d432adb3afc1c00763de175ef746df9fb817572240ce2031130000000000ffffffff2d345bcc5a0eb1aea3ad0aa49489d866e46458132c3f96664bfd28768fe7ef770000000000ffffffff022202000000000000160014a7891d762f6672ff20e188fb4d41981df3d9d07800200000000000001600147276b767f27bc28b9ae87ce1c7c8067a7da6d27b02483045022100ca40cf027f90c3113a67c31f11b9993bc77242365beafa1fc0d2ca158e2af43502204b7a4c19f6559fb155b8e231c078d7fe19ee1f4e019b7962062415f29d008fa0012103120eb2eec2503ccf19649ce4d867461b0f93fecff46563cde37d1c5dff58c48702483045022100bb0ce3df0e9e571c0a2160557a5238b1bdc21695e584d38d7569eeb254e1d44202206eb1ae6b4ab535a46f82ddeb4d03382a75d96a3e4348c95ceba8d27d81997e62012103120eb2eec2503ccf19649ce4d867461b0f93fecff46563cde37d1c5dff58c48700000000220202b5bf70e8ed4e33a56d449fd99a9b1f704a4d91682b6aaf984af8501c7118ebd5483045022100d983997cdf36655fc840ae90d9a466dc7e77d20bbb5342d063d618b4def1bf6002205190591af22db792e4e5922218de879550af91fefd918561e0262e6095c3ed2983010304830000000000"
+                                        },
+                                        "utxo_balance": {
+                                          "type": "array",
+                                          "items": [
+                                            {
+                                              "type": "object",
+                                              "properties": {
+                                                "assetId": {
+                                                  "type": "string",
+                                                  "enum": [
+                                                    "A10339936378747181000"
+                                                  ],
+                                                  "default": "A10339936378747181000"
+                                                },
+                                                "qty": {
+                                                  "type": "string",
+                                                  "enum": [
+                                                    "1"
+                                                  ],
+                                                  "default": "1"
+                                                },
+                                                "protocol": {
+                                                  "type": "number",
+                                                  "enum": [
+                                                    0
+                                                  ],
+                                                  "default": 0
+                                                },
+                                                "protocol_name": {
+                                                  "type": "string",
+                                                  "enum": [
+                                                    "COUNTERPARTY"
+                                                  ],
+                                                  "default": "COUNTERPARTY"
+                                                }
+                                              },
+                                              "additionalProperties": false,
+                                              "required": [
+                                                "assetId",
+                                                "protocol",
+                                                "protocol_name",
+                                                "qty"
+                                              ]
+                                            }
+                                          ],
+                                          "minItems": 1,
+                                          "maxItems": 1,
+                                          "default": [
+                                            {
+                                              "assetId": "A10339936378747181000",
+                                              "qty": "1",
+                                              "protocol": 0,
+                                              "protocol_name": "COUNTERPARTY"
+                                            }
+                                          ]
+                                        },
+                                        "status": {
+                                          "type": "string",
+                                          "enum": [
+                                            "active"
+                                          ],
+                                          "default": "active"
+                                        }
+                                      },
+                                      "additionalProperties": false,
+                                      "required": [
+                                        "block_index",
+                                        "price",
+                                        "psbt",
+                                        "seller",
+                                        "status",
+                                        "timestamp",
+                                        "txid",
+                                        "utxo",
+                                        "utxo_balance"
+                                      ]
+                                    }
+                                  ],
+                                  "minItems": 1,
+                                  "maxItems": 1,
+                                  "default": [
+                                    {
+                                      "txid": "1c98219645f3bf8b845d290ff46eb1f62a7a908a289867507f03eeb2fd0b38a4",
+                                      "timestamp": 1734545579,
+                                      "block_index": 875332,
+                                      "utxo": "d7830e5b603f2b1b2a39c43d31c5d6155e5821cb2549b6ddb05aaf8be483be82:0",
+                                      "price": 100000,
+                                      "seller": "bc1q57y36a30vee07g8p3ra56svcrhean5rc0qr3vh",
+                                      "psbt": "70736274ff010052020000000182be83e48baf5ab0ddb64925cb21585e15d6c5313dc4392a1b2b3f605b0e83d70000000000ffffffff01a086010000000000160014a7891d762f6672ff20e188fb4d41981df3d9d07800000000000100fd7401020000000001029497fdb1da5289d432adb3afc1c00763de175ef746df9fb817572240ce2031130000000000ffffffff2d345bcc5a0eb1aea3ad0aa49489d866e46458132c3f96664bfd28768fe7ef770000000000ffffffff022202000000000000160014a7891d762f6672ff20e188fb4d41981df3d9d07800200000000000001600147276b767f27bc28b9ae87ce1c7c8067a7da6d27b02483045022100ca40cf027f90c3113a67c31f11b9993bc77242365beafa1fc0d2ca158e2af43502204b7a4c19f6559fb155b8e231c078d7fe19ee1f4e019b7962062415f29d008fa0012103120eb2eec2503ccf19649ce4d867461b0f93fecff46563cde37d1c5dff58c48702483045022100bb0ce3df0e9e571c0a2160557a5238b1bdc21695e584d38d7569eeb254e1d44202206eb1ae6b4ab535a46f82ddeb4d03382a75d96a3e4348c95ceba8d27d81997e62012103120eb2eec2503ccf19649ce4d867461b0f93fecff46563cde37d1c5dff58c48700000000220202b5bf70e8ed4e33a56d449fd99a9b1f704a4d91682b6aaf984af8501c7118ebd5483045022100d983997cdf36655fc840ae90d9a466dc7e77d20bbb5342d063d618b4def1bf6002205190591af22db792e4e5922218de879550af91fefd918561e0262e6095c3ed2983010304830000000000",
+                                      "utxo_balance": [
+                                        {
+                                          "assetId": "A10339936378747181000",
+                                          "qty": "1",
+                                          "protocol": 0,
+                                          "protocol_name": "COUNTERPARTY"
+                                        }
+                                      ],
+                                      "status": "active"
+                                    }
+                                  ]
+                                }
+                              },
+                              "additionalProperties": false,
+                              "required": [
+                                "limit",
+                                "page",
+                                "result",
+                                "total",
+                                "totalPages"
                               ]
                             }
                           },
                           "additionalProperties": false,
                           "required": [
-                            "limit",
-                            "page",
-                            "result",
-                            "total",
-                            "totalPages"
+                            "example",
+                            "schema"
                           ]
                         }
                       },
                       "additionalProperties": false,
                       "required": [
-                        "properties",
-                        "type"
+                        "application/json"
                       ]
                     }
                   },
                   "additionalProperties": false,
                   "required": [
-                    "result"
+                    "content",
+                    "description"
                   ]
                 }
               }
@@ -5220,19 +5442,19 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "result": {
+                    "description": {
+                      "type": "string",
+                      "enum": [
+                        "Succesful response with an order"
+                      ]
+                    },
+                    "content": {
                       "type": "object",
                       "properties": {
-                        "type": {
-                          "type": "string",
-                          "enum": [
-                            "object"
-                          ]
-                        },
-                        "properties": {
+                        "application/json": {
                           "type": "object",
                           "properties": {
-                            "result": {
+                            "schema": {
                               "type": "object",
                               "properties": {
                                 "type": {
@@ -5553,20 +5775,149 @@
                           },
                           "additionalProperties": false,
                           "required": [
-                            "result"
+                            "schema"
                           ]
                         }
                       },
                       "additionalProperties": false,
                       "required": [
-                        "properties",
-                        "type"
+                        "application/json"
+                      ]
+                    },
+                    "example": {
+                      "type": "object",
+                      "properties": {
+                        "txid": {
+                          "type": "string",
+                          "enum": [
+                            "1c98219645f3bf8b845d290ff46eb1f62a7a908a289867507f03eeb2fd0b38a4"
+                          ],
+                          "default": "1c98219645f3bf8b845d290ff46eb1f62a7a908a289867507f03eeb2fd0b38a4"
+                        },
+                        "timestamp": {
+                          "type": "number",
+                          "enum": [
+                            1734545579
+                          ],
+                          "default": 1734545579
+                        },
+                        "block_index": {
+                          "type": "number",
+                          "enum": [
+                            875332
+                          ],
+                          "default": 875332
+                        },
+                        "utxo": {
+                          "type": "string",
+                          "enum": [
+                            "d7830e5b603f2b1b2a39c43d31c5d6155e5821cb2549b6ddb05aaf8be483be82:0"
+                          ],
+                          "default": "d7830e5b603f2b1b2a39c43d31c5d6155e5821cb2549b6ddb05aaf8be483be82:0"
+                        },
+                        "price": {
+                          "type": "number",
+                          "enum": [
+                            100000
+                          ],
+                          "default": 100000
+                        },
+                        "seller": {
+                          "type": "string",
+                          "enum": [
+                            "bc1q57y36a30vee07g8p3ra56svcrhean5rc0qr3vh"
+                          ],
+                          "default": "bc1q57y36a30vee07g8p3ra56svcrhean5rc0qr3vh"
+                        },
+                        "psbt": {
+                          "type": "string",
+                          "enum": [
+                            "70736274ff010052020000000182be83e48baf5ab0ddb64925cb21585e15d6c5313dc4392a1b2b3f605b0e83d70000000000ffffffff01a086010000000000160014a7891d762f6672ff20e188fb4d41981df3d9d07800000000000100fd7401020000000001029497fdb1da5289d432adb3afc1c00763de175ef746df9fb817572240ce2031130000000000ffffffff2d345bcc5a0eb1aea3ad0aa49489d866e46458132c3f96664bfd28768fe7ef770000000000ffffffff022202000000000000160014a7891d762f6672ff20e188fb4d41981df3d9d07800200000000000001600147276b767f27bc28b9ae87ce1c7c8067a7da6d27b02483045022100ca40cf027f90c3113a67c31f11b9993bc77242365beafa1fc0d2ca158e2af43502204b7a4c19f6559fb155b8e231c078d7fe19ee1f4e019b7962062415f29d008fa0012103120eb2eec2503ccf19649ce4d867461b0f93fecff46563cde37d1c5dff58c48702483045022100bb0ce3df0e9e571c0a2160557a5238b1bdc21695e584d38d7569eeb254e1d44202206eb1ae6b4ab535a46f82ddeb4d03382a75d96a3e4348c95ceba8d27d81997e62012103120eb2eec2503ccf19649ce4d867461b0f93fecff46563cde37d1c5dff58c48700000000220202b5bf70e8ed4e33a56d449fd99a9b1f704a4d91682b6aaf984af8501c7118ebd5483045022100d983997cdf36655fc840ae90d9a466dc7e77d20bbb5342d063d618b4def1bf6002205190591af22db792e4e5922218de879550af91fefd918561e0262e6095c3ed2983010304830000000000"
+                          ],
+                          "default": "70736274ff010052020000000182be83e48baf5ab0ddb64925cb21585e15d6c5313dc4392a1b2b3f605b0e83d70000000000ffffffff01a086010000000000160014a7891d762f6672ff20e188fb4d41981df3d9d07800000000000100fd7401020000000001029497fdb1da5289d432adb3afc1c00763de175ef746df9fb817572240ce2031130000000000ffffffff2d345bcc5a0eb1aea3ad0aa49489d866e46458132c3f96664bfd28768fe7ef770000000000ffffffff022202000000000000160014a7891d762f6672ff20e188fb4d41981df3d9d07800200000000000001600147276b767f27bc28b9ae87ce1c7c8067a7da6d27b02483045022100ca40cf027f90c3113a67c31f11b9993bc77242365beafa1fc0d2ca158e2af43502204b7a4c19f6559fb155b8e231c078d7fe19ee1f4e019b7962062415f29d008fa0012103120eb2eec2503ccf19649ce4d867461b0f93fecff46563cde37d1c5dff58c48702483045022100bb0ce3df0e9e571c0a2160557a5238b1bdc21695e584d38d7569eeb254e1d44202206eb1ae6b4ab535a46f82ddeb4d03382a75d96a3e4348c95ceba8d27d81997e62012103120eb2eec2503ccf19649ce4d867461b0f93fecff46563cde37d1c5dff58c48700000000220202b5bf70e8ed4e33a56d449fd99a9b1f704a4d91682b6aaf984af8501c7118ebd5483045022100d983997cdf36655fc840ae90d9a466dc7e77d20bbb5342d063d618b4def1bf6002205190591af22db792e4e5922218de879550af91fefd918561e0262e6095c3ed2983010304830000000000"
+                        },
+                        "utxo_balance": {
+                          "type": "array",
+                          "items": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "assetId": {
+                                  "type": "string",
+                                  "enum": [
+                                    "A10339936378747181000"
+                                  ],
+                                  "default": "A10339936378747181000"
+                                },
+                                "qty": {
+                                  "type": "string",
+                                  "enum": [
+                                    "1"
+                                  ],
+                                  "default": "1"
+                                },
+                                "protocol": {
+                                  "type": "number",
+                                  "enum": [
+                                    0
+                                  ],
+                                  "default": 0
+                                },
+                                "protocol_name": {
+                                  "type": "string",
+                                  "enum": [
+                                    "COUNTERPARTY"
+                                  ],
+                                  "default": "COUNTERPARTY"
+                                }
+                              },
+                              "additionalProperties": false,
+                              "required": [
+                                "assetId",
+                                "protocol",
+                                "protocol_name",
+                                "qty"
+                              ]
+                            }
+                          ],
+                          "minItems": 1,
+                          "maxItems": 1,
+                          "default": [
+                            {
+                              "assetId": "A10339936378747181000",
+                              "qty": "1",
+                              "protocol": 0,
+                              "protocol_name": "COUNTERPARTY"
+                            }
+                          ]
+                        },
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "active"
+                          ],
+                          "default": "active"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "required": [
+                        "block_index",
+                        "price",
+                        "psbt",
+                        "seller",
+                        "status",
+                        "timestamp",
+                        "txid",
+                        "utxo",
+                        "utxo_balance"
                       ]
                     }
                   },
                   "additionalProperties": false,
                   "required": [
-                    "result"
+                    "content",
+                    "description",
+                    "example"
                   ]
                 }
               }
@@ -5616,433 +5967,655 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "result": {
+                    "description": {
+                      "type": "string",
+                      "enum": [
+                        "Succesful response with a list of orders"
+                      ]
+                    },
+                    "content": {
                       "type": "object",
                       "properties": {
-                        "type": {
-                          "type": "string",
-                          "enum": [
-                            "object"
-                          ]
-                        },
-                        "properties": {
+                        "application/json": {
                           "type": "object",
                           "properties": {
-                            "total": {
+                            "schema": {
                               "type": "object",
                               "properties": {
                                 "type": {
                                   "type": "string",
                                   "enum": [
-                                    "number"
-                                  ]
-                                }
-                              },
-                              "additionalProperties": false,
-                              "required": [
-                                "type"
-                              ]
-                            },
-                            "page": {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "number"
-                                  ]
-                                }
-                              },
-                              "additionalProperties": false,
-                              "required": [
-                                "type"
-                              ]
-                            },
-                            "limit": {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "number"
-                                  ]
-                                }
-                              },
-                              "additionalProperties": false,
-                              "required": [
-                                "type"
-                              ]
-                            },
-                            "totalPages": {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "number"
-                                  ]
-                                }
-                              },
-                              "additionalProperties": false,
-                              "required": [
-                                "type"
-                              ]
-                            },
-                            "result": {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "array"
+                                    "object"
                                   ]
                                 },
-                                "items": {
+                                "properties": {
                                   "type": "object",
                                   "properties": {
-                                    "type": {
-                                      "type": "string",
-                                      "enum": [
-                                        "object"
-                                      ]
-                                    },
-                                    "properties": {
+                                    "total": {
                                       "type": "object",
                                       "properties": {
-                                        "txId": {
-                                          "type": "object",
-                                          "properties": {
-                                            "type": {
-                                              "type": "string",
-                                              "enum": [
-                                                "string"
-                                              ]
-                                            },
-                                            "description": {
-                                              "type": "string",
-                                              "enum": [
-                                                "The txId of the order TX. This is the main identifier for the order."
-                                              ]
-                                            }
-                                          },
-                                          "additionalProperties": false,
-                                          "required": [
-                                            "description",
-                                            "type"
+                                        "type": {
+                                          "type": "string",
+                                          "enum": [
+                                            "number"
+                                          ]
+                                        }
+                                      },
+                                      "additionalProperties": false,
+                                      "required": [
+                                        "type"
+                                      ]
+                                    },
+                                    "page": {
+                                      "type": "object",
+                                      "properties": {
+                                        "type": {
+                                          "type": "string",
+                                          "enum": [
+                                            "number"
+                                          ]
+                                        }
+                                      },
+                                      "additionalProperties": false,
+                                      "required": [
+                                        "type"
+                                      ]
+                                    },
+                                    "limit": {
+                                      "type": "object",
+                                      "properties": {
+                                        "type": {
+                                          "type": "string",
+                                          "enum": [
+                                            "number"
+                                          ]
+                                        }
+                                      },
+                                      "additionalProperties": false,
+                                      "required": [
+                                        "type"
+                                      ]
+                                    },
+                                    "totalPages": {
+                                      "type": "object",
+                                      "properties": {
+                                        "type": {
+                                          "type": "string",
+                                          "enum": [
+                                            "number"
+                                          ]
+                                        }
+                                      },
+                                      "additionalProperties": false,
+                                      "required": [
+                                        "type"
+                                      ]
+                                    },
+                                    "result": {
+                                      "type": "object",
+                                      "properties": {
+                                        "type": {
+                                          "type": "string",
+                                          "enum": [
+                                            "array"
                                           ]
                                         },
-                                        "timestamp": {
+                                        "items": {
                                           "type": "object",
                                           "properties": {
                                             "type": {
                                               "type": "string",
                                               "enum": [
-                                                "number"
+                                                "object"
                                               ]
                                             },
-                                            "description": {
-                                              "type": "string",
-                                              "enum": [
-                                                "The timestamp of the block containing the order."
-                                              ]
-                                            }
-                                          },
-                                          "additionalProperties": false,
-                                          "required": [
-                                            "description",
-                                            "type"
-                                          ]
-                                        },
-                                        "block_index": {
-                                          "type": "object",
-                                          "properties": {
-                                            "type": {
-                                              "type": "string",
-                                              "enum": [
-                                                "number"
-                                              ]
-                                            },
-                                            "description": {
-                                              "type": "string",
-                                              "enum": [
-                                                "The index of the block containing the order."
-                                              ]
-                                            }
-                                          },
-                                          "additionalProperties": false,
-                                          "required": [
-                                            "description",
-                                            "type"
-                                          ]
-                                        },
-                                        "utxo": {
-                                          "type": "object",
-                                          "properties": {
-                                            "type": {
-                                              "type": "string",
-                                              "enum": [
-                                                "string"
-                                              ]
-                                            },
-                                            "description": {
-                                              "type": "string",
-                                              "enum": [
-                                                "The utxo used for the order that contains the assets."
-                                              ]
-                                            }
-                                          },
-                                          "additionalProperties": false,
-                                          "required": [
-                                            "description",
-                                            "type"
-                                          ]
-                                        },
-                                        "seller": {
-                                          "type": "object",
-                                          "properties": {
-                                            "type": {
-                                              "type": "string",
-                                              "enum": [
-                                                "string"
-                                              ]
-                                            },
-                                            "description": {
-                                              "type": "string",
-                                              "enum": [
-                                                "The seller address."
-                                              ]
-                                            }
-                                          },
-                                          "additionalProperties": false,
-                                          "required": [
-                                            "description",
-                                            "type"
-                                          ]
-                                        },
-                                        "psbt": {
-                                          "type": "object",
-                                          "properties": {
-                                            "type": {
-                                              "type": "string",
-                                              "enum": [
-                                                "string"
-                                              ]
-                                            },
-                                            "description": {
-                                              "type": "string",
-                                              "enum": [
-                                                "The PSBT of the order that needs to be fulfilled for finishing the swap."
-                                              ]
-                                            }
-                                          },
-                                          "additionalProperties": false,
-                                          "required": [
-                                            "description",
-                                            "type"
-                                          ]
-                                        },
-                                        "utxo_balance": {
-                                          "type": "object",
-                                          "properties": {
-                                            "type": {
-                                              "type": "string",
-                                              "enum": [
-                                                "array"
-                                              ]
-                                            },
-                                            "items": {
+                                            "properties": {
                                               "type": "object",
                                               "properties": {
-                                                "type": {
-                                                  "type": "string",
-                                                  "enum": [
-                                                    "object"
-                                                  ]
-                                                },
-                                                "properties": {
+                                                "txId": {
                                                   "type": "object",
                                                   "properties": {
-                                                    "assetId": {
-                                                      "type": "object",
-                                                      "properties": {
-                                                        "type": {
-                                                          "type": "string",
-                                                          "enum": [
-                                                            "string"
-                                                          ]
-                                                        },
-                                                        "description": {
-                                                          "type": "string",
-                                                          "enum": [
-                                                            "The assetId of the asset."
-                                                          ]
-                                                        }
-                                                      },
-                                                      "additionalProperties": false,
-                                                      "required": [
-                                                        "description",
-                                                        "type"
+                                                    "type": {
+                                                      "type": "string",
+                                                      "enum": [
+                                                        "string"
                                                       ]
                                                     },
-                                                    "qty": {
-                                                      "type": "object",
-                                                      "properties": {
-                                                        "type": {
-                                                          "type": "string",
-                                                          "enum": [
-                                                            "number"
-                                                          ]
-                                                        },
-                                                        "description": {
-                                                          "type": "string",
-                                                          "enum": [
-                                                            "The quantity of the assetId attached to that utxo."
-                                                          ]
-                                                        }
-                                                      },
-                                                      "additionalProperties": false,
-                                                      "required": [
-                                                        "description",
-                                                        "type"
+                                                    "description": {
+                                                      "type": "string",
+                                                      "enum": [
+                                                        "The txId of the order TX. This is the main identifier for the order."
+                                                      ]
+                                                    }
+                                                  },
+                                                  "additionalProperties": false,
+                                                  "required": [
+                                                    "description",
+                                                    "type"
+                                                  ]
+                                                },
+                                                "timestamp": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                    "type": {
+                                                      "type": "string",
+                                                      "enum": [
+                                                        "number"
                                                       ]
                                                     },
-                                                    "protocol": {
-                                                      "type": "object",
-                                                      "properties": {
-                                                        "type": {
-                                                          "type": "string",
-                                                          "enum": [
-                                                            "number"
-                                                          ]
-                                                        },
-                                                        "description": {
-                                                          "type": "string",
-                                                          "enum": [
-                                                            "The protocol of the asset, 0 for COUNTERPARTY"
-                                                          ]
-                                                        }
-                                                      },
-                                                      "additionalProperties": false,
-                                                      "required": [
-                                                        "description",
-                                                        "type"
+                                                    "description": {
+                                                      "type": "string",
+                                                      "enum": [
+                                                        "The timestamp of the block containing the order."
+                                                      ]
+                                                    }
+                                                  },
+                                                  "additionalProperties": false,
+                                                  "required": [
+                                                    "description",
+                                                    "type"
+                                                  ]
+                                                },
+                                                "block_index": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                    "type": {
+                                                      "type": "string",
+                                                      "enum": [
+                                                        "number"
                                                       ]
                                                     },
-                                                    "protocol_name": {
+                                                    "description": {
+                                                      "type": "string",
+                                                      "enum": [
+                                                        "The index of the block containing the order."
+                                                      ]
+                                                    }
+                                                  },
+                                                  "additionalProperties": false,
+                                                  "required": [
+                                                    "description",
+                                                    "type"
+                                                  ]
+                                                },
+                                                "utxo": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                    "type": {
+                                                      "type": "string",
+                                                      "enum": [
+                                                        "string"
+                                                      ]
+                                                    },
+                                                    "description": {
+                                                      "type": "string",
+                                                      "enum": [
+                                                        "The utxo used for the order that contains the assets."
+                                                      ]
+                                                    }
+                                                  },
+                                                  "additionalProperties": false,
+                                                  "required": [
+                                                    "description",
+                                                    "type"
+                                                  ]
+                                                },
+                                                "seller": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                    "type": {
+                                                      "type": "string",
+                                                      "enum": [
+                                                        "string"
+                                                      ]
+                                                    },
+                                                    "description": {
+                                                      "type": "string",
+                                                      "enum": [
+                                                        "The seller address."
+                                                      ]
+                                                    }
+                                                  },
+                                                  "additionalProperties": false,
+                                                  "required": [
+                                                    "description",
+                                                    "type"
+                                                  ]
+                                                },
+                                                "psbt": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                    "type": {
+                                                      "type": "string",
+                                                      "enum": [
+                                                        "string"
+                                                      ]
+                                                    },
+                                                    "description": {
+                                                      "type": "string",
+                                                      "enum": [
+                                                        "The PSBT of the order that needs to be fulfilled for finishing the swap."
+                                                      ]
+                                                    }
+                                                  },
+                                                  "additionalProperties": false,
+                                                  "required": [
+                                                    "description",
+                                                    "type"
+                                                  ]
+                                                },
+                                                "utxo_balance": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                    "type": {
+                                                      "type": "string",
+                                                      "enum": [
+                                                        "array"
+                                                      ]
+                                                    },
+                                                    "items": {
                                                       "type": "object",
                                                       "properties": {
                                                         "type": {
                                                           "type": "string",
                                                           "enum": [
-                                                            "string"
+                                                            "object"
                                                           ]
                                                         },
-                                                        "description": {
-                                                          "type": "string",
-                                                          "enum": [
-                                                            "The name of the protocol, COUNTERPARTY"
+                                                        "properties": {
+                                                          "type": "object",
+                                                          "properties": {
+                                                            "assetId": {
+                                                              "type": "object",
+                                                              "properties": {
+                                                                "type": {
+                                                                  "type": "string",
+                                                                  "enum": [
+                                                                    "string"
+                                                                  ]
+                                                                },
+                                                                "description": {
+                                                                  "type": "string",
+                                                                  "enum": [
+                                                                    "The assetId of the asset."
+                                                                  ]
+                                                                }
+                                                              },
+                                                              "additionalProperties": false,
+                                                              "required": [
+                                                                "description",
+                                                                "type"
+                                                              ]
+                                                            },
+                                                            "qty": {
+                                                              "type": "object",
+                                                              "properties": {
+                                                                "type": {
+                                                                  "type": "string",
+                                                                  "enum": [
+                                                                    "number"
+                                                                  ]
+                                                                },
+                                                                "description": {
+                                                                  "type": "string",
+                                                                  "enum": [
+                                                                    "The quantity of the assetId attached to that utxo."
+                                                                  ]
+                                                                }
+                                                              },
+                                                              "additionalProperties": false,
+                                                              "required": [
+                                                                "description",
+                                                                "type"
+                                                              ]
+                                                            },
+                                                            "protocol": {
+                                                              "type": "object",
+                                                              "properties": {
+                                                                "type": {
+                                                                  "type": "string",
+                                                                  "enum": [
+                                                                    "number"
+                                                                  ]
+                                                                },
+                                                                "description": {
+                                                                  "type": "string",
+                                                                  "enum": [
+                                                                    "The protocol of the asset, 0 for COUNTERPARTY"
+                                                                  ]
+                                                                }
+                                                              },
+                                                              "additionalProperties": false,
+                                                              "required": [
+                                                                "description",
+                                                                "type"
+                                                              ]
+                                                            },
+                                                            "protocol_name": {
+                                                              "type": "object",
+                                                              "properties": {
+                                                                "type": {
+                                                                  "type": "string",
+                                                                  "enum": [
+                                                                    "string"
+                                                                  ]
+                                                                },
+                                                                "description": {
+                                                                  "type": "string",
+                                                                  "enum": [
+                                                                    "The name of the protocol, COUNTERPARTY"
+                                                                  ]
+                                                                }
+                                                              },
+                                                              "additionalProperties": false,
+                                                              "required": [
+                                                                "description",
+                                                                "type"
+                                                              ]
+                                                            }
+                                                          },
+                                                          "additionalProperties": false,
+                                                          "required": [
+                                                            "assetId",
+                                                            "protocol",
+                                                            "protocol_name",
+                                                            "qty"
                                                           ]
                                                         }
                                                       },
                                                       "additionalProperties": false,
                                                       "required": [
-                                                        "description",
+                                                        "properties",
                                                         "type"
                                                       ]
                                                     }
                                                   },
                                                   "additionalProperties": false,
                                                   "required": [
-                                                    "assetId",
-                                                    "protocol",
-                                                    "protocol_name",
-                                                    "qty"
+                                                    "items",
+                                                    "type"
+                                                  ]
+                                                },
+                                                "status": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                    "type": {
+                                                      "type": "string",
+                                                      "enum": [
+                                                        "string"
+                                                      ]
+                                                    },
+                                                    "description": {
+                                                      "type": "string",
+                                                      "enum": [
+                                                        "The status of the order"
+                                                      ]
+                                                    }
+                                                  },
+                                                  "additionalProperties": false,
+                                                  "required": [
+                                                    "description",
+                                                    "type"
                                                   ]
                                                 }
                                               },
                                               "additionalProperties": false,
                                               "required": [
-                                                "properties",
-                                                "type"
+                                                "block_index",
+                                                "psbt",
+                                                "seller",
+                                                "status",
+                                                "timestamp",
+                                                "txId",
+                                                "utxo",
+                                                "utxo_balance"
                                               ]
                                             }
                                           },
                                           "additionalProperties": false,
                                           "required": [
-                                            "items",
-                                            "type"
-                                          ]
-                                        },
-                                        "status": {
-                                          "type": "object",
-                                          "properties": {
-                                            "type": {
-                                              "type": "string",
-                                              "enum": [
-                                                "string"
-                                              ]
-                                            },
-                                            "description": {
-                                              "type": "string",
-                                              "enum": [
-                                                "The status of the order"
-                                              ]
-                                            }
-                                          },
-                                          "additionalProperties": false,
-                                          "required": [
-                                            "description",
+                                            "properties",
                                             "type"
                                           ]
                                         }
                                       },
                                       "additionalProperties": false,
                                       "required": [
-                                        "block_index",
-                                        "psbt",
-                                        "seller",
-                                        "status",
-                                        "timestamp",
-                                        "txId",
-                                        "utxo",
-                                        "utxo_balance"
+                                        "items",
+                                        "type"
                                       ]
                                     }
                                   },
                                   "additionalProperties": false,
                                   "required": [
-                                    "properties",
-                                    "type"
+                                    "limit",
+                                    "page",
+                                    "result",
+                                    "total",
+                                    "totalPages"
                                   ]
                                 }
                               },
                               "additionalProperties": false,
                               "required": [
-                                "items",
+                                "properties",
                                 "type"
+                              ]
+                            },
+                            "example": {
+                              "type": "object",
+                              "properties": {
+                                "page": {
+                                  "type": "number",
+                                  "enum": [
+                                    1
+                                  ],
+                                  "default": 1
+                                },
+                                "limit": {
+                                  "type": "number",
+                                  "enum": [
+                                    10
+                                  ],
+                                  "default": 10
+                                },
+                                "total": {
+                                  "type": "number",
+                                  "enum": [
+                                    1
+                                  ],
+                                  "default": 1
+                                },
+                                "totalPages": {
+                                  "type": "number",
+                                  "enum": [
+                                    1
+                                  ],
+                                  "default": 1
+                                },
+                                "result": {
+                                  "type": "array",
+                                  "items": [
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "txid": {
+                                          "type": "string",
+                                          "enum": [
+                                            "1c98219645f3bf8b845d290ff46eb1f62a7a908a289867507f03eeb2fd0b38a4"
+                                          ],
+                                          "default": "1c98219645f3bf8b845d290ff46eb1f62a7a908a289867507f03eeb2fd0b38a4"
+                                        },
+                                        "timestamp": {
+                                          "type": "number",
+                                          "enum": [
+                                            1734545579
+                                          ],
+                                          "default": 1734545579
+                                        },
+                                        "block_index": {
+                                          "type": "number",
+                                          "enum": [
+                                            875332
+                                          ],
+                                          "default": 875332
+                                        },
+                                        "utxo": {
+                                          "type": "string",
+                                          "enum": [
+                                            "d7830e5b603f2b1b2a39c43d31c5d6155e5821cb2549b6ddb05aaf8be483be82:0"
+                                          ],
+                                          "default": "d7830e5b603f2b1b2a39c43d31c5d6155e5821cb2549b6ddb05aaf8be483be82:0"
+                                        },
+                                        "price": {
+                                          "type": "number",
+                                          "enum": [
+                                            100000
+                                          ],
+                                          "default": 100000
+                                        },
+                                        "seller": {
+                                          "type": "string",
+                                          "enum": [
+                                            "bc1q57y36a30vee07g8p3ra56svcrhean5rc0qr3vh"
+                                          ],
+                                          "default": "bc1q57y36a30vee07g8p3ra56svcrhean5rc0qr3vh"
+                                        },
+                                        "psbt": {
+                                          "type": "string",
+                                          "enum": [
+                                            "70736274ff010052020000000182be83e48baf5ab0ddb64925cb21585e15d6c5313dc4392a1b2b3f605b0e83d70000000000ffffffff01a086010000000000160014a7891d762f6672ff20e188fb4d41981df3d9d07800000000000100fd7401020000000001029497fdb1da5289d432adb3afc1c00763de175ef746df9fb817572240ce2031130000000000ffffffff2d345bcc5a0eb1aea3ad0aa49489d866e46458132c3f96664bfd28768fe7ef770000000000ffffffff022202000000000000160014a7891d762f6672ff20e188fb4d41981df3d9d07800200000000000001600147276b767f27bc28b9ae87ce1c7c8067a7da6d27b02483045022100ca40cf027f90c3113a67c31f11b9993bc77242365beafa1fc0d2ca158e2af43502204b7a4c19f6559fb155b8e231c078d7fe19ee1f4e019b7962062415f29d008fa0012103120eb2eec2503ccf19649ce4d867461b0f93fecff46563cde37d1c5dff58c48702483045022100bb0ce3df0e9e571c0a2160557a5238b1bdc21695e584d38d7569eeb254e1d44202206eb1ae6b4ab535a46f82ddeb4d03382a75d96a3e4348c95ceba8d27d81997e62012103120eb2eec2503ccf19649ce4d867461b0f93fecff46563cde37d1c5dff58c48700000000220202b5bf70e8ed4e33a56d449fd99a9b1f704a4d91682b6aaf984af8501c7118ebd5483045022100d983997cdf36655fc840ae90d9a466dc7e77d20bbb5342d063d618b4def1bf6002205190591af22db792e4e5922218de879550af91fefd918561e0262e6095c3ed2983010304830000000000"
+                                          ],
+                                          "default": "70736274ff010052020000000182be83e48baf5ab0ddb64925cb21585e15d6c5313dc4392a1b2b3f605b0e83d70000000000ffffffff01a086010000000000160014a7891d762f6672ff20e188fb4d41981df3d9d07800000000000100fd7401020000000001029497fdb1da5289d432adb3afc1c00763de175ef746df9fb817572240ce2031130000000000ffffffff2d345bcc5a0eb1aea3ad0aa49489d866e46458132c3f96664bfd28768fe7ef770000000000ffffffff022202000000000000160014a7891d762f6672ff20e188fb4d41981df3d9d07800200000000000001600147276b767f27bc28b9ae87ce1c7c8067a7da6d27b02483045022100ca40cf027f90c3113a67c31f11b9993bc77242365beafa1fc0d2ca158e2af43502204b7a4c19f6559fb155b8e231c078d7fe19ee1f4e019b7962062415f29d008fa0012103120eb2eec2503ccf19649ce4d867461b0f93fecff46563cde37d1c5dff58c48702483045022100bb0ce3df0e9e571c0a2160557a5238b1bdc21695e584d38d7569eeb254e1d44202206eb1ae6b4ab535a46f82ddeb4d03382a75d96a3e4348c95ceba8d27d81997e62012103120eb2eec2503ccf19649ce4d867461b0f93fecff46563cde37d1c5dff58c48700000000220202b5bf70e8ed4e33a56d449fd99a9b1f704a4d91682b6aaf984af8501c7118ebd5483045022100d983997cdf36655fc840ae90d9a466dc7e77d20bbb5342d063d618b4def1bf6002205190591af22db792e4e5922218de879550af91fefd918561e0262e6095c3ed2983010304830000000000"
+                                        },
+                                        "utxo_balance": {
+                                          "type": "array",
+                                          "items": [
+                                            {
+                                              "type": "object",
+                                              "properties": {
+                                                "assetId": {
+                                                  "type": "string",
+                                                  "enum": [
+                                                    "A10339936378747181000"
+                                                  ],
+                                                  "default": "A10339936378747181000"
+                                                },
+                                                "qty": {
+                                                  "type": "string",
+                                                  "enum": [
+                                                    "1"
+                                                  ],
+                                                  "default": "1"
+                                                },
+                                                "protocol": {
+                                                  "type": "number",
+                                                  "enum": [
+                                                    0
+                                                  ],
+                                                  "default": 0
+                                                },
+                                                "protocol_name": {
+                                                  "type": "string",
+                                                  "enum": [
+                                                    "COUNTERPARTY"
+                                                  ],
+                                                  "default": "COUNTERPARTY"
+                                                }
+                                              },
+                                              "additionalProperties": false,
+                                              "required": [
+                                                "assetId",
+                                                "protocol",
+                                                "protocol_name",
+                                                "qty"
+                                              ]
+                                            }
+                                          ],
+                                          "minItems": 1,
+                                          "maxItems": 1,
+                                          "default": [
+                                            {
+                                              "assetId": "A10339936378747181000",
+                                              "qty": "1",
+                                              "protocol": 0,
+                                              "protocol_name": "COUNTERPARTY"
+                                            }
+                                          ]
+                                        },
+                                        "status": {
+                                          "type": "string",
+                                          "enum": [
+                                            "active"
+                                          ],
+                                          "default": "active"
+                                        }
+                                      },
+                                      "additionalProperties": false,
+                                      "required": [
+                                        "block_index",
+                                        "price",
+                                        "psbt",
+                                        "seller",
+                                        "status",
+                                        "timestamp",
+                                        "txid",
+                                        "utxo",
+                                        "utxo_balance"
+                                      ]
+                                    }
+                                  ],
+                                  "minItems": 1,
+                                  "maxItems": 1,
+                                  "default": [
+                                    {
+                                      "txid": "1c98219645f3bf8b845d290ff46eb1f62a7a908a289867507f03eeb2fd0b38a4",
+                                      "timestamp": 1734545579,
+                                      "block_index": 875332,
+                                      "utxo": "d7830e5b603f2b1b2a39c43d31c5d6155e5821cb2549b6ddb05aaf8be483be82:0",
+                                      "price": 100000,
+                                      "seller": "bc1q57y36a30vee07g8p3ra56svcrhean5rc0qr3vh",
+                                      "psbt": "70736274ff010052020000000182be83e48baf5ab0ddb64925cb21585e15d6c5313dc4392a1b2b3f605b0e83d70000000000ffffffff01a086010000000000160014a7891d762f6672ff20e188fb4d41981df3d9d07800000000000100fd7401020000000001029497fdb1da5289d432adb3afc1c00763de175ef746df9fb817572240ce2031130000000000ffffffff2d345bcc5a0eb1aea3ad0aa49489d866e46458132c3f96664bfd28768fe7ef770000000000ffffffff022202000000000000160014a7891d762f6672ff20e188fb4d41981df3d9d07800200000000000001600147276b767f27bc28b9ae87ce1c7c8067a7da6d27b02483045022100ca40cf027f90c3113a67c31f11b9993bc77242365beafa1fc0d2ca158e2af43502204b7a4c19f6559fb155b8e231c078d7fe19ee1f4e019b7962062415f29d008fa0012103120eb2eec2503ccf19649ce4d867461b0f93fecff46563cde37d1c5dff58c48702483045022100bb0ce3df0e9e571c0a2160557a5238b1bdc21695e584d38d7569eeb254e1d44202206eb1ae6b4ab535a46f82ddeb4d03382a75d96a3e4348c95ceba8d27d81997e62012103120eb2eec2503ccf19649ce4d867461b0f93fecff46563cde37d1c5dff58c48700000000220202b5bf70e8ed4e33a56d449fd99a9b1f704a4d91682b6aaf984af8501c7118ebd5483045022100d983997cdf36655fc840ae90d9a466dc7e77d20bbb5342d063d618b4def1bf6002205190591af22db792e4e5922218de879550af91fefd918561e0262e6095c3ed2983010304830000000000",
+                                      "utxo_balance": [
+                                        {
+                                          "assetId": "A10339936378747181000",
+                                          "qty": "1",
+                                          "protocol": 0,
+                                          "protocol_name": "COUNTERPARTY"
+                                        }
+                                      ],
+                                      "status": "active"
+                                    }
+                                  ]
+                                }
+                              },
+                              "additionalProperties": false,
+                              "required": [
+                                "limit",
+                                "page",
+                                "result",
+                                "total",
+                                "totalPages"
                               ]
                             }
                           },
                           "additionalProperties": false,
                           "required": [
-                            "limit",
-                            "page",
-                            "result",
-                            "total",
-                            "totalPages"
+                            "example",
+                            "schema"
                           ]
                         }
                       },
                       "additionalProperties": false,
                       "required": [
-                        "properties",
-                        "type"
+                        "application/json"
                       ]
                     }
                   },
                   "additionalProperties": false,
                   "required": [
-                    "result"
+                    "content",
+                    "description"
                   ]
                 }
               }

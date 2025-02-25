@@ -290,6 +290,13 @@ export async function getTXOUT(txid: string, vout: number) {
     return data.result;
 }
 
+export async function getMempoolFees() {
+    const endpoint = new URL("https://mempool.space/api/v1/fees/recommended");
+    const response = await fetch(endpoint);
+    const data = await response.json();
+    return data as MempoolFees;
+}
+
 export function subscribeToMempoolSpaceWebSocket(
     topics: string[],
     { onMessage, onConnect, onError, onClose }: WebSocketCallbacks

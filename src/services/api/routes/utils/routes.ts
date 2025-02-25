@@ -39,11 +39,20 @@ export const controller = {
         } catch (error) {
             return handleError(res, error as Error);
         }
+    },
+    getMempoolFees: async (_req: Request, res: Response) => {
+        try {
+            const result = await btc.getMempoolFees();
+            return handleSuccess<MempoolFees>(res, result);
+        } catch (error) {
+            return handleError(res, error as Error);
+        }
     }
 }
 
 export function configureUtilsRoutes(router: Router) {
     router.get("/cip25", controller.fetchCIP25JSON);
     router.post("/broadcast", controller.broadcastTx);
+    router.get("/mempool-fees", controller.getMempoolFees);
     return router;
 }

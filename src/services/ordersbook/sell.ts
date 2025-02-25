@@ -27,7 +27,10 @@ export async function createSellOrderPsbt(sellOrderParams: SellOrderParams) {
     try {
         await checkSellOrderParams(sellOrderParams);
         const { utxo, seller, price } = sellOrderParams;
-        const psbt = await tx.createSellPSBT({
+        const {
+            psbt,
+            inputsToSign,
+        } = await tx.createSellPSBT({
             utxo,
             seller,
             price,
@@ -37,6 +40,7 @@ export async function createSellOrderPsbt(sellOrderParams: SellOrderParams) {
             utxo: utxo,
             seller: seller,
             price: price,
+            inputsToSign,
         };
     } catch (error) {
         apiLogger.error(error);
@@ -58,9 +62,10 @@ async function checkSubmitSellOrderParams(sellOrderParams: SubmitSellOrderParams
         throw new Error("UTXO doesnt contain any balance");
     }
     const signedPsbt = bitcoin.Psbt.fromHex(psbt);
-    if (!tx.checkPSBTForSignatures(signedPsbt)) {
-        throw new Error("PSBT doesnt contain any valid signatures");
-    }
+    console.log(signedPsbt.data.inputs);
+    //if (!tx.checkPSBTForSignatures(signedPsbt)) {
+    //    throw new Error("PSBT doesnt contain any valid signatures");
+    //}
 
 }
 

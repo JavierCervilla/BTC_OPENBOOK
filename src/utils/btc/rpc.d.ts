@@ -79,7 +79,7 @@ type UTXO = {
     value: number;
     height: number;
     balance?: boolean;
-    utxo_balance?:unknown;
+    utxo_balance?: unknown;
 }
 
 type ElectrsUTXO = {
@@ -96,6 +96,14 @@ type WSMessage = {
 type BlockMessage = {
     height: number;
 };
+
+type MempoolFees = {
+    fastestFee: number;
+    halfHourFee: number;
+    hourFee: number;
+    economyFee: number;
+    minimumFee: number;
+}
 
 interface WebSocketCallbacks {
     onMessage: (message: WSMessage) => void | Promise<void>;

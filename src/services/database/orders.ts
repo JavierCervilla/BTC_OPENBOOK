@@ -81,7 +81,7 @@ export async function getOpenbookListingsByAsset(asset: string, options: Paginat
                 SELECT 1
                 FROM json_each(openbook_listings.utxo_balance) AS j
                 WHERE json_extract(j.value, '$.assetId') = ?
-            )
+            ) ORDER BY block_index DESC
         `;
         const paginatedQuery = paginate.buildPaginatedQuery(query, options);
         const openbook_listings_result = await db.prepare(paginatedQuery).all([asset]);

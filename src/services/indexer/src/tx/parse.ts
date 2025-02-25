@@ -63,7 +63,6 @@ async function extractTransactionDetails(
     const service_fees: { address: string, fee: bigint }[] = [];
 
     const vinAddresses = await getVinAddresses(transaction, (address, isSeller) => {
-        
         if (isSeller) {
             seller = address;
         } else {
@@ -128,13 +127,13 @@ function isValidTransaction(
 }
 
 
-export async function parseTransactionForAtomicSwap(transaction: Transaction) {
+export async function parseTransactionForAtomicSwap(transaction: Transaction, event: XCPUtxoMoveInfo) {
     const op_ret = hasOPRETURN(transaction);
     if (op_ret) {
         const message = op_ret.scriptPubKey?.asm.split("OP_RETURN ")[1];
         const openbook_data = parseOPRETURN(message);
         if (openbook_data) {
-            const tx_details = await extractTransactionDetails(transaction, openbook_data);
+            const tx_details = await extractTransactionDetails(transaction, openbook_data, event);
             if (!tx_details) {
                 return undefined;
             }
@@ -163,13 +162,14 @@ export async function parseTransactionForAtomicSwap(transaction: Transaction) {
 //Just for testing
 export async function parseTxForAtomicSwap(txid: string) {
     const transaction = await rpc.getTransaction(txid) as Transaction;
+    const event = await xcp.getSpecificEventsByTXID(transaction.txid);
 
     if (!transaction) {
         logger.error(`Transaction not found: ${txid}`);
         return;
     }
 
-    return parseTransactionForAtomicSwap(transaction);
+    return parseTransactionForAtomicSwap(transaction, event);
 }
 
 
@@ -253,7 +253,7 @@ export function hasOpReturnOutputs(txHex: string): boolean {
     return tx.outs.some((output) => output.script[0] === bitcoin.opcodes.OP_RETURN);
 }
 
-//TODO: USe utxo instead of dustSize to track atomic swaps
+
 export async function parseBlock(db: Database, blockInfo: Block): Promise<{ transactions: Transaction[], atomic_swaps: ParsedTransaction[], openbook_listings: OpenBookListing[] }> {
     let filtered_atomic_swaps: ParsedTransaction[] = [];
     const events = await xcp.getEventsCountByBlock(blockInfo.height);
@@ -305,14 +305,6 @@ export async function parseBlock(db: Database, blockInfo: Block): Promise<{ tran
     return { transactions: [], atomic_swaps: filtered_atomic_swaps, openbook_listings: valid_openbook_listings };
 }
 
-function utxoBalanceAdapter(utxo_balance: UTXOBalance) {
-    return {
-        assetId: utxo_balance.asset,
-        qty: utxo_balance.quantity_normalized,
-        protocol: 0,
-        protocol_name: "COUNTERPARTY"
-    }
-}
 
 export async function parseOpenbookListingTx(transaction: { txid: string, hex: string }) {
     try {
@@ -320,8 +312,8 @@ export async function parseOpenbookListingTx(transaction: { txid: string, hex: s
         const decoded = await tx.decodeListingTx(tx_hex);
         if (decoded) {
             const { utxo, price, seller, psbt } = decoded;
-            const balance = await xcp.getUTXOBalance(utxo);
-            const utxo_balance = balance.map(utxoBalanceAdapter);
+            const [tx_id, _vout] = utxo.split(":");
+            const utxo_balance = await xcp.getUTXOBalanceFromUTXMoveEvent(tx_id);
             const result = {
                 txid: transaction.txid,
                 utxo,

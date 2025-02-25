@@ -1,4 +1,4 @@
-import { createBuy } from "@/services/ordersbook/buy.ts";
+import { createBuy } from "@/services/buy/buy.ts";
 
 Deno.test("Should create a buy order", async () => {
     const buyOrder = await createBuy({

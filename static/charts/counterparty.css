@@ -36,27 +36,6 @@ body {
   margin-top: 10px;
 }
 
-.aggregation-button {
-  margin-right: 10px;
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: black;
-  color: #A0FFA0;
-  border: 1px solid #A0FFA0;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.aggregation-button:hover {
-  background-color: #e0e0e0;
-}
-
-.aggregation-button.active {
-  background-color: #A0FFA0;
-  color: black;
-  border-color: #A0FFA0;
-}
 
 #tv-attr-logo {
     display: block !important;

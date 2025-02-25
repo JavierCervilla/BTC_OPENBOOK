@@ -1,5 +1,5 @@
 import { CONFIG } from "@/config/index.ts";
-import type { CounterpartyV2Result, DetachParams, UTXOBalance, XCPEvent, XCPEventCount } from "./rpc.d.ts";
+import type { CounterpartyV2Result, DetachParams, UTXOBalance, XCPEvent, XCPEventCount, OpenbookUTXOBalance } from "./rpc.d.ts";
 import { apiLogger } from "@/utils/logger.ts";
 import { AttachParams } from "@/services/counterparty/attach.d.ts";
 
@@ -109,6 +109,22 @@ export async function getSpecificEventsByBlock(block: number, event = "UTXO_MOVE
 }
 
 
+export async function getSpecificEventsByTXID(txid: number, event = "UTXO_MOVE") {
+    const endpoint = new URL(`${CONFIG.XCP.RPC_URL}/v2/transactions/${txid}/events`);
+    endpoint.searchParams.set("event_name", event);
+    endpoint.searchParams.set("limit", "5000");
+    endpoint.searchParams.set("verbose", "true");
+
+
+    const response = await retry(() => fetch(endpoint.toString()));
+    const data = await response.json();
+    if (data.error) {
+        apiLogger.error(data.error);
+        throw new Error(data.error);
+    }
+    return data.result.map(getUtxoMoveAdapter);
+}
+
 
 function getEventsCountAdapter(eventList: XCPEventCount[]) {
     const eventCounts: Record<string, number> = {};
@@ -141,6 +157,29 @@ export async function getUTXOBalance(utxo: string): Promise<UTXOBalance[]> {
         apiLogger.info(`${endpoint} [${response.status}]`);
         const { result } = await response.json();
         return result;
+    } catch (error) {
+        apiLogger.error(error);
+        throw error;
+    }
+}
+
+export async function getUTXOBalanceFromUTXMoveEvent(txid: string) {
+    try {
+        const endpoint = new URL(`${CONFIG.XCP.RPC_URL}/v2/transactions/${txid}/events`);
+        endpoint.searchParams.set("event_name", "UTXO_MOVE,ATTACH_TO_UTXO");
+        endpoint.searchParams.set("verbose", "True");
+        console.log(endpoint.toString());
+        const response = await retry(() => fetch(endpoint.toString()));
+        const data = await response.json();
+        const utxo_balances = data.result.map((event: XCPEvent) => {
+            return {
+                assetId: event.params.asset,
+                qty: Number(event.params.quantity_normalized),
+                protocol: 0,
+                protocol_name: "COUNTERPARTY"
+            }
+        });
+        return utxo_balances as OpenbookUTXOBalance[];
     } catch (error) {
         apiLogger.error(error);
         throw error;

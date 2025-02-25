@@ -7,11 +7,13 @@
     "docs": "tspec generate --outputPath ./generate/openapi.json",
     "broadcast": "deno run -A src/scripts/broadcast.ts",
     "decode": "deno run -A src/scripts/decode.ts",
-    "clean": "deno run -A src/scripts/clean.ts",
+    "clean": "deno run --allow-read --allow-write src/scripts/clean.ts",
     "migrate": "deno run -A src/scripts/migrate.ts",
     "check": "deno run -A src/scripts/check.ts",
+    "check-signatures": "deno run -A src/scripts/checkSignatures.ts",
     "date": "deno run -A src/scripts/date.ts",
-    "api-keys": "deno run -A src/middleware/auth/index.ts"
+    "api-keys": "deno run -A src/middleware/auth/index.ts",
+    "checkBlock": "deno run -A src/scripts/checkBlock.ts"
   },
   "compilerOptions": {
     "jsx": "react",

@@ -1,6 +1,7 @@
 export type inputToSign = {
     index: number;
-    sighashType: number[];
+    sighashTypes: number[];
+    address: string;
 }
 
 export type partialSignature = {

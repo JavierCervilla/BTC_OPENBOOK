@@ -16,7 +16,8 @@ async function addInputToPsbt(
     psbt: bitcoin.Psbt,
     utxo: { txid: string; vout: number },
     index: number,
-    inputs2sign: Array<{ index: number; sighashType: number[] }>,
+    inputs2sign: Array<inputToSign>,
+    address: string,
 ): Promise<void> {
     const tx = await rpc.getTransaction(utxo.txid, false);
     psbt.addInput({
@@ -29,7 +30,8 @@ async function addInputToPsbt(
     });
     inputs2sign.push({
         index,
-        sighashType: [bitcoin.Transaction.SIGHASH_ALL | bitcoin.Transaction.SIGHASH_ANYONECANPAY],
+        sighashTypes: [bitcoin.Transaction.SIGHASH_ALL | bitcoin.Transaction.SIGHASH_ANYONECANPAY],
+        address,
     });
 }
 
@@ -37,18 +39,19 @@ async function addInputToPsbt(
 async function processSelectedUtxos(
     psbt: bitcoin.Psbt,
     selectedUtxos: Array<{ txid: string; vout: number }>,
-    inputs2sign: Array<{ index: number; sighashType: number[] }>,
+    inputs2sign: Array<inputToSign>,
     sellerPsbt: bitcoin.Psbt,
+    address: string,
 ): Promise<void> {
     if (selectedUtxos.length === 0) return;
 
     let inputsAdded = 0;
     for (const utxo of selectedUtxos) {
-        await addInputToPsbt(psbt, utxo, inputsAdded, inputs2sign);
+        await addInputToPsbt(psbt, utxo, inputsAdded, inputs2sign, address);
         inputsAdded++;
-
-        psbt.addInput(sellerPsbt.txInputs[0]);
-        if (inputsAdded === 1 && selectedUtxos.length > 1) {
+        if (inputsAdded === 1) {
+            psbt.addInput(sellerPsbt.txInputs[0]);
+            psbt.updateInput(1, {...sellerPsbt.data.inputs[0]})
             inputsAdded++;
         }
     }
@@ -99,7 +102,7 @@ async function createBuyPSBT(prepare: createBuyPSBTProps): Promise<CreateBuyPSBT
         const selectedUtxos = tx.selectUtxos(utxos, requiredAmountForPriceAndFees);
         const inputs2sign: inputToSign[] = [];
 
-        await processSelectedUtxos(psbt, selectedUtxos, inputs2sign, sellerPsbt);
+        await processSelectedUtxos(psbt, selectedUtxos, inputs2sign, sellerPsbt, prepare.buyer);
         for (const fee of formattedServiceFees) {
             psbt.addOutput({ address: fee.address, value: fee.amount });
         }
@@ -150,6 +153,7 @@ export async function createBuy(createBuyProps: createBuyProps) {
             throw new Error("Order not found");
         }
         const order = result[0] as OpenBookListing;
+        console.log({psbt: order.psbt})
         const prepare: createBuyPSBTProps = {
             buyer: createBuyProps.buyer,
             serviceFee: createBuyProps.serviceFee,
@@ -157,6 +161,7 @@ export async function createBuy(createBuyProps: createBuyProps) {
             ...order,
         }
         const buyPsbtResult = await createBuyPSBT(prepare);
+        console.log({buyPsbt: buyPsbtResult.psbt})
         return {
             psbt: buyPsbtResult.psbt,
             inputsToSign: buyPsbtResult.inputsToSign,

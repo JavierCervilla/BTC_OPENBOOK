@@ -27,7 +27,7 @@ async function createCancelTx(utxo: string, seller: string, feeRate: number) {
         const utxos = await rpc.getUTXO(seller);
         const [txid, vout] = utxo.split(":");
 
-        const inputs2sign: Array<{ index: number; sighashType: number[] }> = [];
+        const inputs2sign: Array<{ index: number; sighashType: number[]; address: string }> = [];
         const rawTx = await rpc.getTransaction(txid, false);
         psbt.addInput({
             hash: txid,
@@ -36,6 +36,7 @@ async function createCancelTx(utxo: string, seller: string, feeRate: number) {
         })
         inputs2sign.push({
             index: Number(vout),
+            address: seller,
             sighashType: [bitcoin.Transaction.SIGHASH_ALL],
         });
         psbt.addOutput({
@@ -67,6 +68,7 @@ async function createCancelTx(utxo: string, seller: string, feeRate: number) {
             inputs2sign.push({
                 index: inputs,
                 sighashType: [bitcoin.Transaction.SIGHASH_ALL],
+                address: seller,
             });
             inputs++;
         }
@@ -102,8 +104,10 @@ export async function createCancel(createCancelProps: createCancelProps) {
 
         const { utxo, seller } = order;
         const cancelTx = await createCancelTx(utxo, seller, createCancelProps.feeRate);
+        console.log(cancelTx);
         return cancelTx;
     } catch (error) {
+        console.error(error);
         throw new Error("Error creating cancel Transaction");
     }
 }

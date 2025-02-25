@@ -1,5 +1,7 @@
 import type { Tspec } from 'tspec';
 
+import { orderSample, ordersListSample } from "./examples.ts";
+
 import type { controller } from "./routes.ts";
 
 export type OrdersApiSpec = Tspec.DefineApiSpec<{
@@ -9,46 +11,52 @@ export type OrdersApiSpec = Tspec.DefineApiSpec<{
             get: {
                 summary: "This method will return a paginated list of onchain orders",
                 query: {
-                    page: number,
-                    limit: number,
-                }
+                    page?: number,
+                    limit?: number,
+                },
                 handler: typeof controller.getOpenbookListings,
                 responses: {
                     200: {
-                        result: {
-                            type: 'object',
-                            properties: {
-                                total: { type: 'number' },
-                                page: { type: 'number' },
-                                limit: { type: 'number' },
-                                totalPages: { type: 'number' },
-                                result: {
-                                    type: 'array',
-                                    items: {
-                                        type: 'object',
-                                        properties: {
-                                            txId: { type: 'string', description: 'The txId of the order TX. This is the main identifier for the order.' },
-                                            timestamp: { type: 'number', description: 'The timestamp of the block containing the order.' },
-                                            block_index: { type: 'number', description: 'The index of the block containing the order.' },
-                                            utxo: { type: 'string', description: 'The utxo used for the order that contains the assets.' },
-                                            seller: { type: 'string', description: 'The seller address.' },
-                                            psbt: { type: 'string', description: 'The PSBT of the order that needs to be fulfilled for finishing the swap.' },
-                                            utxo_balance: {
-                                                type: 'array',
-                                                items: {
-                                                    type: 'object',
-                                                    properties: {
-                                                        assetId: { type: 'string', description: 'The assetId of the asset.' },
-                                                        qty: { type: 'number', description: 'The quantity of the assetId attached to that utxo.' },
-                                                        protocol: { type: 'number', description: 'The protocol of the asset, 0 for COUNTERPARTY' },
-                                                        protocol_name: { type: 'string', description: 'The name of the protocol, COUNTERPARTY' },
-                                                    }
+                        description: "Succesful response with a list of orders",
+                        content: {
+                            "application/json": {
+                                schema: {
+                                    type: 'object',
+                                    properties: {
+                                        total: { type: 'number' },
+                                        page: { type: 'number' },
+                                        limit: { type: 'number' },
+                                        totalPages: { type: 'number' },
+                                        result: {
+                                            type: 'array',
+                                            items: {
+                                                type: 'object',
+                                                properties: {
+                                                    txId: { type: 'string', description: 'The txId of the order TX. This is the main identifier for the order.' },
+                                                    timestamp: { type: 'number', description: 'The timestamp of the block containing the order.' },
+                                                    block_index: { type: 'number', description: 'The index of the block containing the order.' },
+                                                    utxo: { type: 'string', description: 'The utxo used for the order that contains the assets.' },
+                                                    seller: { type: 'string', description: 'The seller address.' },
+                                                    psbt: { type: 'string', description: 'The PSBT of the order that needs to be fulfilled for finishing the swap.' },
+                                                    utxo_balance: {
+                                                        type: 'array',
+                                                        items: {
+                                                            type: 'object',
+                                                            properties: {
+                                                                assetId: { type: 'string', description: 'The assetId of the asset.' },
+                                                                qty: { type: 'number', description: 'The quantity of the assetId attached to that utxo.' },
+                                                                protocol: { type: 'number', description: 'The protocol of the asset, 0 for COUNTERPARTY' },
+                                                                protocol_name: { type: 'string', description: 'The name of the protocol, COUNTERPARTY' },
+                                                            }
+                                                        }
+                                                    },
+                                                    status: { type: 'string', description: 'The status of the order' },
                                                 }
-                                            },
-                                            status: { type: 'string', description: 'The status of the order' },
-                                        }
-                                    }
-                                }
+                                            }
+                                        },
+                                    },
+                                },
+                                example: typeof ordersListSample
                             }
                         }
                     }
@@ -64,10 +72,10 @@ export type OrdersApiSpec = Tspec.DefineApiSpec<{
                 handler: typeof controller.getOpenbookListingsByTxId,
                 responses: {
                     200: {
-                        result: {
-                            type: 'object',
-                            properties: {
-                                result: {
+                        description: "Succesful response with an order",
+                        content: {
+                            "application/json": {
+                                schema: {
                                     type: 'object',
                                     properties: {
                                         txId: { type: 'string', description: 'The txId of the order TX. This is the main identifier for the order.' },
@@ -92,7 +100,8 @@ export type OrdersApiSpec = Tspec.DefineApiSpec<{
                                     }
                                 }
                             }
-                        }
+                        },
+                        example: typeof orderSample
                     }
                 }
             },
@@ -110,46 +119,52 @@ export type OrdersApiSpec = Tspec.DefineApiSpec<{
                 handler: typeof controller.getOpenbookListingsByAsset,
                 responses: {
                     200: {
-                        result: {
-                            type: 'object',
-                            properties: {
-                                total: { type: 'number' },
-                                page: { type: 'number' },
-                                limit: { type: 'number' },
-                                totalPages: { type: 'number' },
-                                result: {
-                                    type: 'array',
-                                    items: {
-                                        type: 'object',
-                                        properties: {
-                                            txId: { type: 'string', description: 'The txId of the order TX. This is the main identifier for the order.' },
-                                            timestamp: { type: 'number', description: 'The timestamp of the block containing the order.' },
-                                            block_index: { type: 'number', description: 'The index of the block containing the order.' },
-                                            utxo: { type: 'string', description: 'The utxo used for the order that contains the assets.' },
-                                            seller: { type: 'string', description: 'The seller address.' },
-                                            psbt: { type: 'string', description: 'The PSBT of the order that needs to be fulfilled for finishing the swap.' },
-                                            utxo_balance: {
-                                                type: 'array',
-                                                items: {
-                                                    type: 'object',
-                                                    properties: {
-                                                        assetId: { type: 'string', description: 'The assetId of the asset.' },
-                                                        qty: { type: 'number', description: 'The quantity of the assetId attached to that utxo.' },
-                                                        protocol: { type: 'number', description: 'The protocol of the asset, 0 for COUNTERPARTY' },
-                                                        protocol_name: { type: 'string', description: 'The name of the protocol, COUNTERPARTY' },
-                                                    }
+                        description: "Succesful response with a list of orders",
+                        content: {
+                            "application/json": {
+                                schema: {
+                                    type: 'object',
+                                    properties: {
+                                        total: { type: 'number' },
+                                        page: { type: 'number' },
+                                        limit: { type: 'number' },
+                                        totalPages: { type: 'number' },
+                                        result: {
+                                            type: 'array',
+                                            items: {
+                                                type: 'object',
+                                                properties: {
+                                                    txId: { type: 'string', description: 'The txId of the order TX. This is the main identifier for the order.' },
+                                                    timestamp: { type: 'number', description: 'The timestamp of the block containing the order.' },
+                                                    block_index: { type: 'number', description: 'The index of the block containing the order.' },
+                                                    utxo: { type: 'string', description: 'The utxo used for the order that contains the assets.' },
+                                                    seller: { type: 'string', description: 'The seller address.' },
+                                                    psbt: { type: 'string', description: 'The PSBT of the order that needs to be fulfilled for finishing the swap.' },
+                                                    utxo_balance: {
+                                                        type: 'array',
+                                                        items: {
+                                                            type: 'object',
+                                                            properties: {
+                                                                assetId: { type: 'string', description: 'The assetId of the asset.' },
+                                                                qty: { type: 'number', description: 'The quantity of the assetId attached to that utxo.' },
+                                                                protocol: { type: 'number', description: 'The protocol of the asset, 0 for COUNTERPARTY' },
+                                                                protocol_name: { type: 'string', description: 'The name of the protocol, COUNTERPARTY' },
+                                                            }
+                                                        }
+                                                    },
+                                                    status: { type: 'string', description: 'The status of the order' },
                                                 }
-                                            },
-                                            status: { type: 'string', description: 'The status of the order' },
+                                            }
                                         }
                                     }
-                                }
+                                },
+                                example: typeof ordersListSample
                             }
                         }
-                    }
-                }
-            },
-        },
+                    },
+                },
+            }
+        }
         "/api/v1/orders/address/:address": {
             get: {
                 summary: "This method will return a paginated list of onchain orders that are created by an specific seller address.",

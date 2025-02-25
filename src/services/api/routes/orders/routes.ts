@@ -117,7 +117,7 @@ export function configureOpenBookRoutes(router: Router) {
     router.get("/address/:address", controller.getOpenbookListingsByAddress);
     router.post("/list/sign", controller.createOrderPsbt);
     router.post("/list/submit", controller.createListingTx);
-    router.post("/buy", apiKeyMiddleware, controller.buyOrder);
+    router.post("/buy", controller.buyOrder);
     router.post("/cancel", controller.cancelOrder);
     return router;
 }

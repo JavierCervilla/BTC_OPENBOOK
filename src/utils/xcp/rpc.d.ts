@@ -90,3 +90,10 @@ export interface CounterpartyV2Result {
     routes: string
     blueprint: string
 }
+
+export interface OpenbookUTXOBalance {
+    assetId: string
+    qty: number
+    protocol: number
+    protocol_name: string
+}
